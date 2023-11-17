@@ -1,0 +1,78 @@
+{
+	"getSwiperList": [{
+		"message": {
+			"mtime": "@datetime",
+			"score|1-100": 100,
+			"stars|1-5": 5,
+			"nickname": "@cname"
+		},
+		"meta": {
+			"status": "200"
+		}
+	}],
+	"posts": [{
+			"id": 1,
+			"title": "json-server",
+			"author": "typicode",
+			"meta": {
+				"status": "200"
+			}
+		},
+		{
+			"id": 1,
+			"title": "json-server2",
+			"author": "typicode",
+			"meta": {
+				"status": "200"
+			}
+		},
+		{
+			"id": 3,
+			"title": "json-server3",
+			"author": "typicode",
+			"meta": {
+				"status": "200"
+			}
+		},
+		{
+			"id": 2,
+			"title": "json-server",
+			"author": "typicode",
+			"meta": {
+				"status": "200"
+			}
+		}
+	],
+	"activity": [{
+			"id": 1,
+			"name": "Activity 1",
+			"introduction": "Introduction for Activity 1"
+		},
+		{
+			"id": 2,
+			"name": "Activity 2",
+			"introduction": "Introduction for Activity 2"
+		},
+		{
+			"id": 3,
+			"name": "Activity 3",
+			"introduction": "Introduction for Activity 3"
+		}
+	],
+	"moment": [{
+			"id": 1,
+			"name": "Moment 1",
+			"introduction": "Introduction for Moment 1"
+		},
+		{
+			"id": 2,
+			"name": "Moment 2",
+			"introduction": "Introduction for Moment 2"
+		},
+		{
+			"id": 3,
+			"name": "Moment 3",
+			"introduction": "Introduction for Moment 3"
+		}
+	]
+}

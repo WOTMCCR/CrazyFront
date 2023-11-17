@@ -1,0 +1,69 @@
+{
+	"pages": [{
+			"path": "pages/Square/SquareList",
+			"style": {
+				//"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "pages/home/home",
+			"style": {
+				// "navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "pages/My/My",
+			"style": {
+				// "navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+
+		},
+		{
+			"path": "subpkg/MomentDetail/MomentDetail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+
+		}, {
+			"path": "subpkg/ActivityDetail/ActivityDetail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "CrazyBar",
+		"navigationBarBackgroundColor": "#337FFF",
+		"backgroundColor": "#000000"
+	},
+	"tabBar": {
+		"list": [{
+				"pagePath": "pages/Square/SquareList",
+				"text": "疯吧",
+				"iconPath": "static/c1.png",
+				"selectedIconPath": "static/uni.png"
+			},
+			{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "static/c2.png",
+				"selectedIconPath": "static/logo.png"
+			},
+			{
+				"pagePath": "pages/My/My",
+				"text": "我的",
+				"iconPath": "static/c3.png",
+				"selectedIconPath": "static/logo.png"
+			}
+		]
+	}
+}

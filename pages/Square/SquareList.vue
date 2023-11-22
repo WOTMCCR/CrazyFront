@@ -13,9 +13,9 @@
 	<!-- Activity List -->
 	<!-- 边缘空白 -->
 	<view class=”square“>
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :time="item.createTime" :introduction="item.content" :userName="item.name">
-			</my-card>
+		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetial(item)">
+			<new-card :detail="item">
+			</new-card>
 		</view>
 		<view v-else>
 			<text>No activity data available.</text>
@@ -27,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				official : 1,
+				official: 1,
 				currentTab: 0,
 				List: [],
 

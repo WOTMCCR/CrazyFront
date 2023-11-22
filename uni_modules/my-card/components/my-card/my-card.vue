@@ -1,16 +1,16 @@
 <template>
-	<view class="my-card">
+	<view class="new-card">
 		<!-- avtuar 姓名与时间 -->
 		<view class="header">
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
-				<text class="name">{{ userName }}</text>
-				<text class="time">时间:{{ time }}</text>
+				<text class="name">{{ detail.name }}</text>
+				<text class="time">时间:{{ detail.createTime }}</text>
 			</view>
 		</view>
 
 		<!-- 文章主体 -->
-		<text class="text-body">{{ introduction }}</text>
+		<text class="text-body">{{ detail.content }}</text>
 		<!-- 评论转发点赞部分 -->
 		<view class="card-option">
 			<view class="flex-row">
@@ -38,39 +38,31 @@
 <script>
 	export default {
 		components: {},
-		props: {			
-				userName: {
-					type: String,
-					default: "默认人",
-				},
-				time: {
-					type: String,
-					default: "默认时间",
-				},
-				introduction:{
-					type: String,
-					default: "默认内容",
-				}
+		props: {
+			detail: {
+				type: Object,
+				default: () => {}
+			}
 		},
 		computed: {
-		    time() {
-		      // 将从后端获取的时间字符串格式化
-		      const date = new Date(this.time);
-		      const year = date.getFullYear();
-		      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-		      const day = date.getDate().toString().padStart(2, "0");
-		      const hours = date.getHours().toString().padStart(2, "0");
-		      const minutes = date.getMinutes().toString().padStart(2, "0");
-		      return `${year}-${month}-${day} ${hours}:${minutes}`;
-		    },
-		  },
+			time() {
+				// 将从后端获取的时间字符串格式化
+				const date = new Date(this.time);
+				const year = date.getFullYear();
+				const month = (date.getMonth() + 1).toString().padStart(2, "0");
+				const day = date.getDate().toString().padStart(2, "0");
+				const hours = date.getHours().toString().padStart(2, "0");
+				const minutes = date.getMinutes().toString().padStart(2, "0");
+				return `${year}-${month}-${day} ${hours}:${minutes}`;
+			},
+		},
 
 		methods: {},
 	};
 </script>
 
 <style scoped lang="scss">
-	.my-card {
+	.new-card {
 		margin-top: 30rpx;
 		padding: 47.09rpx 55.81rpx 47.09rpx;
 		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);

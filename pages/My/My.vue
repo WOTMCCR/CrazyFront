@@ -14,7 +14,7 @@
 
 		<!-- Activity List -->
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :introduction="item.content" :isShadow="true" @click="clickCard" :height.sync="item.height">
+			<my-card :detail="item">
 			</my-card>
 		</view>
 		<view v-else>
@@ -42,8 +42,9 @@
 			async loadData() {
 				try {
 					// Assuming you have a common API endpoint for both Activity and Moment data
-					const endpoint = this.currentTab === 0 ? "/activity/findById?userId=1" :
-						"/moment/findAllMomentAndUser";
+					//"/activity/findByUser/{userId}" :
+					const endpoint = this.currentTab === 0 ? "/activity/findByUserId/1" :
+						"/moment/findByUserId/1";
 					const {
 						statusCode,
 						data: res

@@ -34,14 +34,6 @@
 				type: String,
 				default: "Introduction for activity 0",
 			},
-			color: {
-				type: String,
-				default: "rgb(51, 127, 255)",
-			},
-			background: {
-				type: String,
-				default: "rgba(51, 127, 255, 1)",
-			},
 			height: {
 				type: String,
 				default: "35vh",
@@ -88,7 +80,7 @@
 		/* 设置为 1/4 的视口高度 */
 		margin: 17px;
 		/* 设置为 20 像素的外边距 */
-		background: rgba(51, 127, 255, 1);
+		background: linear-gradient(180deg, rgb(190, 254, 230) 0%, rgb(208, 247, 251) 100%);
 		/* 设置为您想要的颜色 */
 	}
 

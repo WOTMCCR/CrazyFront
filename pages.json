@@ -1,5 +1,11 @@
 {
 	"pages": [{
+			"path": "pages/Login/Login",
+			"style": {
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/Square/SquareList",
 			"style": {
 				//"navigationBarTitleText": "",
@@ -47,6 +53,12 @@
 	},
 	"tabBar": {
 		"list": [{
+				"pagePath": "pages/Login/Login",
+				"text": "登陆",
+				"iconPath": "static/c5.png",
+				"selectedIconPath": "static/logo.png"
+			},
+			{
 				"pagePath": "pages/Square/SquareList",
 				"text": "疯吧",
 				"iconPath": "static/c1.png",

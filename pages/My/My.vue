@@ -14,8 +14,7 @@
 
 		<!-- Activity List -->
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :introduction="item.introduction" :isShadow="true" @click="clickCard"
-				:color.sync="'rgb(51, 127, 255)'" :height.sync="item.height" :background.sync="'#cccccc'">
+			<my-card :introduction="item.introduction" :isShadow="true" @click="clickCard" :height.sync="item.height">
 			</my-card>
 		</view>
 		<view v-else>

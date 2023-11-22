@@ -28,7 +28,24 @@
     </view>
   </view>
 
+<<<<<<< HEAD
 </view>
+=======
+		<!-- Swiper for left-right swiping -->
+
+		<!-- Activity List -->
+		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
+			<my-card :introduction="item.content" :isShadow="true" @click="clickCard" :height.sync="item.height">
+			</my-card>
+		</view>
+		<view v-else>
+			<text>No activity data available.</text>
+		</view>
+
+
+
+	</view>
+>>>>>>> origin/yzy
 </template>
 
 <script>

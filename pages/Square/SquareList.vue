@@ -1,28 +1,25 @@
 <template>
-	<view>
-		<!-- Navigation options -->
-		<view class="navigation-options">
-			<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
-				<text class="nav-option">Activity</text>
-			</navigator>
-			<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
-				<text class="nav-option">Moment</text>
-			</navigator>
-		</view>
+	<!-- Navigation options -->
+	<view class="navigation-options">
+		<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
+			<text class="nav-option">Activity</text>
+		</navigator>
+		<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
+			<text class="nav-option">Moment</text>
+		</navigator>
+	</view>
 
-		<!-- Swiper for left-right swiping -->
-
-		<!-- Activity List -->
+	<!-- Swiper for left-right swiping -->
+	<!-- Activity List -->
+	<!-- 边缘空白 -->
+	<view class=”square“>
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :time ="item.createTime" :introduction ="item.content" :userName ="item.id">
+			<my-card :time="item.createTime" :introduction="item.content" :userName="item.name">
 			</my-card>
 		</view>
 		<view v-else>
 			<text>No activity data available.</text>
 		</view>
-
-
-
 	</view>
 </template>
 
@@ -30,6 +27,7 @@
 	export default {
 		data() {
 			return {
+				official : 1,
 				currentTab: 0,
 				List: [],
 
@@ -42,8 +40,8 @@
 			async loadData() {
 				try {
 					// Assuming you have a common API endpoint for both Activity and Moment data
-					const endpoint = this.currentTab === 0 ? "/activity/findById?userId=1" :
-						"/moment/findAllMomentAndUser";
+					const endpoint = this.currentTab === 0 ? "/activity/findByOfficial/?Official=" + this.official :
+						"/moment/brief/{" + this.official + "}";
 					const {
 						statusCode,
 						data: res
@@ -80,6 +78,11 @@
 </script>
 
 <style scoped>
+	.square {
+		padding-left: 40.12rpx;
+		padding-right: 40.12rpx;
+	}
+
 	.navigation-options {
 		display: flex;
 		justify-content: space-around;

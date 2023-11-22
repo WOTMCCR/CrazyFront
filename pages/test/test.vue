@@ -1,35 +1,42 @@
 <template>
-	<view class="my-card">
-		<!-- avtuar 姓名与时间 -->
-		<view class="header">
-			<image class="avatar" src="/static/humanhead.png" />
-			<view class="NameAndTime">
-				<text class="name">{{ userName }}</text>
-				<text class="time">时间:{{ time }}</text>
-			</view>
-		</view>
+	<view class="square">
 
-		<!-- 文章主体 -->
-		<text class="text-body">{{ introduction }}</text>
-		<!-- 评论转发点赞部分 -->
-		<view class="card-option">
-			<view class="flex-row">
-				<image class="image_1" src="/static/Vector.svg" />
-				<text class="font">
-					11
-				</text>
+		<view class="new-card" v-for="(item, index) in items" :key="index">
+			<!-- avtuar 姓名与时间 -->
+			<view class="header">
+				<image class="avatar" src="../../static/humanhead.png" />
+				<view class="NameAndTime">
+					<text class="name">Gavin Nelson</text>
+					<text class="time">今天 12:00</text>
+				</view>
 			</view>
-			<view class="flex-row">
-				<image class="image_2" src="/static/share.svg" />
-				<text class="font">
-					2
-				</text>
-			</view>
-			<view class="flex-row">
-				<image class="image_3" src="/static/fav.svg" />
-				<text class="font">
-					239
-				</text>
+
+			<!-- 文章主体 -->
+			<text class="text-body">time for a update
+				asdfadddddddddddddddddddddddddddddddddddsdfasdfasdfddddddddddddddddddddddddto the profile image with
+				some recasdffffffffffffffffffffent 😊</text>
+
+
+			<!-- 评论转发点赞部分 -->
+			<view class="card-option">
+				<view class="flex-row">
+					<image class="image_1" src="../../static/Vector.svg" />
+					<text class="font">
+						11
+					</text>
+				</view>
+				<view class="flex-row">
+					<image class="image_2" src="../../static/share.svg" />
+					<text class="font">
+						2
+					</text>
+				</view>
+				<view class="flex-row">
+					<image class="image_3" src="../../static/fav.svg" />
+					<text class="font">
+						239
+					</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -38,39 +45,24 @@
 <script>
 	export default {
 		components: {},
-		props: {			
-				userName: {
-					type: String,
-					default: "默认人",
-				},
-				time: {
-					type: String,
-					default: "默认时间",
-				},
-				introduction:{
-					type: String,
-					default: "默认内容",
-				}
+		props: {},
+		data() {
+			return {
+				items: [null, null],
+			};
 		},
-		computed: {
-		    time() {
-		      // 将从后端获取的时间字符串格式化
-		      const date = new Date(this.time);
-		      const year = date.getFullYear();
-		      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-		      const day = date.getDate().toString().padStart(2, "0");
-		      const hours = date.getHours().toString().padStart(2, "0");
-		      const minutes = date.getMinutes().toString().padStart(2, "0");
-		      return `${year}-${month}-${day} ${hours}:${minutes}`;
-		    },
-		  },
 
 		methods: {},
 	};
 </script>
 
 <style scoped lang="scss">
-	.my-card {
+	.square {
+		padding-left: 40.12rpx;
+		padding-right: 40.12rpx;
+	}
+
+	.new-card {
 		margin-top: 30rpx;
 		padding: 47.09rpx 55.81rpx 47.09rpx;
 		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);

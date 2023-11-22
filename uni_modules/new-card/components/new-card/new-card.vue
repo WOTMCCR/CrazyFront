@@ -1,5 +1,5 @@
 <template>
-	<view class="my-card">
+	<view class="new-card">
 		<!-- avtuar 姓名与时间 -->
 		<view class="header">
 			<image class="avatar" src="/static/humanhead.png" />
@@ -70,7 +70,7 @@
 </script>
 
 <style scoped lang="scss">
-	.my-card {
+	.new-card {
 		margin-top: 30rpx;
 		padding: 47.09rpx 55.81rpx 47.09rpx;
 		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);

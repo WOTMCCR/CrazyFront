@@ -43,6 +43,14 @@
 				"enablePullDownRefresh": true
 			}
 
+		},
+		{
+			"path" : "pages/test/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {
@@ -52,7 +60,14 @@
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {
-		"list": [{
+		"list": [
+			{
+				"pagePath": "pages/test/test",
+				"text": "测试",
+				"iconPath": "static/c5.png",
+				"selectedIconPath": "static/logo.png"
+			},
+			{
 				"pagePath": "pages/Login/Login",
 				"text": "登陆",
 				"iconPath": "static/c5.png",

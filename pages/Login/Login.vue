@@ -9,23 +9,7 @@
 				<div class="div">Card Subtitle</div>
 			</div>
 		</div>
-		<div class="content">
-			<p class="content-text">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-				dolore
-				magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-				commodo
-				consequat.
-			</p>
-		</div>
-		<div class="action-bar">
-			<div class="action">
-				<div class="text-wrapper-2">Action 1</div>
-			</div>
-			<div class="action">
-				<div class="text-wrapper-2">Action 2</div>
-			</div>
-		</div>
+
 	</div>
 </template>
 

@@ -46,9 +46,9 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "CrazyBar",
-		"navigationBarBackgroundColor": "#337FFF",
+		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {

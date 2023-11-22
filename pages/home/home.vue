@@ -1,5 +1,8 @@
 <template>
 	<view style="position: relative;">
+		
+		 <img src="D:/code/CrazyFront/static/my.png" />
+
 
 		<!-- Second Element -->
 		<div style="position: relative; top: 5px; left: 10px; width: calc(100% - 20px); height: 205px;">

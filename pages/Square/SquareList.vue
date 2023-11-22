@@ -14,7 +14,7 @@
 
 		<!-- Activity List -->
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :time ="item.createTime" :introduction ="item.content" :userName ="item.id">
+			<my-card :time ="item.createTime" :introduction ="item.content" :userName ="item.id" bind:cardclick="handleCardClick">
 			</my-card>	
 		</view>
 		<view v-else>

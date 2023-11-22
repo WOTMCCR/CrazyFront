@@ -37,14 +37,7 @@
 
 <script>
 	export default {
-		components: {
-			methods: {
-			    onCardClick: function () {
-			      // 触发自定义事件，传递点击事件到父组件
-			      this.triggerEvent('cardclick');
-			    }
-			  }
-		},
+		components: {},
 		props: {			
 				userName: {
 					type: String,
@@ -72,7 +65,12 @@
 		    },
 		  },
 
-		methods: {},
+		methods: {
+			onCardClick: function () {
+			  console.log('卡片被点击了');
+			  this.triggerEvent('cardclick');
+			}
+		},
 	};
 </script>
 

@@ -13,16 +13,17 @@
 		<!-- Swiper for left-right swiping -->
 
 		<!-- Activity List -->
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :detail="item">
-			</my-card>
+		<view class="my">
+			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
+				<my-card :detail="item">
+
+				</my-card>
+			</view>
+			<view v-else>
+				<text>No activity data available.</text>
+			</view>
+
 		</view>
-		<view v-else>
-			<text>No activity data available.</text>
-		</view>
-
-
-
 	</view>
 </template>
 
@@ -81,6 +82,10 @@
 </script>
 
 <style scoped>
+	.my {
+		padding-left: 40.12rpx;
+		padding-right: 40.12rpx;
+	}
 	.navigation-options {
 		display: flex;
 		justify-content: space-around;

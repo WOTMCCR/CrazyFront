@@ -14,7 +14,7 @@
 
 		<!-- Activity List -->
 		<view class="my">
-			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
+			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
 				<my-card :detail="item">
 
 				</my-card>
@@ -66,8 +66,11 @@
 					uni.hideLoading();
 				}
 			},
-			clickCard() {
-				// Handle card click if needed
+			gotoDetail(item) {
+				uni.navigateTo({
+					url: '/subpkg/MomentDetail/MomentDetail?id=' + item.id
+				});
+
 			},
 			changeTab(tabIndex) {
 				this.currentTab = tabIndex;

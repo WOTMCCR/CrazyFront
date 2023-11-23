@@ -1,4 +1,4 @@
-<template>
+  <template>
 	<!-- Navigation options -->
 	<view class="navigation-options">
 		<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
@@ -12,8 +12,8 @@
 	<!-- Swiper for left-right swiping -->
 	<!-- Activity List -->
 	<!-- 边缘空白 -->
-	<view class=”square“>
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetial(item)">
+	<view class="my">
+		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
 			<new-card :detail="item">
 			</new-card>
 		</view>
@@ -40,8 +40,8 @@
 			async loadData() {
 				try {
 					// Assuming you have a common API endpoint for both Activity and Moment data
-					const endpoint = this.currentTab === 0 ? "/activity/findByOfficial/?Official=" + this.official :
-						"/moment/brief/{" + this.official + "}";
+					const endpoint = this.currentTab === 0 ? "/activity/isOfficial/0":
+						"/moment/isOfficial/0";
 					const {
 						statusCode,
 						data: res
@@ -62,7 +62,25 @@
 					uni.hideLoading();
 				}
 			},
-			clickCard() {
+			gotoDetail(item) {
+				let url;
+				if(this.currentTab===0){
+					url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;	
+				}else if (this.currentTab===1){
+					url='/subpkg/MomentDetail/MomentDetail?id=' + item.id;
+				}
+				uni.navigateTo({
+					url: url
+				});
+			
+			},
+			clickCard(){
+				console.log('***'),
+				//跳转到详情页面，并传递卡片的唯一标识
+				wx.navigateTo({	
+					// url:'/pages/Square/Detail',
+					url: '../subpkg/MomentDetail/MomentDetail?cardId=1',
+				})
 				// Handle card click if needed
 			},
 			changeTab(tabIndex) {

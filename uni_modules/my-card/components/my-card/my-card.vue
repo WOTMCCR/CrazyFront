@@ -4,7 +4,7 @@
 		<view class="header">
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
-				<text class="name">{{ detail.name }}</text>
+				<text class="name">{{ detail.user.username }}</text>
 				<text class="time">时间:{{ formattedTime }}</text>
 			</view>
 		</view>

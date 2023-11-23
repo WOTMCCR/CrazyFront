@@ -15,9 +15,9 @@
 		<!-- Activity List -->
 		<view class="my">
 			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
-				<my-card :detail="item">
+				<new-card :detail="item">
 
-				</my-card>
+				</new-card>
 			</view>
 			<view v-else>
 				<text>No activity data available.</text>
@@ -68,7 +68,7 @@
 			},
 			gotoDetail(item) {
 				uni.navigateTo({
-					url: '/subpkg/MomentDetail/MomentDetail?id=' + item.id
+					url: '/subpkg/testdetail/testdetail?id=' + item.id
 				});
 
 			},

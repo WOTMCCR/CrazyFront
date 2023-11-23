@@ -13,16 +13,17 @@
 		<!-- Swiper for left-right swiping -->
 
 		<!-- Activity List -->
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :detail="item">
-			</my-card>
+		<view class="my">
+			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
+				<my-card :detail="item">
+
+				</my-card>
+			</view>
+			<view v-else>
+				<text>No activity data available.</text>
+			</view>
+
 		</view>
-		<view v-else>
-			<text>No activity data available.</text>
-		</view>
-
-
-
 	</view>
 </template>
 
@@ -65,8 +66,11 @@
 					uni.hideLoading();
 				}
 			},
-			clickCard() {
-				// Handle card click if needed
+			gotoDetail(item) {
+				uni.navigateTo({
+					url: '/subpkg/MomentDetail/MomentDetail?id=' + item.id
+				});
+
 			},
 			changeTab(tabIndex) {
 				this.currentTab = tabIndex;
@@ -81,6 +85,11 @@
 </script>
 
 <style scoped>
+	.my {
+		padding-left: 40.12rpx;
+		padding-right: 40.12rpx;
+	}
+
 	.navigation-options {
 		display: flex;
 		justify-content: space-around;

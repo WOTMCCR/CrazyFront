@@ -1,11 +1,11 @@
 <template>
-	<view class="new-card">
+	<view class="my-card" bindtap="onCardClick">
 		<!-- avtuar 姓名与时间 -->
 		<view class="header">
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
 				<text class="name">{{ detail.name }}</text>
-				<text class="time">时间:{{ detail.createTime }}</text>
+				<text class="time">时间:{{ formattedTime }}</text>
 			</view>
 		</view>
 
@@ -37,7 +37,14 @@
 
 <script>
 	export default {
-		components: {},
+		components: {
+			methods: {
+				onCardClick: function() {
+					// 触发自定义事件，传递点击事件到父组件
+					this.triggerEvent('cardclick');
+				}
+			}
+		},
 		props: {
 			detail: {
 				type: Object,
@@ -45,16 +52,16 @@
 			}
 		},
 		computed: {
-			time() {
-				// 将从后端获取的时间字符串格式化
-				const date = new Date(this.time);
+			// 将从后端获取的时间字符串格式化 detail.createTime
+			formattedTime() {
+				const date = new Date(this.detail.createTime);
 				const year = date.getFullYear();
 				const month = (date.getMonth() + 1).toString().padStart(2, "0");
 				const day = date.getDate().toString().padStart(2, "0");
 				const hours = date.getHours().toString().padStart(2, "0");
 				const minutes = date.getMinutes().toString().padStart(2, "0");
-				return `${year}-${month}-${day} ${hours}:${minutes}`;
-			},
+				return `${year}-${month}-${day} ${hours}:${minutes}`;	
+			}
 		},
 
 		methods: {},
@@ -62,7 +69,7 @@
 </script>
 
 <style scoped lang="scss">
-	.new-card {
+	.my-card {
 		margin-top: 30rpx;
 		padding: 47.09rpx 55.81rpx 47.09rpx;
 		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);

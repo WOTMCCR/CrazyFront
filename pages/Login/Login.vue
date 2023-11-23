@@ -231,7 +231,7 @@
 	padding: 14px 20px;
   }
   .input_Id {
-	color: var(--text-2, #e0e0e5);
+	color: black;
 	font: 400 14px/17px Inter, sans-serif;
   }
   .img-7 {
@@ -271,7 +271,7 @@
   }
 
   .input-passwd {
-	color: var(--text-2, #e0e0e5);
+	color: black;
 	font: 400 14rpx/17rpx Inter, sans-serif;
   }
   .passwd-display {
@@ -446,7 +446,6 @@
 			uni.$showMsg('账号或密码不能为空');
 			return;
 		}
-
 		try{
 			const dataToSend = {
 				id: this.id,
@@ -454,16 +453,35 @@
 			};
 			console.log("111");
 			const loginurl = "http://47.115.222.16:8080/login"
-			const response = await uni.$http.post(loginurl, dataToSend);
+			// const response = await uni.$http.post(loginurl, dataToSend);
 
+			const response = await new Promise((resolve, reject) => {
+				wx.request({
+					url: loginurl,
+					method: 'POST',
+					data: dataToSend,
+					header: {
+					'content-type': 'application/x-www-form-urlencoded', // 或 'application/json'，具体取决于后端的接受类型
+					},
+					success: (res) => {
+					resolve(res);
+					},
+					fail: (error) => {
+					reject(error);
+					},
+				});
+				});
+			// console.log(response);  
 			if (response.statusCode !== 200) {
 				uni.$showMsg('请求失败');
 				return;
 			}
-			if (response.data.status !== 'success') {
+			if (response.data.data !== '登录成功') {
 				uni.$showMsg(response.data.msg);
 				return;
 			}
+			console.log("Login success message:", response.data.message);
+
 			uni.$showMsg('登录成功');
 		}
 		catch(error){

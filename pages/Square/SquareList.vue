@@ -14,7 +14,7 @@
 
 		<!-- Activity List -->
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<my-card :time ="item.createTime" :introduction ="item.content" :userName ="item.id" bind:cardclick="handleCardClick">
+			<my-card bindtap="cardclick" :time ="item.createTime" :introduction ="item.content" :userName ="item.id">
 			</my-card>	
 		</view>
 		<view v-else>
@@ -38,7 +38,7 @@
 		onLoad() {
 			this.loadData();
 		},
-		onCardClick: function () {
+		cardclick: function () {
 		    console.log('卡片被点击了');
 		    // 在这里可以添加处理点击事件的逻辑
 		  },

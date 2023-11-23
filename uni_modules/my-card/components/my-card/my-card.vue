@@ -66,8 +66,7 @@
 		  },
 
 		methods: {
-			onCardClick: function () {
-			  console.log('卡片被点击了');
+			onCardClick() {
 			  this.triggerEvent('cardclick');
 			}
 		},

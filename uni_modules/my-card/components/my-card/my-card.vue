@@ -54,24 +54,14 @@
 		computed: {
 			// 将从后端获取的时间字符串格式化 detail.createTime
 			formattedTime() {
-				const timestamp = new Date(this.detail.createTime);
-
-				const options = {
-					year: 'numeric',
-					month: '2-digit',
-					day: '2-digit',
-					hour: 'numeric',
-					minute: 'numeric',
-					hour12: false
-				};
-
-				const formatter = new Intl.DateTimeFormat('zh-CN', options);
-				const formattedDate = formatter.format(timestamp);
-				return formattedDate.toString();
+				const date = new Date(this.detail.createTime);
+				const year = date.getFullYear();
+				const month = (date.getMonth() + 1).toString().padStart(2, "0");
+				const day = date.getDate().toString().padStart(2, "0");
+				const hours = date.getHours().toString().padStart(2, "0");
+				const minutes = date.getMinutes().toString().padStart(2, "0");
+				return `${year}-${month}-${day} ${hours}:${minutes}`;	
 			}
-
-
-
 		},
 
 		methods: {},

@@ -1,5 +1,6 @@
 <template>
 	<view class="new-card">
+	<view class="my-card" bindtap="onCardClick">
 		<!-- avtuar 姓名与时间 -->
 		<view class="header">
 			<image class="avatar" src="/static/humanhead.png" />
@@ -37,7 +38,14 @@
 
 <script>
 export default {
-	components: {},
+	components: {
+			methods: {
+			    onCardClick: function () {
+			      // 触发自定义事件，传递点击事件到父组件
+			      this.triggerEvent('cardclick');
+			    }
+			  }
+		},
 	props: {
 		detail: {
 			type: Object,

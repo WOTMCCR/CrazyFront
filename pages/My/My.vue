@@ -1,15 +1,4 @@
 <template>
-	<view>
-		<!-- Navigation options -->
-		<view class="navigation-options">
-			<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
-				<text class="nav-option">Activity</text>
-			</navigator>
-			<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
-				<text class="nav-option">Moment</text>
-			</navigator>
-		</view>
-
 		<view class="group">
 			<image class="image_7" src="../static/back.png" />
 			<view class="header">
@@ -33,7 +22,6 @@
 				<text>No activity data available.</text>
 			</view>
 		</view>
-	</view>
 </template>
 
 <script>

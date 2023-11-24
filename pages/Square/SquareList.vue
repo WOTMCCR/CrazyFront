@@ -12,7 +12,7 @@
 	<!-- Swiper for left-right swiping -->
 	<!-- Activity List -->
 	<!-- 边缘空白 -->
-	<view class="my">
+	<view class="square">
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
 			<new-card :detail="item">
 			</new-card>
@@ -73,16 +73,18 @@
 					url: url
 				});
 			
-			},
-			clickCard(){
-				console.log('***'),
-				//跳转到详情页面，并传递卡片的唯一标识
-				wx.navigateTo({	
-					// url:'/pages/Square/Detail',
-					url: '../subpkg/MomentDetail/MomentDetail?cardId=1',
-				})
-				// Handle card click if needed
-			},
+			}
+			// ,
+			// clickCard(){
+			// 	console.log('***'),
+			// 	//跳转到详情页面，并传递卡片的唯一标识
+			// 	wx.navigateTo({	
+			// 		// url:'/pages/Square/Detail',
+			// 		url: '../subpkg/MomentDetail/MomentDetail?cardId=1',
+			// 	})
+			// 	// Handle card click if needed
+			// }
+			,
 			changeTab(tabIndex) {
 				this.currentTab = tabIndex;
 				this.loadData();

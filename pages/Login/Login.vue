@@ -483,6 +483,9 @@
 			console.log("Login success message:", response.data.message);
 
 			uni.$showMsg('登录成功');
+			uni.switchTab({
+				url: '/pages/Square/SquareList'
+			});
 		}
 		catch(error){
 			uni.$showMsg(error.message);

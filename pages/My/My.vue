@@ -1,7 +1,7 @@
 <template>
-		<view class="group">
+		<view class="group" style="position: relative z-index: 1">
 			<image class="image_7" src="../static/back.png" />
-			<view class="header">
+			<view class="header" style="position: relative; z-index: 2;">
 				<image class="avatar" src="../static/head_sculpture.png" />
 				<view class="NameAndDescription">
 					<text class="name">用户昵称</text>
@@ -9,7 +9,16 @@
 				</view>
 			</view>
 		</view>
-
+		
+		<view class="navigation-options">
+			<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
+				<text class="nav-option">Activity</text>
+			</navigator>
+			<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
+				<text class="nav-option">Moment</text>
+			</navigator>
+		</view>
+				
 		<!-- Activity List -->
 		<view class="my">
 			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">

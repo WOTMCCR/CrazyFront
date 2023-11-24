@@ -76,10 +76,15 @@ export default {
 			}
 		},
 		gotoDetail(item) {
-			uni.navigateTo({
-				url: '/subpkg/testdetail/testdetail?id=' + item.id
-			});
-
+			let url;
+				if(this.currentTab===0){
+					url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;	
+				}else if (this.currentTab===1){
+					url='/subpkg/MomentDetail/MomentDetail?id=' + item.id;
+				}
+				uni.navigateTo({
+					url: url
+				});
 		},
 		changeTab(tabIndex) {
 			this.currentTab = tabIndex;

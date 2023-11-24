@@ -11,24 +11,24 @@
 		  <input type="text"  v-model="id" placeholder="请输入账户" class="input_Id" required/>
 		</div>
 		<div class="passwd-temp">密码</div>
-		<div class="input-passwd">
-		  <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="div-12" required/>
-		<img
+		<div class="passwd-box">
+		  <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="input-passwd" required/>
+		<!-- <img
 		  loading="lazy"
 		  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4204222-1ef5-4217-85fb-fa49a4071683?"
 		  class="passwd-display"
 		  @click="showPassword = !showPassword"
-		/>
+		/> -->
 		</div>
 		<div class="div-13">
-		  <div class="div-14">
-			<checkbox id="remember-login" class="div-15"></checkbox>
-			<div for="remember-login" class="div-16">记住登录</div>
+		  <div class="remember-login-box">
+			<checkbox id="remember-login" class="remember-login-btn"></checkbox>
+			<div for="remember-login" class="remember-login-word">记住登录</div>
 		  </div>
-		  <button class="div-17" @click="forgetPasswd">忘记密码?</button>
+		  <button class="forger-passwd-btn" @click="forgetPasswd">忘记密码?</button>
 		</div>
 		<navigator url="/pages/home/home">
-		<button class="div-18"  @click="submitForm">登录</button>
+		<button class="login-btn"  @click="submitForm">登录</button>
 		</navigator>
 	 
   
@@ -47,8 +47,8 @@
 		<input type="text" v-model="id" placeholder="请输入账户" class="input_Id" required/>
 	  </div>
 	  <div class="passwd-temp">密码</div>
-	  <div class="input-passwd">
-		<input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="div-12" required/>
+	  <div class="passwd-box">
+		<input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="input-passwd" required/>
 		<img
 		  loading="lazy"
 		  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4204222-1ef5-4217-85fb-fa49a4071683?"
@@ -57,8 +57,8 @@
 		/>
 	  </div>
 	  <div class="passwd-temp">确认密码</div>
-	  <div class="input-passwd">
-		<input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="div-12" required/>
+	  <div class="passwd-box">
+		<input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="••••••••" class="input-passwd" required/>
 		<img
 		  loading="lazy"
 		  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4204222-1ef5-4217-85fb-fa49a4071683?"
@@ -231,7 +231,7 @@
 	padding: 14px 20px;
   }
   .input_Id {
-	color: var(--text-2, #e0e0e5);
+	color: black;
 	font: 400 14px/17px Inter, sans-serif;
   }
   .img-7 {
@@ -255,8 +255,9 @@
 	.passwd-temp {
 	  white-space: initial;
 	}
+	
   }
-  .input-passwd {
+  .passwd-box {
 	align-self: center;
 	border-radius: 8px;
 	border: 0.5px solid var(--text-1, #808194);
@@ -268,9 +269,10 @@
 	gap: 20px;
 	padding: 10px 20px;
   }
-  .div-12 {
-	color: var(--text-2, #e0e0e5);
-	font: 400 16px/24px Inter, sans-serif;
+
+  .input-passwd {
+	color: black;
+	font: 400 14rpx/17rpx Inter, sans-serif;
   }
   .passwd-display {
 	aspect-ratio: 1;
@@ -294,7 +296,7 @@
 	padding-left: 2px;
 	gap: 20px;
   }
-  .div-14 {
+  .remember-login-box {
 	align-items: center;
 	border-radius: 4px;
 	display: flex;
@@ -302,7 +304,7 @@
 	gap: 10px;
 	padding: 0 20px;
   }
-  .div-15 {
+  .remember-login-btn {
 	border-radius: 2px;
 	border: 1.5px solid var(--text-1, #808194);
 	display: flex;
@@ -311,7 +313,7 @@
 	flex-direction: column;
 	margin: auto 0;
   }
-  .div-16 {
+  .remember-login-word {
 	color: var(--text-0, #2a2b2e);
 	align-self: stretch;
 	flex-grow: 1;
@@ -319,11 +321,11 @@
 	font: 700 14px/17px Inter, sans-serif;
   }
   @media (max-width: 991px) {
-	.div-16 {
+	.remember-login-word {
 	  white-space: initial;
 	}
   }
-  .div-17 {
+  .forger-passwd-btn {
 	color: var(--text-0, #2a2b2e);
 	text-align: center;
 	white-space: nowrap;
@@ -335,11 +337,11 @@
 	border-color: transparent;
   }
   @media (max-width: 991px) {
-	.div-17 {
+	.forger-passwd-btn {
 	  white-space: initial;
 	}
   }
-  .div-18 {
+  .login-btn {
 	color: var(--text-3, #fff);
 	text-align: center;
 	white-space: nowrap;
@@ -355,7 +357,7 @@
 	font: 700 20px/24px Inter, sans-serif;
   }
   @media (max-width: 991px) {
-	.div-18 {
+	.login-btn {
 	  white-space: initial;
 	}
   }
@@ -439,44 +441,55 @@
 		});
 	  },
 	  async submitForm() {
-		 // 验证输入
-		  if (!this.id || !this.password) {
+		// Validate input
+		if (!this.id || !this.password) {
 			uni.$showMsg('账号或密码不能为空');
 			return;
-		  }
-		console.log("登录按钮按下");
-		const timeout = new Promise((resolve, reject) => {
-		  setTimeout(() => {
-			reject(new Error('请求超时'));
-		  }, 10000);
-		});
-		console.log(this.id+this.password);
+		}
 		try{
-		  const res = await Promise.race([
-			uni.$http.get('/login', {
+			const dataToSend = {
 				id: this.id,
 				password: this.password,
-			}),
-			timeout,
-		  ]);
-		
-		if (res.statusCode !== 200) {
-		  uni.$showMsg('请求失败');
-		  return;
-		} 
-  
-		if(res.data.status!=='success'){
-		  uni.$showMsg(res.data.msg);
-		  return;
+			};
+			console.log("111");
+			const loginurl = "http://47.115.222.16:8080/login"
+			// const response = await uni.$http.post(loginurl, dataToSend);
+
+			const response = await new Promise((resolve, reject) => {
+				wx.request({
+					url: loginurl,
+					method: 'POST',
+					data: dataToSend,
+					header: {
+					'content-type': 'application/x-www-form-urlencoded', // 或 'application/json'，具体取决于后端的接受类型
+					},
+					success: (res) => {
+					resolve(res);
+					},
+					fail: (error) => {
+					reject(error);
+					},
+				});
+				});
+			// console.log(response);  
+			if (response.statusCode !== 200) {
+				uni.$showMsg('请求失败');
+				return;
+			}
+			if (response.data.data !== '登录成功') {
+				uni.$showMsg(response.data.msg);
+				return;
+			}
+			console.log("Login success message:", response.data.message);
+
+			uni.$showMsg('登录成功');
 		}
-		uni.$showMsg('登录成功');
-		uni.navigateTo({
-		  url: '/pages/home/home'
-		});
-	  } catch(error){
-		uni.$showMsg(error.message);
-	  }
+		catch(error){
+			uni.$showMsg(error.message);
+		}
+		
 	},
+
 	async registerForm() {
 		// 验证输入
 		if (!this.registerId || !this.registerPassword || !this.confirmPassword) {

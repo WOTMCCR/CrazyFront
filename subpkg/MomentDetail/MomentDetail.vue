@@ -128,6 +128,7 @@
 			  },
 		},
 	};
+
 </script>
 
 <style scoped>
@@ -135,7 +136,6 @@
 		padding-left: 40.12rpx;
 		padding-right: 40.12rpx;
 	}
-
 	.navigation-options {
 		display: flex;
 		justify-content: space-around;

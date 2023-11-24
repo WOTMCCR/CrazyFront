@@ -163,10 +163,4 @@ export default {
 	}
 }
 }
-
-
-
-
-
-
 </style>

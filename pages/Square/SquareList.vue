@@ -2,17 +2,17 @@
 	<!-- Navigation options -->
 	<view class="navigation-options">
 		<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
-			<text class="nav-option">Activity</text>
+			<button class="button">个人</button>
 		</navigator>
 		<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
-			<text class="nav-option">Moment</text>
+			<button class="button">组织</button>
 		</navigator>
 	</view>
 
 	<!-- Swiper for left-right swiping -->
 	<!-- Activity List -->
 	<!-- 边缘空白 -->
-	<view class="my">
+	<view class="square">
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
 			<new-card :detail="item">
 			</new-card>
@@ -36,12 +36,29 @@
 		onLoad() {
 			this.loadData();
 		},
+		onCardClick: function() {
+			console.log('卡片被点击了');
+			// 在这里可以添加处理点击事件的逻辑
+		},
+		personalButtonClick: function() {
+			// 调用个人按钮相关的后端方法
+			console.log('个人按钮被点击了');
+			// 在这里可以添加具体的后端方法调用逻辑
+		},
+
+		// 点击“组织”按钮时触发的方法
+		organizationButtonClick: function() {
+			// 调用组织按钮相关的后端方法
+			console.log('组织按钮被点击了');
+			// 在这里可以添加具体的后端方法调用逻辑
+		},
 		methods: {
 			async loadData() {
 				try {
 					// Assuming you have a common API endpoint for both Activity and Moment data
 					const endpoint = this.currentTab === 0 ? "/activity/isOfficial/0":
 						"/moment/isOfficial/0";
+
 					const {
 						statusCode,
 						data: res
@@ -100,7 +117,6 @@
 		padding-left: 40.12rpx;
 		padding-right: 40.12rpx;
 	}
-
 	.navigation-options {
 		display: flex;
 		justify-content: space-around;
@@ -111,5 +127,21 @@
 		font-size: 16px;
 		color: #333333;
 		text-decoration: underline;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 10rpx 40rpx;
+		width: 200rpx;
+		border-radius: 20rpx;
+		background-color: #007aff;
+		color: #fff;
+		font-size: 40rpx;
+		font-family: "楷体";
+		font-weight: bold;
+	}
+
+	.button.active {
+		background-color: #0059c6;
 	}
 </style>

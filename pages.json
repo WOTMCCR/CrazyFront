@@ -30,38 +30,48 @@
 
 		},
 		{
-			"path": "subpkg/MomentDetail/MomentDetail",
+			"path": "pages/test/test",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
-			}
-
-		}, {
-			"path": "subpkg/ActivityDetail/ActivityDetail",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
-			}
-
-		},
-		{
-			"path" : "pages/test/test",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+				"enablePullDownRefresh": false
 			}
 		}
 	],
+	"subPackages": [{
+		"root": "subpkg",
+		"pages": [{
+				"path": "MomentDetail/MomentDetail",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "ActivityDetail/ActivityDetail",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			}
+		    ,{
+                    "path" : "testdetail/testdetail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "CrazyBar",
-		"navigationBarBackgroundColor": "#ffffff",
+		"navigationBarBackgroundColor": "#337FFF",
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/test/test",
 				"text": "测试",
 				"iconPath": "static/c5.png",

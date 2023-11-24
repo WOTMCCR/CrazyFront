@@ -1,18 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<div class="card" :class="className">
-		<div class="header" :class="headerClassName">
-			<div class="avatar-area">
-				<img class="ellipse" alt="Ellipse" src="" />
-			</div>
-			<div class="content-area">
-				<div class="text-wrapper">Card Title</div>
-				<div class="div">Card Subtitle</div>
-			</div>
-		</div>
-
-	</div>
-=======
 		<view class="new-card">
 			<!-- avtuar 姓名与时间 -->
 			<view class="header">
@@ -51,7 +37,6 @@
 				</view>
 			</view>
 		</view>	
->>>>>>> origin/yzy
 </template>
 
 <script>

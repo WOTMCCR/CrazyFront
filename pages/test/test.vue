@@ -1,148 +1,104 @@
 <template>
-	<view class="square">
+	<view>
+		<!-- Navigation options -->
+		<view class="navigation-options">
+			<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
+				<text class="nav-option">Activity</text>
+			</navigator>
+			<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
+				<text class="nav-option">Moment</text>
+			</navigator>
+		</view>
 
-		<view class="new-card" v-for="(item, index) in items" :key="index">
-			<!-- avtuar 姓名与时间 -->
-			<view class="header">
-				<image class="avatar" src="../../static/humanhead.png" />
-				<view class="NameAndTime">
-					<text class="name">Gavin Nelson</text>
-					<text class="time">今天 12:00</text>
-				</view>
+		<!-- Swiper for left-right swiping -->
+
+		<!-- Activity List -->
+		<view class="test">
+			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
+				<my-card :detail="item">
+
+				</my-card>
+			</view>
+			<view v-else>
+				<text>No activity data available.</text>
 			</view>
 
-			<!-- 文章主体 -->
-			<text class="text-body">time for a update
-				asdfadddddddddddddddddddddddddddddddddddsdfasdfasdfddddddddddddddddddddddddto the profile image with
-				some recasdffffffffffffffffffffent 😊</text>
-
-
-			<!-- 评论转发点赞部分 -->
-			<view class="card-option">
-				<view class="flex-row">
-					<image class="image_1" src="../../static/Vector.svg" />
-					<text class="font">
-						11
-					</text>
-				</view>
-				<view class="flex-row">
-					<image class="image_2" src="../../static/share.svg" />
-					<text class="font">
-						2
-					</text>
-				</view>
-				<view class="flex-row">
-					<image class="image_3" src="../../static/fav.svg" />
-					<text class="font">
-						239
-					</text>
-				</view>
-			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		components: {},
-		props: {},
 		data() {
 			return {
-				items: [null, null],
+				currentTab: 0,
+				List: [],
+
 			};
 		},
+		onLoad() {
+			this.loadData();
+		},
+		methods: {
+			async loadData() {
+				try {
+					// Assuming you have a common API endpoint for both Activity and Moment data
+					//"/activity/findByUser/{userId}" :
+					const endpoint = this.currentTab === 0 ? "/activity/findByUserId/1" :
+						"/moment/findByUserId/1";
+					const {
+						statusCode,
+						data: res
+					} = await uni.$http.get(endpoint);
+					console.log(res);
+					console.log(statusCode);
+					if (statusCode == "200") {
+						console.log(this.currentTab);
+						// Update the corresponding list based on the current tab
+						this.List = res;
+						uni.$showMsg("Data loaded successfully");
+					} else {
+						console.error("Failed to load data. Server returned status code:", statusCode);
+					}
+				} catch (error) {
+					console.error("Error fetching data:", error);
+				} finally {
+					uni.hideLoading();
+				}
+			},
+			gotoDetail(item) {
+				uni.navigateTo({
+					url: '/subpkg/MomentDetail/MomentDetail?id=' + item.id
+				});
 
-		methods: {},
+			},
+			changeTab(tabIndex) {
+				this.currentTab = tabIndex;
+				this.loadData();
+			},
+			swiperChange(e) {
+				this.currentTab = e.detail.current;
+				this.loadData();
+			},
+		},
 	};
 </script>
 
-<style scoped lang="scss">
-	.square {
+<style scoped>
+	.test {
 		padding-left: 40.12rpx;
 		padding-right: 40.12rpx;
 	}
 
-	.new-card {
-		margin-top: 30rpx;
-		padding: 47.09rpx 55.81rpx 47.09rpx;
-		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
-		// max-width: 100rpx;
-		// margin: 0 auto;
-		border-radius: 55.81rpx;
-		filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-		overflow: hidden;
+	.navigation-options {
+		display: flex;
+		justify-content: space-around;
+		margin-top: 10px;
+	}
 
-		.header {
-			display: flex;
-			align-items: center;
-			margin-bottom: 20rpx;
-
-			.avatar {
-				border-radius: 83.72rpx;
-				width: 83.72rpx;
-				height: 83.72rpx;
-			}
-
-			.NameAndTime {
-				display: flex;
-				flex-direction: column;
-				margin-left: 20rpx;
-				margin-top: 10rpx;
-
-				.name {
-					font-size: 27.91rpx;
-					//字体
-					font-family: open;
-					line-height: 21.59rpx;
-					font-weight: 600;
-					color: #000000;
-					margin-bottom: 15rpx;
-				}
-
-				.time {
-					font-size: 27.91rpx;
-					font-family: Inter;
-					line-height: 25.85rpx;
-					color: #536471;
-				}
-
-			}
-		}
-
-		.text-body {
-			font-size: 27.91rpx;
-			font-family: Inter;
-			line-height: 41.86rpx;
-			color: #000000;
-			word-break: break-all;
-		}
-
-		.card-option {
-			margin-top: 40rpx;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 0 2.55rpx;
-
-			.flex-row {
-				display: flex;
-				align-items: center;
-
-				.image_1,
-				.image_2,
-				.image_3 {
-					width: 30rpx;
-					height: 30rpx;
-					vertical-align: middle;
-				}
-
-				.font {
-					margin-left: 10rpx;
-					font-size: 23rpx;
-					font-family: Inter;
-					color: #536471;
-				}
-			}
-		}
+	.nav-option {
+		font-size: 16px;
+		color: #333333;
+		text-decoration: underline;
 	}
 </style>

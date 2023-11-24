@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<my-card :detail="detail[0]"></my-card>
+		<new-card :detail="detail[0]"></new-card>
 	</view>
 </template>
 

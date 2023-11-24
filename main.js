@@ -4,7 +4,7 @@ import {
 } from '@escook/request-miniprogram'
 uni.$http = $http
 $http.baseUrl = "http://47.115.222.16:8080"
-// $http.baseUrl = " http://localhost:3000"
+// $http.baseUrl = " http://localhost:8080"
 // 47.115.222.16:8080
 
 

@@ -1,155 +1,153 @@
 <template>
-	<!-- Navigation options -->
-	<view class="navigation-options">
-		<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
-			<text class="nav-option">Activity</text>
-		</navigator>
-	</view>
+  <view class="flex-col activity-section">
+    <view class="flex-row items-center">
+      <image
+        class="user-avatar"
+        :src="user.avatar"
+      />
+      <view class="flex-col items-start user-info">
+        <text class="user-name">{{ user.name }}</text>
+        <text class="timestamp">{{ timestamp }}</text>
+      </view>
+    </view>
+    <view class="flex-col items-start activity-details mt-41">
+      <text class="activity-title">标题：{{ title }}</text>
+      <text class="activity-address">活动地址：{{ address }}</text>
+      <text class="activity-time">时间：{{ time }}</text>
+      <text class="activity-organizer">负责人：{{ organizer }}</text>
+      <text class="activity-requirements">要求：{{ requirements }}</text>
+      <text class="activity-introduction">介绍：{{ introduction }}</text>
+    </view>
 
-	<!-- Swiper for left-right swiping -->
-	<!-- Activity List -->
-	<!-- 边缘空白 -->
-	<view class=”square“>
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index">
-			<new-card :detail="item">
-			</new-card>
-		</view>
-		<view v-else>
-			<text>No activity data available.</text>
-		</view>
-	</view>
+    
+
+    <view class="flex-col justify-start items-center text-wrapper">
+      <text class="timeline-text">时间线</text>
+    </view>
+	
+	<!-- 第一次使用arrangement.vue -->
+	<arrangement
+	  :time="time1"
+	  :address="address1"
+	  :content="content1"
+	></arrangement>
+	
+	<!-- 第二次使用arrangement.vue -->
+	<arrangement
+	  :time="time2"
+	  :address="address2"
+	  :content="content2"
+	></arrangement>
+
+    <!-- 第三次使用arrangement.vue -->
+    <arrangement
+      :time="time3"
+      :address="address3"
+      :content="content3"
+    ></arrangement>
+  </view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				official: 1,
-				currentTab: 0,
-				List: [],
-				id: 156,
-				startX: 0, // 触摸开始时的x坐标
-				flag: 0,
-				sCode: 200,
-				hammer: null,
-			};
-		},
-		onLoad() {
-			this.loadData();
-			uni.$on('header-swipe', this.handleHeaderSwipe);
-			uni.$on('body-swipe', this.handleBodySwipe);
-			uni.$on('card-option-swipe', this.handleCardOptionSwipe);
-		},
-		methods: {
-			async loadData() {
-				try {
-					// Assuming you have a common API endpoint for both Activity and Moment data
-					const endpoint = "/activity/" + this.id;
-					const {
-						statusCode,
-						data: res
-					} = await uni.$http.get(endpoint);
-					// console.log(res);
-					// console.log(statusCode);
-					this.sCode = statusCode;
-					if (statusCode == "200") {
-						console.log(this.currentTab);
-						// Update the corresponding list based on the current tab
-						this.List = res;
-						this.flag = 0;
-						uni.$showMsg("Data loaded successfully");
-					} else {
-						console.log(this.flag);
-						if (this.flag == 1) {
-							this.id = this.id + 1;
-						} else if (this.flag == 2) {
-							this.id = this.id - 1;
-						}
-						this.flag = 0;
-						console.error("Failed to load data. Server returned status code:", statusCode);
-					}
-				} catch (error) {
-					console.error("Error fetching data:", error);
-				} finally {
-					uni.hideLoading();
-				}
-			},
-			clickCard() {
-				// Handle card click if needed
-			},
-			changeTab(tabIndex) {
-				this.currentTab = tabIndex;
-				this.loadData();
-			},
-			swiperChange(e) {
-				this.currentTab = e.detail.current;
-				this.loadData();
-			},
-			handleHeaderSwipe(direction) {
-				console.log(`Header swiped ${direction}`);
-				if (direction == 'right') {
-					this.id = this.id - 1;
-					console.log(this.id);
-					// console.log('向右滑动'); // 向右滑动事件
-				} else if (direction == 'left') {
-					// console.log('向左滑动'); // 向左滑动事件
-					this.id = this.id + 1;
-					console.log(this.id);
-				}
-				this.loadData();
-			},
+import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
 
-			handleBodySwipe(direction) {
-				console.log(`Body swiped ${direction}`);
-				if (direction == 'right') {
-					this.id = this.id - 1;
-					console.log(this.id);
-					// console.log('向右滑动'); // 向右滑动事件
-				} else if (direction == 'left') {
-					// console.log('向左滑动'); // 向左滑动事件
-					this.id = this.id + 1;
-					console.log(this.id);
-				}
-				this.loadData();
-			},
-
-			handleCardOptionSwipe(direction) {
-				console.log(`Card option swiped ${direction}`);
-				console.log(this.id);
-				console.log(this.flag);
-				// Add your logic for handling card option swipe here
-				if (this.flag == 0) {
-					this.id = this.id - 1;
-					console.log(this.id);
-					this.flag = 1;
-					// console.log('向右滑动'); // 向右滑动事件
-				} else if (this.flag == 0) {
-					// console.log('向左滑动'); // 向左滑动事件
-					this.id = this.id + 1;
-					console.log(this.id);
-					this.flag = 2;
-				}
-				this.onload();
-			},
-		},
-	};
+export default {
+  components: {
+    Arrangement
+  },
+  data() {
+    return {
+      user: {
+        name: "",
+        id: "",
+        avatar: ""
+      },
+      timestamp: "",
+      title: "",
+      address: "",
+      time: "",
+      organizer: "",
+      requirements: "",
+      introduction: "",
+      time1: "12:00 PM",
+      address1: "Location 1",
+      content1: "Meeting 1 details",
+      time2: "2:30 PM",
+      address2: "Location 2",
+      content2: "Meeting 2 details",
+      time3: "4:00 PM",
+      address3: "Location 3",
+      content3: "Meeting 3 details",
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      // Your existing fetch data logic...
+    },
+  },
+};
 </script>
 
 <style scoped>
-	.square {
-		padding-left: 40.12rpx;
-		padding-right: 40.12rpx;
-	}
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
 
-	.navigation-options {
-		display: flex;
-		justify-content: space-around;
-		margin-top: 10px;
-	}
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
 
-	.nav-option {
-		font-size: 16px;
-		color: #333333;
-		text-decoration: underline;
-	}
+  .items-center {
+    align-items: center;
+  }
+
+  .user-avatar {
+    border-radius: 83.72rpx;
+    width: 83.72rpx;
+    height: 83.72rpx;
+  }
+
+  .user-info {
+    margin-left: 22.67rpx;
+  }
+
+  .timestamp {
+    color: #536471;
+    line-height: 25.85rpx;
+  }
+
+  .activity-section {
+    margin: 20rpx 10.47rpx 0;
+    padding: 34.88rpx 43.6rpx 104.65rpx;
+    background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+    border-radius: 55.81rpx;
+    filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+  }
+
+  .activity-details {
+    padding: 0 13.95rpx;
+    margin-top: 71.51rpx;
+  }
+
+  .text-wrapper {
+    padding: 20.93rpx 0 17.44rpx;
+    background-color: #f7e0eb;
+    border-radius: 55.81rpx;
+    filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+    overflow: hidden;
+    margin-top: 20rpx;
+  }
+
+  .timeline-text {
+    color: #000000;
+    font-size: 45.35rpx;
+    font-family: Oswald;
+    font-weight: 700;
+    line-height: 42.77rpx;
+  }
 </style>

@@ -1,183 +1,167 @@
 <template>
-  <div class="flex-col section_3" :style="{ background: cardColor }">
-    <div class="flex-row justify-center self-stretch">
-        <div class="relative section_4" @click="changeColor('linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%)')"></div>
-        <div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #A1E8FF 0%, #3897F0 100%)')"></div>
-        <div class="relative section_6 ml-5" @click="changeColor('linear-gradient(180deg, #3897F0 0%, #7B61FF 100%)')"></div>
-        <div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%)')"></div>
-        <div class="relative section_8 ml-5" @click="changeColor('linear-gradient(180deg, #FFD700 0%, #FFA500 100%)')"></div>
-        <div class="section_9 ml-5" @click="changeColor('linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%)')"></div>
-    </div>
-    <span class="self-start font text_2">标题</span>
-    <div class="flex-row justify-between items-center section_10 input">
-      <span class="font_2 text_3">标题</span>
-    </div>
-    <span class="self-start font text_4">地点</span>
-    <div class="flex-row justify-between items-center section_10 input">
-      <span class="font_2 text_5">地点</span>
-    </div>
-    <span class="self-start font text_6">联系方式</span>
-    <div class="flex-row justify-between items-center section_10 input">
-      <span class="font_2 text_7">负责人联系方式</span>
-    </div>
-    <span class="self-start font text_8">介绍</span>
-    <div class="flex-col self-stretch group_2">
-      <div class="flex-row justify-between items-center self-stretch input">
-        <span class="font_2">活动内容、主题等</span>
-      </div>
-      <div class="mt-24 flex-col justify-center items-center button text-wrapper" >
-        <span class="text_9">创建</span>
-      </div>
-    </div>
-  </div>
+	<div @touchmove="handleTouchMove" @touchstart="handleTouchStart">
+	    <!-- Your existing content -->
+			<view class="flex-col activity-section">
+			  <view class="flex-row items-center">
+			    <image
+			      class="user-avatar"
+			      :src="user.avatar"
+			    />
+			    <view class="flex-col items-start user-info">
+			      <text class="user-name">{{ user.name }}</text>
+			      <text class="timestamp">{{ timestamp }}</text>
+			    </view>
+			  </view>
+			  <view class="flex-col items-start activity-details mt-41">
+			    <text class="activity-title">标题：{{ title }}</text>
+			    <text class="activity-address">活动地址：{{ address }}</text>
+			    <text class="activity-time">时间：{{ time }}</text>
+			    <text class="activity-organizer">负责人：{{ organizer }}</text>
+			    <text class="activity-requirements">要求：{{ requirements }}</text>
+			    <text class="activity-introduction">介绍：{{ introduction }}</text>
+			  </view>
+			
+			  
+			
+			  <view class="flex-col justify-start items-center text-wrapper">
+			    <text class="timeline-text">时间线</text>
+			  </view>
+				
+				<!-- 第一次使用arrangement.vue -->
+				<arrangement
+				  :time="time1"
+				  :address="address1"
+				  :content="content1"
+				></arrangement>
+				
+				<!-- 第二次使用arrangement.vue -->
+				<arrangement
+				  :time="time2"
+				  :address="address2"
+				  :content="content2"
+				></arrangement>
+			
+			  <!-- 第三次使用arrangement.vue -->
+			  <arrangement
+			    :time="time3"
+			    :address="address3"
+			    :content="content3"
+			  ></arrangement>
+			</view>
+	</div>
+  
 </template>
 
 <script>
+import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+
 export default {
+  components: {
+    Arrangement
+  },
   data() {
+	  
     return {
-      cardColor: 'linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%)',
+		touchStartX: 0,
+      user: {
+        name: "",
+        id: "",
+        avatar: ""
+      },
+      timestamp: "",
+      title: "",
+      address: "",
+      time: "",
+      organizer: "",
+      requirements: "",
+      introduction: "",
+      time1: "12:00 PM",
+      address1: "Location 1",
+      content1: "Meeting 1 details",
+      time2: "2:30 PM",
+      address2: "Location 2",
+      content2: "Meeting 2 details",
+      time3: "4:00 PM",
+      address3: "Location 3",
+      content3: "Meeting 3 details",
     };
   },
   methods: {
-    changeColor(color) {
-      this.cardColor = color;
-    },
-  },
-};
-</script>
+      handleTouchStart(event) {
+        this.touchStartX = event.touches[0].clientX;
+      },
+      handleTouchMove(event) {
+        const deltaX = event.touches[0].clientX - this.touchStartX;
+        const swipeThreshold = 50;
+  
+        if (deltaX < -swipeThreshold) {
+          wx.navigateBack({
+            delta: 1, // 返回上一页
+          });
+        }
+      },
+      // ... your other methods ...
+    }
+  };
+  </script>
 
-<style scoped lang="scss">
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
+<style scoped>
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
 
-.justify-center {
-  justify-content: flex-end;
-}
+  .items-center {
+    align-items: center;
+  }
 
-.self-stretch {
-  align-self: stretch;
-}
+  .user-avatar {
+    border-radius: 83.72rpx;
+    width: 83.72rpx;
+    height: 83.72rpx;
+  }
 
-.ml-5 {
-  margin-left: 8.78rpx;
-}
+  .user-info {
+    margin-left: 22.67rpx;
+  }
 
-.section_3 {
-  margin-top:10px;
-  margin-left: 36.89rpx;
-  margin-right: 42.15rpx;
-  padding: 59.18rpx 28.1rpx;
-  background-image: linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%);
-  border-radius: 56.21rpx;
-  filter: drop-shadow(0rpx 7.03rpx 10.54rpx #00000026);
-  overflow: hidden;
-}
+  .timestamp {
+    color: #536471;
+    line-height: 25.85rpx;
+  }
 
-.section_4,
-.section_5,
-.section_6,
-.section_7,
-.section_8,
-.section_9 {
-  width: 35.13rpx;
-  height: 35.13rpx;
-  border-radius: 175.64rpx;
-  box-shadow: 0rpx 5.27rpx 5.27rpx #00000040;
-}
+  .activity-section {
+    margin: 20rpx 10.47rpx 0;
+    padding: 34.88rpx 43.6rpx 104.65rpx;
+    background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+    border-radius: 55.81rpx;
+    filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+  }
 
-.section_4 {
-  background-image: linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%);
-}
+  .activity-details {
+    padding: 0 13.95rpx;
+    margin-top: 71.51rpx;
+  }
 
-.section_5 {
-  background-image: linear-gradient(180deg, #3897F0 0%, #A1E8FF 100%);
-}
+  .text-wrapper {
+    padding: 20.93rpx 0 17.44rpx;
+    background-color: #f7e0eb;
+    border-radius: 55.81rpx;
+    filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+    overflow: hidden;
+    margin-top: 20rpx;
+  }
 
-.section_6 {
-  background-image: linear-gradient(180deg, #3897F0 0%, #7B61FF 100%);
-}
-
-.section_7 {
-  background-image: linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%); /* 粉红色系 */
-}
-
-.section_8 {
-  background-image: linear-gradient(180deg, #FFD700 0%, #FFA500 100%); /* 黄色/橙色系 */
-}
-
-.section_9 {
-  background-image: linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%); /* 绿色系 */
-}
-
-.font {
-  font-size: 28.1rpx;
-  font-family: Inter;
-  line-height: 26.17rpx;
-  color: #0f0f0f;
-}
-
-.text_2,
-.text_4,
-.text_6,
-.text_8 {
-  margin-top: 28.1rpx;
-  line-height: 25.82rpx;
-}
-
-.section_10 {
-  align-self: stretch;
-  margin-top: 17.56rpx;
-}
-
-.input {
-  padding: 24.59rpx 14.05rpx;
-  background-color: #fdeff9;
-  border-radius: 14.05rpx;
-}
-
-.font_2,
-.text_3,
-.text_5,
-.text_7 {
-  line-height: 22.61rpx;
-}
-
-.group_2 {
-  margin-top: 17.56rpx;
-}
-
-.button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  margin-top: 24.59rpx;
-}
-
-.text-wrapper {
-  padding: 28.1rpx 0;
-  background-color: #ffffff;
-  border-radius: 7.03rpx;
-  filter: drop-shadow(0rpx 8.78rpx 13.17rpx #252c6126, 0rpx 3.51rpx 3.51rpx #8890c233);
-  overflow: hidden;
-  width: 168.62rpx;
-}
-
-.text_9 {
-  color: #545454;
-  font-size: 28.1rpx;
-  font-family: Lato;
-  font-weight: 700;
-  line-height: 26.56rpx;
-}
-
+  .timeline-text {
+    color: #000000;
+    font-size: 45.35rpx;
+    font-family: Oswald;
+    font-weight: 700;
+    line-height: 42.77rpx;
+  }
 </style>

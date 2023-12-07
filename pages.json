@@ -1,111 +1,114 @@
 {
-	"pages": [{
-			"path": "pages/Login/Login",
-			"style": {
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/Square/SquareList",
-			"style": {
-				//"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
-			}
-
-		}
-		// ,
-		// {
-		// 	"path": "pages/home/home",
-		// 	"style": {
-		// 		// "navigationBarTitleText": "",
-		// 		"enablePullDownRefresh": true
-		// 	}
-
-		// }
-		,
-		{
-			"path": "pages/My/My",
-			"style": {
-				// "navigationBarTitleText": "",
-				"enablePullDownRefresh": true
-			}
-
-		}
-		// ,
-		// {
-		// 	"path": "pages/test/test",
-		// 	"style": {
-		// 		"navigationBarTitleText": "",
-		// 		"enablePullDownRefresh": false
-		// 	}
-		// }
-	],
-	"subPackages": [{
-		"root": "subpkg",
-		"pages": [{
-				"path": "MomentDetail/MomentDetail",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": true
-				}
-			},
-			{
-				"path": "ActivityDetail/ActivityDetail",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": true
-				}
-			}, {
-				"path": "testdetail/testdetail",
-				"style": {
-					"navigationBarTitleText": "",
-					"enablePullDownRefresh": false
-				}
-
-			}
-		]
-	}],
-	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "CrazyBar",
-		"navigationBarBackgroundColor": "#337FFF",
-		"backgroundColor": "#000000"
-	},
-	"tabBar": {
-		"list": [
-			// {
-			// 	"pagePath": "pages/test/test",
-			// 	"text": "测试",
-			// 	"iconPath": "static/c5.png",
-			// 	"selectedIconPath": "static/logo.png"
-			// }
-			// ,
-			// {
-			// 	"pagePath": "pages/Login/Login",
-			// 	"text": "登陆",
-			// 	"iconPath": "static/c5.png",
-			// 	"selectedIconPath": "static/logo.png"
-			// }
-			{
-				"pagePath": "pages/Square/SquareList",
-				"text": "疯吧",
-				"iconPath": "static/c1.png",
-				"selectedIconPath": "static/uni.png"
-			}
-			// ,
-			// {
-			// 	"pagePath": "pages/home/home",
-			// 	"text": "首页",
-			// 	"iconPath": "static/c2.png",
-			// 	"selectedIconPath": "static/logo.png"
-			// }
-			,
-			{
-				"pagePath": "pages/My/My",
-				"text": "我的",
-				"iconPath": "static/c3.png",
-				"selectedIconPath": "static/logo.png"
-			}
-		]
-	}
+    "pages" : [
+        // {
+        // 	"path": "pages/Login/Login",
+        // 	"style": {
+        // 		"enablePullDownRefresh": true
+        // 	}
+        // },
+        {
+            "path" : "pages/Square/SquareList",
+            "style" : {
+                //"navigationBarTitleText": "",
+                "enablePullDownRefresh" : true
+            }
+        },
+        // ,
+        // {
+        // 	"path": "pages/home/home",
+        // 	"style": {
+        // 		// "navigationBarTitleText": "",
+        // 		"enablePullDownRefresh": true
+        // 	}
+        // }
+        {
+            "path" : "pages/My/My",
+            "style" : {
+                // "navigationBarTitleText": "",
+                "enablePullDownRefresh" : true
+            }
+        },
+        {
+            "path" : "subpkg/ActivityDetail/ActivityDetail",
+            "style" : {}
+        }
+    ],
+    // ,
+    // {
+    // 	"path": "pages/test/test",
+    // 	"style": {
+    // 		"navigationBarTitleText": "",
+    // 		"enablePullDownRefresh": false
+    // 	}
+    // }
+    "subPackages" : [
+        {
+            "root" : "subpkg",
+            "pages" : [
+                {
+                    "path" : "MomentDetail/MomentDetail",
+                    "style" : {
+                        "navigationBarTitleText" : "",
+                        "enablePullDownRefresh" : true
+                    }
+                },
+                {
+                    "path" : "ActivityDetail/ActivityDetail",
+                    "style" : {
+                        "navigationBarTitleText" : "",
+                        "enablePullDownRefresh" : true
+                    }
+                },
+                {
+                    "path" : "testdetail/testdetail",
+                    "style" : {
+                        "navigationBarTitleText" : "",
+                        "enablePullDownRefresh" : false
+                    }
+                }
+            ]
+        }
+    ],
+    "globalStyle" : {
+        "navigationBarTextStyle" : "white",
+        "navigationBarTitleText" : "CrazyBar",
+        "navigationBarBackgroundColor" : "#337FFF",
+        "backgroundColor" : "#000000"
+    },
+    "tabBar" : {
+        "list" : [
+            // {
+            // 	"pagePath": "pages/test/test",
+            // 	"text": "测试",
+            // 	"iconPath": "static/c5.png",
+            // 	"selectedIconPath": "static/logo.png"
+            // }
+            // ,
+            // {
+            // 	"pagePath": "pages/Login/Login",
+            // 	"text": "登陆",
+            // 	"iconPath": "static/c5.png",
+            // 	"selectedIconPath": "static/logo.png"
+            // }
+            {
+                "pagePath" : "pages/Square/SquareList",
+                "text" : "疯吧",
+                "iconPath" : "static/c1.png",
+                "selectedIconPath" : "static/uni.png"
+            },
+            // ,
+            // {
+            // 	"pagePath": "pages/home/home",
+            // 	"text": "首页",
+            // 	"iconPath": "static/c2.png",
+            // 	"selectedIconPath": "static/logo.png"
+            // }
+            {
+                "pagePath" : "pages/My/My",
+                "text" : "我的",
+                "iconPath" : "static/c3.png",
+                "selectedIconPath" : "static/logo.png"
+            }
+        ]
+    }
 }

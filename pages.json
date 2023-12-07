@@ -61,54 +61,52 @@
                 },
                 {
                     "path" : "testdetail/testdetail",
-                    "style" : {
-                        "navigationBarTitleText" : "",
-                        "enablePullDownRefresh" : false
-                    }
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
                 }
             ]
-        }
-    ],
-    "globalStyle" : {
-        "navigationBarTextStyle" : "white",
-        "navigationBarTitleText" : "CrazyBar",
-        "navigationBarBackgroundColor" : "#337FFF",
-        "backgroundColor" : "#000000"
-    },
-    "tabBar" : {
-        "list" : [
-            // {
-            // 	"pagePath": "pages/test/test",
-            // 	"text": "测试",
-            // 	"iconPath": "static/c5.png",
-            // 	"selectedIconPath": "static/logo.png"
-            // }
-            // ,
-            // {
-            // 	"pagePath": "pages/Login/Login",
-            // 	"text": "登陆",
-            // 	"iconPath": "static/c5.png",
-            // 	"selectedIconPath": "static/logo.png"
-            // }
-            {
-                "pagePath" : "pages/Square/SquareList",
-                "text" : "疯吧",
-                "iconPath" : "static/c1.png",
-                "selectedIconPath" : "static/uni.png"
-            },
-            // ,
-            // {
-            // 	"pagePath": "pages/home/home",
-            // 	"text": "首页",
-            // 	"iconPath": "static/c2.png",
-            // 	"selectedIconPath": "static/logo.png"
-            // }
-            {
-                "pagePath" : "pages/My/My",
-                "text" : "我的",
-                "iconPath" : "static/c3.png",
-                "selectedIconPath" : "static/logo.png"
-            }
-        ]
-    }
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "CrazyBar",
+		"navigationBarBackgroundColor": "#337FFF",
+		"backgroundColor": "#000000"
+	},
+	"tabBar": {
+		"list": [{
+				"pagePath": "pages/test/test",
+				"text": "测试",
+				"iconPath": "static/enroll.png",
+				"selectedIconPath": "static/enroll_cur.png"
+			},
+			{
+				"pagePath": "pages/Login/Login",
+				"text": "登陆",
+				"iconPath": "static/checkin.png",
+				"selectedIconPath": "static/checkin_cur.png"
+			},
+			{
+				"pagePath": "pages/Square/SquareList",
+				"text": "疯吧",
+				"iconPath": "static/enroll.png",
+				"selectedIconPath": "static/enroll_cur.png"
+			},
+			{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home_cur.png"
+			},
+			{
+				"pagePath": "pages/My/My",
+				"text": "我的",
+				"iconPath": "static/my.png",
+				"selectedIconPath": "static/my_cur.png"
+			}
+		]
+	}
 }

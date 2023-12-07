@@ -1,153 +1,183 @@
 <template>
-	<view class="mt-10"></view>
-	<view class="flex-col section_3">
-		<view class="flex-row items-center">
-			<image class="image_7" :src="imageSrc" />
-			<view class="flex-col items-start ml-13">
-				<text class="font text_2">{{ username }}</text>
-				<text class="font text_3 mt-7">{{ timestamp }}</text>
-			</view>
-		</view>
-		<view class="flex-col items-start group_2 mt-41">
-			<text class="font">标题：{{ title }}</text>
-			<text class="font">活动地址：{{ address }}</text>
-			<text class="font">时间：{{ time }}</text>
-			<text class="font">负责人：{{ organizer }}</text>
-			<text class="font">要求：{{ requirements }}</text>
-			<text class="font">介绍：{{ introduction }}</text>
-		</view>
-		<view class="mt-10"></view>
-		<view class="mt-74 flex-col justify-start items-center button text-wrapper">
-			<text class="text_4">时间线</text>
-		</view>
-	</view>
+  <div class="flex-col section_3" :style="{ background: cardColor }">
+    <div class="flex-row justify-center self-stretch">
+        <div class="relative section_4" @click="changeColor('linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%)')"></div>
+        <div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #A1E8FF 0%, #3897F0 100%)')"></div>
+        <div class="relative section_6 ml-5" @click="changeColor('linear-gradient(180deg, #3897F0 0%, #7B61FF 100%)')"></div>
+        <div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%)')"></div>
+        <div class="relative section_8 ml-5" @click="changeColor('linear-gradient(180deg, #FFD700 0%, #FFA500 100%)')"></div>
+        <div class="section_9 ml-5" @click="changeColor('linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%)')"></div>
+    </div>
+    <span class="self-start font text_2">标题</span>
+    <div class="flex-row justify-between items-center section_10 input">
+      <span class="font_2 text_3">标题</span>
+    </div>
+    <span class="self-start font text_4">地点</span>
+    <div class="flex-row justify-between items-center section_10 input">
+      <span class="font_2 text_5">地点</span>
+    </div>
+    <span class="self-start font text_6">联系方式</span>
+    <div class="flex-row justify-between items-center section_10 input">
+      <span class="font_2 text_7">负责人联系方式</span>
+    </div>
+    <span class="self-start font text_8">介绍</span>
+    <div class="flex-col self-stretch group_2">
+      <div class="flex-row justify-between items-center self-stretch input">
+        <span class="font_2">活动内容、主题等</span>
+      </div>
+      <div class="mt-24 flex-col justify-center items-center button text-wrapper" >
+        <span class="text_9">创建</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				imageSrc: "https://ide.code.fun/api/image?token=6569458efcfbac00113616d6&name=c2c19904ed48e72c673d99a1d72c81c5.png",
-				username: "Gavin Nelson",
-				timestamp: "今天 12:00",
-				title: "原神·启动",
-				address: "", // Add the actual address data
-				time: "", // Add the actual time data
-				organizer: "", // Add the actual organizer data
-				requirements: "要玩原神",
-				introduction: "原神交友会已经报名准备参加",
-			};
-		},
-	};
+export default {
+  data() {
+    return {
+      cardColor: 'linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%)',
+    };
+  },
+  methods: {
+    changeColor(color) {
+      this.cardColor = color;
+    },
+  },
+};
 </script>
 
-<style scoped>
-	.flex-col {
-		display: flex;
-		flex-direction: column;
-	}
+<style scoped lang="scss">
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
 
-	.flex-row {
-		display: flex;
-		flex-direction: row;
-	}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
 
-	.items-center {
-		align-items: center;
-	}
+.justify-center {
+  justify-content: flex-end;
+}
 
-	.items-start {
-		align-items: flex-start;
-	}
+.self-stretch {
+  align-self: stretch;
+}
 
-	.ml-13 {
-		margin-left: 22.67rpx;
-	}
+.ml-5 {
+  margin-left: 8.78rpx;
+}
 
-	.mt-7 {
-		margin-top: 12.21rpx;
-	}
+.section_3 {
+  margin-top:10px;
+  margin-left: 36.89rpx;
+  margin-right: 42.15rpx;
+  padding: 59.18rpx 28.1rpx;
+  background-image: linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%);
+  border-radius: 56.21rpx;
+  filter: drop-shadow(0rpx 7.03rpx 10.54rpx #00000026);
+  overflow: hidden;
+}
 
-	.mt-41 {
-		margin-top: 71.51rpx;
-	}
+.section_4,
+.section_5,
+.section_6,
+.section_7,
+.section_8,
+.section_9 {
+  width: 35.13rpx;
+  height: 35.13rpx;
+  border-radius: 175.64rpx;
+  box-shadow: 0rpx 5.27rpx 5.27rpx #00000040;
+}
 
-	.section_3 {
-		margin: 0 10.47rpx;
-		padding: 34.88rpx 43.6rpx 104.65rpx;
-		background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
-		border-radius: 55.81rpx;
-		filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-	}
+.section_4 {
+  background-image: linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%);
+}
 
-	.image_7 {
-		border-radius: 83.72rpx;
-		width: 83.72rpx;
-		height: 83.72rpx;
-	}
+.section_5 {
+  background-image: linear-gradient(180deg, #3897F0 0%, #A1E8FF 100%);
+}
 
-	.font {
-		font-size: 27.91rpx;
-		font-family: Inter;
-		line-height: 41.86rpx;
-		color: #000000;
-	}
+.section_6 {
+  background-image: linear-gradient(180deg, #3897F0 0%, #7B61FF 100%);
+}
 
-	.text_2 {
-		font-weight: 600;
-		line-height: 21.59rpx;
-	}
+.section_7 {
+  background-image: linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%); /* 粉红色系 */
+}
 
-	.text_3 {
-		color: #536471;
-		line-height: 25.85rpx;
-	}
+.section_8 {
+  background-image: linear-gradient(180deg, #FFD700 0%, #FFA500 100%); /* 黄色/橙色系 */
+}
 
-	.group_2 {
-		padding: 0 13.95rpx;
-	}
+.section_9 {
+  background-image: linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%); /* 绿色系 */
+}
 
-	.mt-10 {
-		margin-top: 30rpx;
-		/* 调整间隔的大小，根据需要调整 */
-	}
+.font {
+  font-size: 28.1rpx;
+  font-family: Inter;
+  line-height: 26.17rpx;
+  color: #0f0f0f;
+}
 
-	.mt-74 {
-		margin-top: 74rpx;
-	}
+.text_2,
+.text_4,
+.text_6,
+.text_8 {
+  margin-top: 28.1rpx;
+  line-height: 25.82rpx;
+}
 
-	.flex-col {
-		display: flex;
-		flex-direction: column;
-	}
+.section_10 {
+  align-self: stretch;
+  margin-top: 17.56rpx;
+}
 
-	.justify-start {
-		justify-content: flex-start;
-	}
+.input {
+  padding: 24.59rpx 14.05rpx;
+  background-color: #fdeff9;
+  border-radius: 14.05rpx;
+}
 
-	.items-center {
-		align-items: center;
-	}
+.font_2,
+.text_3,
+.text_5,
+.text_7 {
+  line-height: 22.61rpx;
+}
 
-	.button {
-		margin: 0 34.88rpx;
-	}
+.group_2 {
+  margin-top: 17.56rpx;
+}
 
-	.text-wrapper {
-		padding: 20.93rpx 0 17.44rpx;
-		background-color: #f7e0eb;
-		border-radius: 55.81rpx;
-		filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-		overflow: hidden;
-	}
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-top: 24.59rpx;
+}
 
-	.text_4 {
-		color: #000000;
-		font-size: 45.35rpx;
-		font-family: Oswald;
-		font-weight: 700;
-		line-height: 42.77rpx;
-	}
+.text-wrapper {
+  padding: 28.1rpx 0;
+  background-color: #ffffff;
+  border-radius: 7.03rpx;
+  filter: drop-shadow(0rpx 8.78rpx 13.17rpx #252c6126, 0rpx 3.51rpx 3.51rpx #8890c233);
+  overflow: hidden;
+  width: 168.62rpx;
+}
 
-	/* Add any other styles based on your design */
+.text_9 {
+  color: #545454;
+  font-size: 28.1rpx;
+  font-family: Lato;
+  font-weight: 700;
+  line-height: 26.56rpx;
+}
+
 </style>

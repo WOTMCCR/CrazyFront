@@ -1,6 +1,15 @@
 <template>
-	<view>
-		<!-- Navigation options -->
+		<view class="group" style="position: relative z-index: 1">
+			<image class="image_7" src="../static/back.png" />
+			<view class="header" style="position: relative; z-index: 2;">
+				<image class="avatar" src="../static/head_sculpture.png" />
+				<view class="NameAndDescription">
+					<text class="name">用户昵称</text>
+					<text class="description">我是第一个用户</text>
+				</view>
+			</view>
+		</view>
+		
 		<view class="navigation-options">
 			<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
 				<text class="nav-option">Activity</text>
@@ -9,20 +18,7 @@
 				<text class="nav-option">Moment</text>
 			</navigator>
 		</view>
-
-		<view class="group">
-			<image class="image_7" src="../static/back.png" />
-			<view class="header">
-				<image class="avatar" src="../static/head_sculpture.png" />
-				<view class="NameAndDescription">
-					<text class="name">用户昵称</text>
-					<text class="description">我是第一个用户</text>
-				</view>
-			</view>
-		</view>
-
-		<!-- Swiper for left-right swiping -->
-
+				
 		<!-- Activity List -->
 		<view class="my">
 			<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
@@ -33,7 +29,7 @@
 				<text>No activity data available.</text>
 			</view>
 		</view>
-	</view>
+
 </template>
 
 <script>
@@ -93,6 +89,7 @@ export default {
 		swiperChange(e) {
 			this.currentTab = e.detail.current;
 			this.loadData();
+
 		},
 	},
 };
@@ -122,6 +119,95 @@ export default {
 		width: 100vw;
 		height: 60vw;
 	}
+.ml-7 {
+  margin-left: 12.21rpx;
+}
+.mt-9 {
+  margin-top: 15.7rpx;
+}
+
+.page {
+  background-color: #e9e9e9;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.group {
+  overflow-y: auto;
+}
+.image_7 {
+  width: 100vw;
+  height: 69.7674vw;
+}
+.group_2 {
+  margin: -66.28rpx 0 -13.95rpx;
+}
+.section_3 {
+  padding: 0 48.84rpx 22.67rpx;
+  background-color: #ffffff;
+  border-radius: 55.81rpx;
+  box-shadow: 0rpx 6.98rpx 6.98rpx #00000040;
+  height: 139.53rpx;
+}
+.image_8 {
+  margin-top: -57.56rpx;
+  border-radius: 83.72rpx;
+  width: 174.42rpx;
+  height: 174.42rpx;
+}
+.text_2 {
+  color: #000000;
+  font-size: 34.88rpx;
+  font-family: Inter;
+  line-height: 32.48rpx;
+}
+.list {
+  padding: 33.14rpx 34.88rpx 0 40.12rpx;
+}
+
+.list-item:first-child {
+  margin-top: 0;
+}
+
+.font {
+  font-size: 27.91rpx;
+  font-family: Inter;
+  line-height: 41.86rpx;
+  color: #000000;
+}
+
+.font_2 {
+  font-size: 22.67rpx;
+  font-family: Inter;
+  line-height: 16.71rpx;
+  color: #536471;
+}
+
+.text_3 {
+  color: #a9a9a9;
+  font-size: 24.42rpx;
+  line-height: 22.73rpx;
+}
+
+.tab-bar {
+  padding: 20.93rpx 104.65rpx 10.47rpx;
+  background-color: #ffffff;
+}
+.pos_3 {
+  position: absolute;
+  left: 103.83rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.pos_4 {
+  position: absolute;
+  right: 117.42rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 	.header {
 		display: flex;
@@ -169,4 +255,5 @@ export default {
 		}
 	}
 }
+
 </style>

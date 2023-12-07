@@ -90,19 +90,19 @@ export default {
 
 		handleHeaderClick() {
 			// Emit the click event for the header section
-			// console.log("header click");
+			console.log("header click");
 			this.$emit('header-click', this.detail);
 		},
 
 		handleBodyClick() {
 			// Emit the click event for the body section
-			// console.log("body click");
+			console.log("body click");
 			this.$emit('body-click', this.detail);
 		},
 
 		handleCardOptionClick() {
 			// Emit the click event for the card-option section
-			// console.log("card-option click");
+			console.log("card-option click");
 			this.$emit('card-option-click', this.detail);
 		},
 

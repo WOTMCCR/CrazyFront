@@ -24,28 +24,31 @@
         <!-- 使用 button 组件作为提交按钮，绑定 @click 事件 -->
 		
       </view>
-	  <view class="flex-col justify-start items-center text-wrapper" >
+	  <view class="flex-col justify-start items-center text-wrapper" @click="submit">
 	    <text class="timeline-text">+</text>
 	  </view>
-	  <arrangement
-	    :time="time1"
-	    :address="address1"
-	    :content="content1"
-	  ></arrangement>
-	  
-	  <!-- 第二次使用arrangement.vue -->
-	  <arrangement
-	    :time="time2"
-	    :address="address2"
-	    :content="content2"
-	  ></arrangement>
-	    
-	    <!-- 第三次使用arrangement.vue -->
-	    <arrangement
-	      :time="time3"
-	      :address="address3"
-	      :content="content3"
-	    ></arrangement>
+	 <arrangement
+	 	  :time="time1"
+	 	  :address="address1"
+	 	  :content="content1"
+	 	  
+	 	></arrangement>
+	 	
+	 	<!-- 第二次使用arrangement.vue -->
+	 	<arrangement
+	 	  :time="time2"
+	 	  :address="address2"
+	 	  :content="content2"
+	 	  
+	 	></arrangement>
+	 
+	     <!-- 第三次使用arrangement.vue -->
+	     <arrangement
+	       :time="time3"
+	       :address="address3"
+	       :content="content3"
+	 	  
+	     ></arrangement>
 		
 		<div class="flex-col items-center button submit-wrapper"   @click="submit">
 		    <span class="text_9">创建</span>
@@ -73,16 +76,20 @@
    		            content: '',
    		        },
    		
-   		time1: "12:00 PM",
-   		address1: "Location 1",
-   		content1: "Meeting 1 details",
-   		time2: "2:30 PM",
-   		address2: "Location 2",
-   		content2: "Meeting 2 details",
-   		time3: "4:00 PM",
-   		address3: "Location 3",
-   		content3: "Meeting 3 details",
+   		 time1: "12:00 PM",
+   		      address1: "Location 1",
+   		      content1: "Meeting 1 details",
+   			  color1: "linear-gradient(180deg, #ffd734 0%, #ffff7f 100%)",
+   		      time2: "2:30 PM",
+   		      address2: "Location 2",
+   		      content2: "Meeting 2 details",
+   			  color2: "linear-gradient(180deg, #00aaff 0%, #ffaaff 100%)",
+   		      time3: "4:00 PM",
+   		      address3: "Location 3",
+   		      content3: "Meeting 3 details",
+   			  color3: "linear-gradient(180deg, #ff557f 0%, #ff5500 100%)",
        };
+			
      },
      methods: {
    	  submit() {

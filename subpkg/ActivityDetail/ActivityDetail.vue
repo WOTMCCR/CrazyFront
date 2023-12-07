@@ -11,7 +11,7 @@
       </view>
     </view>
     <view class="flex-col items-start activity-details mt-41">
-      <text class="activity-title">标题：{{ title }}</text>
+      <text class="activity-title">标题：{{ totalcolor }}</text>
       <text class="activity-address">活动地址：{{ address }}</text>
       <text class="activity-time">时间：{{ time }}</text>
       <text class="activity-organizer">负责人：{{ organizer }}</text>
@@ -30,6 +30,7 @@
 	  :time="time1"
 	  :address="address1"
 	  :content="content1"
+	  :color="totalcolor"
 	></arrangement>
 	
 	<!-- 第二次使用arrangement.vue -->
@@ -37,6 +38,7 @@
 	  :time="time2"
 	  :address="address2"
 	  :content="content2"
+	  :color="totalcolor"
 	></arrangement>
 
     <!-- 第三次使用arrangement.vue -->
@@ -44,6 +46,7 @@
       :time="time3"
       :address="address3"
       :content="content3"
+	  :color="totalcolor"
     ></arrangement>
   </view>
 </template>
@@ -62,6 +65,7 @@ export default {
         id: "",
         avatar: ""
       },
+	  totalcolor: "linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)",
       timestamp: "",
       title: "",
       address: "",
@@ -72,6 +76,7 @@ export default {
       time1: "12:00 PM",
       address1: "Location 1",
       content1: "Meeting 1 details",
+	  color1: "666666",
       time2: "2:30 PM",
       address2: "Location 2",
       content2: "Meeting 2 details",
@@ -124,7 +129,7 @@ export default {
   .activity-section {
     margin: 20rpx 10.47rpx 0;
     padding: 34.88rpx 43.6rpx 104.65rpx;
-    background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+    background: totalcolor;
     border-radius: 55.81rpx;
     filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
   }

@@ -6,10 +6,13 @@
     </div>
 
     <!-- 包裹地点、内容的矩形 -->
-    <div class="content-wrapper">
+    <!-- 子组件中直接使用传递过来的 color 属性 -->
+    <div class="content-wrapper" :style="{ background: color }">
+
       <div class="rounded-rectangle">
         <div class="address">地点：{{ address }}</div>
         <div class="content">内容：{{ content }}</div>
+		<div class="content">颜色：{{ color }}</div>
       </div>
     </div>
   </div>
@@ -30,7 +33,11 @@ export default {
     content: {
       type: String,
       required: true
-    }
+    },
+	color: {
+	  type: String,
+	  required: true
+	}
   }
 };
 </script>
@@ -64,7 +71,7 @@ export default {
     width: 450rpx; /* 设置固定宽度 */
     padding: 10px; /* 设置内边距 */
     border-radius: 10px; /* 设置圆角 */
-    background-image: linear-gradient(180deg, #ffe837 0%, #ffaa7f 100%); /* 修改颜色 */
+    background-image: linear-gradient(180deg, #BEFEE6 0%, #FED5AD 100%); /* 修改颜色 */
   }
 
   .rounded-rectangle {

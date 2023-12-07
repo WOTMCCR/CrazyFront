@@ -30,7 +30,7 @@
 	  :time="time1"
 	  :address="address1"
 	  :content="content1"
-	  :color="totalcolor"
+	  :color="color1"
 	></arrangement>
 	
 	<!-- 第二次使用arrangement.vue -->
@@ -38,7 +38,7 @@
 	  :time="time2"
 	  :address="address2"
 	  :content="content2"
-	  :color="totalcolor"
+	  :color="color2"
 	></arrangement>
 
     <!-- 第三次使用arrangement.vue -->
@@ -46,7 +46,7 @@
       :time="time3"
       :address="address3"
       :content="content3"
-	  :color="totalcolor"
+	  :color="color3"
     ></arrangement>
   </view>
 </template>
@@ -65,7 +65,7 @@ export default {
         id: "",
         avatar: ""
       },
-	  totalcolor: "linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)",
+	  //totalcolor: "linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)",
       timestamp: "",
       title: "",
       address: "",
@@ -76,13 +76,15 @@ export default {
       time1: "12:00 PM",
       address1: "Location 1",
       content1: "Meeting 1 details",
-	  color1: "666666",
+	  color1: "linear-gradient(180deg, #ffd734 0%, #ffff7f 100%)",
       time2: "2:30 PM",
       address2: "Location 2",
       content2: "Meeting 2 details",
+	  color2: "linear-gradient(180deg, #00aaff 0%, #ffaaff 100%)",
       time3: "4:00 PM",
       address3: "Location 3",
       content3: "Meeting 3 details",
+	  color3: "linear-gradient(180deg, #ff557f 0%, #ff5500 100%)",
     };
   },
   mounted() {
@@ -129,8 +131,8 @@ export default {
   .activity-section {
     margin: 20rpx 10.47rpx 0;
     padding: 34.88rpx 43.6rpx 104.65rpx;
-    background: totalcolor;
     border-radius: 55.81rpx;
+	background: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
     filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
   }
 

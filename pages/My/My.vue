@@ -45,55 +45,54 @@ export default {
 		this.loadData();
 	},
 	methods: {
-		async loadData() {
-			try {
-				// Assuming you have a common API endpoint for both Activity and Moment data
-				//"/activity/findByUser/{userId}" :
-				const endpoint = this.currentTab === 0 ? "/activity/findByUserId/1" :
-					"/moment/findByUserId/1";
-				const {
-					statusCode,
-					data: res
-				} = await uni.$http.get(endpoint);
-				console.log(res);
-				console.log(statusCode);
-				if (statusCode == "200") {
-					console.log(this.currentTab);
-					// Update the corresponding list based on the current tab
-					this.List = res;
-					uni.$showMsg("Data loaded successfully");
-				} else {
-					console.error("Failed to load data. Server returned status code:", statusCode);
+			async loadData() {
+				try {
+					// Assuming you have a common API endpoint for both Activity and Moment data
+					//"/activity/findByUser/{userId}" :
+					const endpoint = this.currentTab === 0 ? "/activity/findByUserId/1" :
+						"/moment/findByUserId/1";
+					const {
+						statusCode,
+						data: res
+					} = await uni.$http.get(endpoint);
+					console.log(res);
+					console.log(statusCode);
+					if (statusCode == "200") {
+						console.log(this.currentTab);
+						// Update the corresponding list based on the current tab
+						this.List = res;
+						uni.$showMsg("Data loaded successfully");
+					} else {
+						console.error("Failed to load data. Server returned status code:", statusCode);
+					}
+				} catch (error) {
+					console.error("Error fetching data:", error);
+				} finally {
+					uni.hideLoading();
 				}
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			} finally {
-				uni.hideLoading();
-			}
+			},
+			gotoDetail(item) {
+				let url;
+					if(this.currentTab===0){
+						url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;	
+					}else if (this.currentTab===1){
+						url='/subpkg/MomentDetail/MomentDetail?id=' + item.id;
+					}
+					uni.navigateTo({
+						url: url
+					});
+			},
+			changeTab(tabIndex) {
+				this.currentTab = tabIndex;
+				this.loadData();
+			},
+			swiperChange(e) {
+				this.currentTab = e.detail.current;
+				this.loadData();
+			},
 		},
-		gotoDetail(item) {
-			let url;
-				if(this.currentTab===0){
-					url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;	
-				}else if (this.currentTab===1){
-					url='/subpkg/MomentDetail/MomentDetail?id=' + item.id;
-				}
-				uni.navigateTo({
-					url: url
-				});
-		},
-		changeTab(tabIndex) {
-			this.currentTab = tabIndex;
-			this.loadData();
-		},
-		swiperChange(e) {
-			this.currentTab = e.detail.current;
-			this.loadData();
-
-		},
-	},
-};
-</script>
+	};
+	</script>
 
 <style scoped lang="scss">
 .my {

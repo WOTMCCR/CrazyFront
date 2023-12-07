@@ -6,7 +6,8 @@
     </div>
 
     <!-- 包裹地点、内容的矩形 -->
-    <div class="content-wrapper">
+    <!-- 子组件中直接使用传递过来的 color 属性 -->
+    <div class="content-wrapper" :style="{ background: color }">
       <div class="rounded-rectangle">
         <div class="address">地点：{{ address }}</div>
         <div class="content">内容：{{ content }}</div>
@@ -30,7 +31,11 @@ export default {
     content: {
       type: String,
       required: true
-    }
+    },
+	color: {
+	  type: String,
+	  required: true
+	}
   }
 };
 </script>
@@ -43,8 +48,8 @@ export default {
   }
 
   .time-wrapper {
-    width: 100px; /* 设置固定宽度 */
-    height: 50px; /* 设置固定高度 */
+    width: 80px; /* 设置固定宽度 */
+    height: 40px; /* 设置固定高度 */
     background-image: linear-gradient(180deg, #3366cc 0%, #3399ff 100%); /* 修改颜色 */
     border-radius: 10px; /* 设置圆角 */
     display: flex;
@@ -55,7 +60,7 @@ export default {
   }
 
   .time {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
   }
 
@@ -64,7 +69,7 @@ export default {
     width: 450rpx; /* 设置固定宽度 */
     padding: 10px; /* 设置内边距 */
     border-radius: 10px; /* 设置圆角 */
-    background-image: linear-gradient(180deg, #ffe837 0%, #ffaa7f 100%); /* 修改颜色 */
+    background: linear-gradient(180deg, #82c7e7 0%, #3897F0 100%); /* 修改颜色 */
   }
 
   .rounded-rectangle {

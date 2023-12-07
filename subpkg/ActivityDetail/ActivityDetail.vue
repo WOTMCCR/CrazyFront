@@ -1,51 +1,49 @@
 <template>
   <view class="flex-col activity-section">
-    <view class="flex-row items-center">
-      <image
-        class="user-avatar"
-        :src="user.avatar"
-      />
-      <view class="flex-col items-start user-info">
-        <text class="user-name">{{ user.name }}</text>
-        <text class="timestamp">{{ timestamp }}</text>
+      <view class="flex-row items-center">
+        <image
+          class="user-avatar"
+          :src="user.avatar"
+        />
+        <view class="flex-col items-start user-info">
+          <text class="user-name">{{ user.name }}</text>
+          <text class="timestamp">{{ timestamp }}</text>
+        </view>
       </view>
+      <view class="flex-col items-start activity-details mt-41">
+        <text class="activity-title">标题：{{ title }}</text>
+        <text class="activity-address">活动地址：{{ address }}</text>
+        <text class="activity-time">时间：{{ time }}</text>
+        <text class="activity-organizer">负责人：{{ organizer }}</text>
+        <text class="activity-requirements">要求：{{ requirements }}</text>
+        <text class="activity-introduction">介绍：{{ introduction }}</text>
+      </view>
+  
+      <view class="flex-col justify-start items-center text-wrapper">
+        <text class="timeline-text">时间线</text>
+      </view>
+  	
+  	<!-- 第一次使用arrangement.vue -->
+  	<arrangement
+  	  :time="time1"
+  	  :address="address1"
+  	  :content="content1"
+  	></arrangement>
+  	
+  	<!-- 第二次使用arrangement.vue -->
+  	<arrangement
+  	  :time="time2"
+  	  :address="address2"
+  	  :content="content2"
+  	></arrangement>
+  
+      <!-- 第三次使用arrangement.vue -->
+      <arrangement
+        :time="time3"
+        :address="address3"
+        :content="content3"
+      ></arrangement>
     </view>
-    <view class="flex-col items-start activity-details mt-41">
-      <text class="activity-title">标题：{{ title }}</text>
-      <text class="activity-address">活动地址：{{ address }}</text>
-      <text class="activity-time">时间：{{ time }}</text>
-      <text class="activity-organizer">负责人：{{ organizer }}</text>
-      <text class="activity-requirements">要求：{{ requirements }}</text>
-      <text class="activity-introduction">介绍：{{ introduction }}</text>
-    </view>
-
-    
-
-    <view class="flex-col justify-start items-center text-wrapper">
-      <text class="timeline-text">时间线</text>
-    </view>
-	
-	<!-- 第一次使用arrangement.vue -->
-	<arrangement
-	  :time="time1"
-	  :address="address1"
-	  :content="content1"
-	></arrangement>
-	
-	<!-- 第二次使用arrangement.vue -->
-	<arrangement
-	  :time="time2"
-	  :address="address2"
-	  :content="content2"
-	></arrangement>
-
-    <!-- 第三次使用arrangement.vue -->
-    <arrangement
-      :time="time3"
-      :address="address3"
-      :content="content3"
-    ></arrangement>
-  </view>
 </template>
 
 <script>

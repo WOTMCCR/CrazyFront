@@ -1,14 +1,5 @@
-  <template>
-	<!-- Navigation options -->
-	<view class="navigation-options">
-		<navigator :style="{ color: currentTab === 0 ? '#ff0000' : '#333333' }" @click="changeTab(0)">
-			<button class="button">个人</button>
-		</navigator>
-		<navigator :style="{ color: currentTab === 1 ? '#ff0000' : '#333333' }" @click="changeTab(1)">
-			<button class="button">组织</button>
-		</navigator>
-	</view>
-
+<template>
+	<uni-segmented-control v-model="currentTab" :values="tabs" @click="changeTab(1)" />
 	<!-- Swiper for left-right swiping -->
 	<!-- Activity List -->
 	<!-- 边缘空白 -->
@@ -21,16 +12,51 @@
 			<text>No activity data available.</text>
 		</view>
 	</view>
+	<navigator @click="handleFabClick()">
+		<uni-fab :pattern="pattern" horizontal="right" vertical="bottom"  />
+	</navigator>
+	<view class="flex-col justify-start items-center text-wrapper">
+	    <text class="timeline-text">时间线</text>
+	  </view>
+	
+	<!-- 第一次使用arrangement.vue -->
+	<arrangement
+	  :time="time1"
+	  :address="address1"
+	  :content="content1"
+	></arrangement>
+	
+	<!-- 第二次使用arrangement.vue -->
+	<arrangement
+	  :time="time2"
+	  :address="address2"
+	  :content="content2"
+	></arrangement>
+	  
+	  <!-- 第三次使用arrangement.vue -->
+	  <arrangement
+	    :time="time3"
+	    :address="address3"
+	    :content="content3"
+	  ></arrangement>
+	  
 </template>
 
-  <script>
-  	export default {
-  		data() {
-  			return {
-  				official: 1,
-  				currentTab: 0,
-  				List: [],
-
+<script>
+	import unisegmentedcontrol from '../../uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue';
+	export default {
+		components:{},
+		data() {
+			return {
+				official: 1,
+				currentTab: 0,
+				tabs: ['动态', '活动'],
+				List: [],
+				pattern: {
+				        color: '#00557f',
+				        backgroundColor: '#FFFFFF',
+				        buttonColor: '#00557f',
+				},
 			};
 		},
 		onLoad() {
@@ -40,14 +66,14 @@
 			console.log('卡片被点击了');
 			// 在这里可以添加处理点击事件的逻辑
 		},
-		personalButtonClick: function() {
-			// 调用个人按钮相关的后端方法
-			console.log('个人按钮被点击了');
+		activityButtonClick: function() {
+			// 调用活动按钮相关的后端方法
+			console.log('按钮被点击了');
 			// 在这里可以添加具体的后端方法调用逻辑
 		},
 
-		// 点击“组织”按钮时触发的方法
-		organizationButtonClick: function() {
+		// 点击动态按钮时触发的方法
+		momentButtonClick: function() {
 			// 调用组织按钮相关的后端方法
 			console.log('组织按钮被点击了');
 			// 在这里可以添加具体的后端方法调用逻辑
@@ -79,6 +105,14 @@
 					uni.hideLoading();
 				}
 			},
+			handleFabClick() {
+			    // 处理悬浮按钮点击事件
+			    console.log('Floating Action Button clicked');
+
+			    uni.navigateTo({
+			        url: '/pages/Square/CreateA'
+			    });
+			},
 			gotoDetail(item) {
 				let url;
 				if(this.currentTab===0){
@@ -92,7 +126,7 @@
 			
 			},
 			clickCard(){
-				console.log('***'),
+				console.log('***');
 				//跳转到详情页面，并传递卡片的唯一标识
 				wx.navigateTo({	
 					// url:'/pages/Square/Detail',
@@ -113,6 +147,7 @@
 </script>
 
 <style scoped>
+
 	.square {
 		padding-left: 40.12rpx;
 		padding-right: 40.12rpx;
@@ -134,7 +169,7 @@
 		padding: 10rpx 40rpx;
 		width: 200rpx;
 		border-radius: 20rpx;
-		background-color: #007aff;
+		background-color: #4891da;
 		color: #fff;
 		font-size: 40rpx;
 		font-family: "楷体";
@@ -142,6 +177,6 @@
 	}
 
 	.button.active {
-		background-color: #0059c6;
+		background-color: #00aaff;
 	}
 </style>

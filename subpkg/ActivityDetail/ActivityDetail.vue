@@ -11,7 +11,7 @@
       </view>
     </view>
     <view class="flex-col items-start activity-details mt-41">
-      <text class="activity-title">标题：{{ totalcolor }}</text>
+      <text class="activity-title">标题：{{ title }}</text>
       <text class="activity-address">活动地址：{{ address }}</text>
       <text class="activity-time">时间：{{ time }}</text>
       <text class="activity-organizer">负责人：{{ organizer }}</text>
@@ -61,18 +61,18 @@ export default {
   data() {
     return {
       user: {
-        name: "",
+        name: "第一个用户",
         id: "",
-        avatar: ""
+        avatar: "https://ide.code.fun/api/image?token=6571e7e5fcfbac001137a00a&name=c2c19904ed48e72c673d99a1d72c81c5.png"
       },
 	  //totalcolor: "linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)",
-      timestamp: "",
-      title: "",
-      address: "",
-      time: "",
-      organizer: "",
-      requirements: "",
-      introduction: "",
+      timestamp: "今日12:00",
+      title: "第一个活动",
+      address: "深圳大学",
+      time: "2023-12-7",
+      organizer: "负责人",
+      requirements: "到现场参加活动",
+      introduction: "这是简介",
       time1: "12:00 PM",
       address1: "Location 1",
       content1: "Meeting 1 details",

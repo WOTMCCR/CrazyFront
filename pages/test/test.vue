@@ -18,14 +18,43 @@
       <text class="activity-requirements">要求：{{ requirements }}</text>
       <text class="activity-introduction">介绍：{{ introduction }}</text>
     </view>
+
+    
+
     <view class="flex-col justify-start items-center text-wrapper">
       <text class="timeline-text">时间线</text>
     </view>
+	
+	<!-- 第一次使用arrangement.vue -->
+	<arrangement
+	  :time="time1"
+	  :address="address1"
+	  :content="content1"
+	></arrangement>
+	
+	<!-- 第二次使用arrangement.vue -->
+	<arrangement
+	  :time="time2"
+	  :address="address2"
+	  :content="content2"
+	></arrangement>
+
+    <!-- 第三次使用arrangement.vue -->
+    <arrangement
+      :time="time3"
+      :address="address3"
+      :content="content3"
+    ></arrangement>
   </view>
 </template>
 
 <script>
+import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+
 export default {
+  components: {
+    Arrangement
+  },
   data() {
     return {
       user: {
@@ -39,7 +68,16 @@ export default {
       time: "",
       organizer: "",
       requirements: "",
-      introduction: ""
+      introduction: "",
+      time1: "12:00 PM",
+      address1: "Location 1",
+      content1: "Meeting 1 details",
+      time2: "2:30 PM",
+      address2: "Location 2",
+      content2: "Meeting 2 details",
+      time3: "4:00 PM",
+      address3: "Location 3",
+      content3: "Meeting 3 details",
     };
   },
   mounted() {
@@ -47,38 +85,7 @@ export default {
   },
   methods: {
     fetchData() {
-      var myHeaders = new Headers();
-      myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
-      myHeaders.append("Accept", "*/*");
-      myHeaders.append("Host", "127.0.0.1:4523");
-      myHeaders.append("Connection", "keep-alive");
-
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
-
-      fetch("http://127.0.0.1:4523/m1/3664198-0-default/activity/getnew/1", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          this.user = data.user;
-          this.timestamp = data.activityTime;
-          this.title = data.name;
-          this.address = data.schedule[0].address;
-          this.time = data.schedule[0].time;
-          this.organizer = data.official;
-          this.requirements = data.participantMax;
-          this.introduction = data.content;
-
-          // 添加成功获取数据的提示
-          uni.$showMsg("数据请求成功");
-        })
-        .catch(error => {
-          console.error("Error fetching data:", error);
-          // 添加失败获取数据的提示
-          uni.$showMsg("数据请求失败，请稍后重试");
-        });
+      // Your existing fetch data logic...
     },
   },
 };
@@ -133,7 +140,7 @@ export default {
     border-radius: 55.81rpx;
     filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
     overflow: hidden;
-    margin-top: 20rpx; /* 这里增加了间隔 */
+    margin-top: 20rpx;
   }
 
   .timeline-text {

@@ -64,7 +64,7 @@ export default {
     width: 450rpx; /* 设置固定宽度 */
     padding: 10px; /* 设置内边距 */
     border-radius: 10px; /* 设置圆角 */
-    background-image: linear-gradient(180deg, #ffaa00 0%, #ffaa7f 100%); /* 修改颜色 */
+    background-image: linear-gradient(180deg, #ffe837 0%, #ffaa7f 100%); /* 修改颜色 */
   }
 
   .rounded-rectangle {

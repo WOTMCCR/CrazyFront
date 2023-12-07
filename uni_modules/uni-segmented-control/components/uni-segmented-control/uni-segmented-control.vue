@@ -52,7 +52,7 @@
 			},
 			activeColor: {
 				type: String,
-				default: '#2979FF'
+				default: '#2777f6'
 			},
 			styleType: {
 				type: String,
@@ -122,13 +122,13 @@
 
 	.segmented-control__item--button--first {
 		border-left-width: 1px;
-		border-top-left-radius: 5px;
-		border-bottom-left-radius: 5px;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
 	}
 
 	.segmented-control__item--button--last {
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
 	}
 
 	.segmented-control__item--text {
@@ -138,7 +138,7 @@
 	}
 
 	.segmented-control__text {
-		font-size: 14px;
+		font-size: 18px;
 		line-height: 20px;
 		text-align: center;
 	}

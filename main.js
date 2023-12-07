@@ -11,15 +11,16 @@ $http.baseUrl = "http://47.115.222.16:8080"
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
+import router from './router' // 引入 Vue Router
 
 Vue.config.productionTip = false
 
 App.mpType = 'app'
 
-const app = new Vue({
-	...App
-})
-app.$mount()
+new Vue({
+  render: h => h(App),
+  router
+}).$mount('#app')
 // #endif
 
 // #ifdef VUE3
@@ -43,7 +44,7 @@ $http.beforeRequest = function(options) {
 	})
 }
 
-$http.afterRequset = function() {
+$http.afterRequest = function() {
 	uni.hideLoading()
 }
 

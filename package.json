@@ -1,7 +1,9 @@
 {
 	"dependencies": {
 		"@escook/request-miniprogram": "^0.2.1",
+		"axios": "^1.6.2",
 		"better-mock": "^0.3.7",
-		"json-server": "^0.17.4"
+		"json-server": "^0.17.4",
+		"vue-axios": "^3.5.2"
 	}
 }

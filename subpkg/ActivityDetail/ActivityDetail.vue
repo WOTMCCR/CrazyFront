@@ -76,15 +76,15 @@ export default {
       time1: "12:00 PM",
       address1: "Location 1",
       content1: "Meeting 1 details",
-	  color1: "linear-gradient(180deg, #ffd734 0%, #ffff7f 100%)",
+	  color1: "linear-gradient(180deg, #F7E0EB 0%, #FED5AD 100%)",
       time2: "2:30 PM",
       address2: "Location 2",
       content2: "Meeting 2 details",
-	  color2: "linear-gradient(180deg, #00aaff 0%, #ffaaff 100%)",
+	  color2: "linear-gradient(180deg, #FED5AD 0%, #A1E8FF 100%)",
       time3: "4:00 PM",
       address3: "Location 3",
       content3: "Meeting 3 details",
-	  color3: "linear-gradient(180deg, #ff557f 0%, #ff5500 100%)",
+	  color3: "linear-gradient(180deg, #A1E8FF 0%, #A1E8FF 100%)",
     };
   },
   mounted() {
@@ -128,14 +128,15 @@ export default {
     line-height: 25.85rpx;
   }
 
-  .activity-section {
+.activity-section {
     margin: 20rpx 10.47rpx 0;
     padding: 34.88rpx 43.6rpx 104.65rpx;
     border-radius: 55.81rpx;
-	background: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+    background: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
     filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+    overflow-y: auto; /* 启用垂直滚动 */
+    max-height: 100vh; /* 设置最大高度为屏幕高度 */
   }
-
   .activity-details {
     padding: 0 13.95rpx;
     margin-top: 71.51rpx;

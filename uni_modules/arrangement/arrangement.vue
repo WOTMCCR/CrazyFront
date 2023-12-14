@@ -8,9 +8,11 @@
     <!-- 包裹地点、内容的矩形 -->
     <!-- 子组件中直接使用传递过来的 color 属性 -->
     <div class="content-wrapper" :style="{ background: color }">
+
       <div class="rounded-rectangle">
         <div class="address">地点：{{ address }}</div>
         <div class="content">内容：{{ content }}</div>
+		<!-- <div class="content">颜色：{{ color }}</div> -->
       </div>
     </div>
   </div>
@@ -42,42 +44,51 @@ export default {
 
 <style scoped>
   .arrangement {
-    display: flex; /* 使用 flex 布局 */
-    align-items: center; /* 垂直居中 */
-    margin-top: 20px; /* 保持一定的上方间隔，可根据需要调整 */
-  }
-
-  .time-wrapper {
-    width: 80px; /* 设置固定宽度 */
-    height: 40px; /* 设置固定高度 */
-    background-image: linear-gradient(180deg, #3366cc 0%, #3399ff 100%); /* 修改颜色 */
-    border-radius: 10px; /* 设置圆角 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; /* 设置文字颜色为白色 */
-    margin-right: 10px; /* 添加右侧间距，可根据需要调整 */
-  }
-
-  .time {
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  .content-wrapper {
-    /* 样式可以根据需要自行修改 */
-    width: 450rpx; /* 设置固定宽度 */
-    padding: 10px; /* 设置内边距 */
-    border-radius: 10px; /* 设置圆角 */
-    background: linear-gradient(180deg, #82c7e7 0%, #3897F0 100%); /* 修改颜色 */
-  }
-
+      width: 100%; /* Use percentage width for responsiveness */
+      max-width: 650rpx; /* Set a maximum width if needed */
+      display: flex;
+      align-items: center;
+      padding: 0;
+      border-radius: 30px;
+      margin-top: 25px;
+      background-image: linear-gradient(180deg, #fed0a9 0%, #fe8762 100%);
+    }
+  
+    .time-wrapper {
+      flex: 0 0 auto; /* Don't grow, don't shrink, use the content's size */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      margin:0 4px 0 4px; /* Add some right margin, adjust as needed */
+    }
+  
+    .time {
+      font-size: 14px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+    }
+  
+    .content-wrapper {
+      flex: 1; /* Grow to fill available space */
+      padding: 20px;
+      border-radius: 30px;
+      background-image: linear-gradient(180deg, #BEFEE6 0%, #FED5AD 100%);
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+	
   .rounded-rectangle {
     width: 100%; /* 使用百分比使其占满剩余宽度 */
   }
 
   .address,
   .content {
+    font-size: 14px;
     margin-bottom: 5px;
+	text-align: center; /* 文本水平居中 */
   }
 </style>

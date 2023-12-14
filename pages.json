@@ -58,63 +58,8 @@
 				"navigationBarTitleText": "测试",
 				"enablePullDownRefresh": false
 			}
-		},
-		{
-			"path": "pages/test/test2",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test3",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test4",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test5",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test6",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test7",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test8",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test9",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
 		}
+		
 	],
 	"subPackages": [{
 		"root": "subpkg",

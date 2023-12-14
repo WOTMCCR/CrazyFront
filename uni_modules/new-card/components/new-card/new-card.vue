@@ -5,7 +5,7 @@
 			@touchend="onTouchEnd('header')">
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
-				<text class="name">{{ detail.user.name }}</text>
+				<text class="name">{{ detail.user.username }}</text>
 				<text class="time">时间:{{ formattedTime }}</text>
 			</view>
 		</view>
@@ -71,16 +71,16 @@ export default {
 			if (direction === 'left' || direction === 'right') {
 				switch (section) {
 					case 'header':
-						console.log("header swipe " + direction);
-						this.$emit('header-swipe', direction, this.detail);
+						// console.log("header swipe " + direction);
+						uni.$emit('header-swipe', direction);
 						break;
 					case 'body':
-						console.log("body swipe " + direction);
-						this.$emit('body-swipe', direction, this.detail);
+						// console.log("body swipe " + direction);
+						uni.$emit('body-swipe', direction);
 						break;
 					case 'card-option':
-						console.log("card-option swipe " + direction);
-						this.$emit('card-option-swipe', direction, this.detail);
+						// console.log("card-option swipe " + direction);
+						uni.$emit('card-option-swipe', direction);
 						break;
 					default:
 						break;

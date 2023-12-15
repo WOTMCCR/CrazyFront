@@ -86,7 +86,7 @@
 	        // 调用 uni.request 发送请求
 	        uni.request({
 	          // 请求地址
-	          url: 'http://localhost:8080/api/activity',
+	          url: 'http://47.115.222.16:8080',
 	          // 请求方式
 	          method: 'POST',
 	          // 请求参数

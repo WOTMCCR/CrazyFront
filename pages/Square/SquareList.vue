@@ -19,26 +19,28 @@
 	    <text class="timeline-text">时间线</text>
 	  </view>
 	
-	<!-- 第一次使用arrangement.vue -->
 	<arrangement
-	  :time="time1"
-	  :address="address1"
-	  :content="content1"
-	></arrangement>
+		  :time="time1"
+		  :address="address1"
+		  :content="content1"
+		  :color="color1"
+		></arrangement>
+		
+		<!-- 第二次使用arrangement.vue -->
+		<arrangement
+		  :time="time2"
+		  :address="address2"
+		  :content="content2"
+		  :color="color2"
+		></arrangement>
 	
-	<!-- 第二次使用arrangement.vue -->
-	<arrangement
-	  :time="time2"
-	  :address="address2"
-	  :content="content2"
-	></arrangement>
-	  
-	  <!-- 第三次使用arrangement.vue -->
-	  <arrangement
-	    :time="time3"
-	    :address="address3"
-	    :content="content3"
-	  ></arrangement>
+	    <!-- 第三次使用arrangement.vue -->
+	    <arrangement
+	      :time="time3"
+	      :address="address3"
+	      :content="content3"
+		  :color="color3"
+	    ></arrangement>
 	  
 </template>
 

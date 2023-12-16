@@ -1,7 +1,6 @@
 
 <template>
 	<div>
-	  <p >here need a logo</p>
 	  
 	  <form class="login-form" v-if="!isRegister">
 		<div class="slogan">疯吧<br />打破芥蒂，追寻真理</div>

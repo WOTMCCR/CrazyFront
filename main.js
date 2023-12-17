@@ -12,7 +12,10 @@ $http.baseUrl = "http://47.115.222.16:8080"
 import Vue from 'vue'
 import App from './App'
 import router from './router' // 引入 Vue Router
+import Axios from 'axios'
+import VueAxios from 'vue-axios'
 
+Vue.use(VueAxios,axios)
 Vue.config.productionTip = false
 
 App.mpType = 'app'
@@ -28,6 +31,7 @@ import {
 	createSSRApp
 } from 'vue'
 import App from './App.vue'
+import axios from 'axios'
 export function createApp() {
 	const app = createSSRApp(App)
 	return {

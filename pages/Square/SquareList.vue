@@ -54,6 +54,12 @@
 				currentTab: 0,
 				tabs: ['动态', '活动'],
 				List: [],
+        pageQuery: {
+          pageNo: 1,
+          pageSize: 10,
+          isAsc: '',
+          sortBy: '',
+        },
 				pattern: {
 				        color: '#00557f',
 				        backgroundColor: '#FFFFFF',
@@ -61,7 +67,11 @@
 				},
 			};
 		},
-		onLoad() {
+		onLoad(options) {
+      this.pageQuery.pageNo = options.pageNo || 1;
+      this.pageQuery.pageSize = options.pageSize || 10;
+      this.pageQuery.isAsc = options.isAsc || '';
+      this.pageQuery.sortBy = options.sortBy || '';
 			this.loadData();
 		},
 		onCardClick: function() {
@@ -86,11 +96,17 @@
 					// Assuming you have a common API endpoint for both Activity and Moment data
 					const endpoint = this.currentTab === 0 ? "/activity/isOfficial/0":
 						"/moment/isOfficial/0";
-
+          const filteredPageQuery = Object.fromEntries(
+              Object.entries(this.pageQuery).filter(([key, value]) => value !== '' && value !== undefined)
+          );
+          console.log(this.pageQuery);
 					const {
 						statusCode,
 						data: res
-					} = await uni.$http.get(endpoint);
+					} = await uni.$http.post(
+              endpoint,
+              this.filteredPageQuery
+          );
 					console.log(res);
 					console.log(statusCode);
 					if (statusCode == "200") {

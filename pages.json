@@ -1,117 +1,38 @@
 {
-	"easycom": {
-		"autoscan": true,
-		"custom": {
-			// uni-ui 规则如下配置
-			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-		}
-	},
 	"pages": [{
 			"path": "pages/Login/Login",
 			"style": {
-				"navigationBarTitleText": "登录",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/Square/SquareList",
 			"style": {
-				"navigationBarTitleText": "疯吧",
+				//"navigationBarTitleText": "",
 				"enablePullDownRefresh": true
 			}
 
-		},
-		{
-			"path" : "pages/Square/CreateA",
-			"style" : 
-			{
-				"navigationBarTitleText" : "创建活动",
-				"enablePullDownRefresh" : false
-			}
 		},
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "主页",
+				// "navigationBarTitleText": "",
 				"enablePullDownRefresh": true
 			}
 
-		},
-		{
-			"path": "pages/home/CreateM",
-			"style": {
-				"navigationBarTitleText": "创建动态",
-				"enablePullDownRefresh": true
-			}
 		},
 		{
 			"path": "pages/My/My",
 			"style": {
-				"navigationBarTitleText": "我的",
+				// "navigationBarTitleText": "",
 				"enablePullDownRefresh": true
 			}
 
 		},
 		{
-			"path": "pages/test/test1",
+			"path": "pages/test/test",
 			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test2",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test3",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test4",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test5",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test6",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test7",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test8",
-			"style": {
-				"navigationBarTitleText": "测试",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/test/test9",
-			"style": {
-				"navigationBarTitleText": "测试",
+				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		}
@@ -121,14 +42,14 @@
 		"pages": [{
 				"path": "MomentDetail/MomentDetail",
 				"style": {
-					"navigationBarTitleText": "动态详情",
+					"navigationBarTitleText": "",
 					"enablePullDownRefresh": true
 				}
 			},
 			{
 				"path": "ActivityDetail/ActivityDetail",
 				"style": {
-					"navigationBarTitleText": "活动详情",
+					"navigationBarTitleText": "",
 					"enablePullDownRefresh": true
 				}
 			}
@@ -136,7 +57,7 @@
                     "path" : "testdetail/testdetail",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "测试详情",
+                    "navigationBarTitleText": "",
                     "enablePullDownRefresh": false
                 }
                 
@@ -146,12 +67,12 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "CrazyBar",
-		"navigationBarBackgroundColor": "#2e76e9",
+		"navigationBarBackgroundColor": "#337FFF",
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {
 		"list": [{
-				"pagePath": "pages/test/test1",
+				"pagePath": "pages/test/test",
 				"text": "测试",
 				"iconPath": "static/enroll.png",
 				"selectedIconPath": "static/enroll_cur.png"
@@ -165,17 +86,15 @@
 			{
 				"pagePath": "pages/Square/SquareList",
 				"text": "疯吧",
-				"iconPath": "static/c1.png",
-				"selectedIconPath": "static/uni.png"
-			}
-			// ,
-			// {
-			// 	"pagePath": "pages/home/home",
-			// 	"text": "首页",
-			// 	"iconPath": "static/c2.png",
-			// 	"selectedIconPath": "static/logo.png"
-			// }
-			,
+				"iconPath": "static/enroll.png",
+				"selectedIconPath": "static/enroll_cur.png"
+			},
+			{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home_cur.png"
+			},
 			{
 				"pagePath": "pages/My/My",
 				"text": "我的",

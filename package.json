@@ -1,9 +1,21 @@
+<<<<<<< HEAD
 {
 	"dependencies": {
 		"@escook/request-miniprogram": "^0.2.1",
+		"axios": "^1.6.2",
 		"better-mock": "^0.3.7",
 		"json-server": "^0.17.4",
-		"uview-ui": "^2.0.36",
-		"vue-fab": "^2.3.1"
+		"vue-axios": "^3.5.2"
 	}
 }
+=======
+{
+	"dependencies": {
+		"@escook/request-miniprogram": "^0.2.1",
+		"axios": "^1.6.2",
+		"better-mock": "^0.3.7",
+		"json-server": "^0.17.4",
+		"vue-axios": "^3.5.2"
+	}
+}
+>>>>>>> 7753e40fd70d2a9bcebe1f05f2cfa347529f85c8

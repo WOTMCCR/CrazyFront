@@ -24,14 +24,14 @@
         <!-- 使用 button 组件作为提交按钮，绑定 @click 事件 -->
 		
       </view>
-	  <view class="flex-col justify-start items-center text-wrapper" @click="submit">
+	  <view class="flex-col justify-start items-center text-wrapper" @click="addnew">
 	    <text class="timeline-text">+</text>
 	  </view>
 	 <arrangement
 	 	  :time="time1"
 	 	  :address="address1"
 	 	  :content="content1"
-	 	  
+	 	  :color="color1"
 	 	></arrangement>
 	 	
 	 	<!-- 第二次使用arrangement.vue -->
@@ -39,7 +39,7 @@
 	 	  :time="time2"
 	 	  :address="address2"
 	 	  :content="content2"
-	 	  
+	 	  :color="color2"
 	 	></arrangement>
 	 
 	     <!-- 第三次使用arrangement.vue -->
@@ -47,7 +47,7 @@
 	       :time="time3"
 	       :address="address3"
 	       :content="content3"
-	 	  
+	 	  :color="color3"
 	     ></arrangement>
 		
 		<div class="flex-col items-center button submit-wrapper"   @click="submit">
@@ -75,19 +75,18 @@
    		            color: 'linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%)',
    		            content: '',
    		        },
-   		
-   		 time1: "12:00 PM",
-   		      address1: "Location 1",
-   		      content1: "Meeting 1 details",
-   			  color1: "linear-gradient(180deg, #ffd734 0%, #ffff7f 100%)",
-   		      time2: "2:30 PM",
-   		      address2: "Location 2",
-   		      content2: "Meeting 2 details",
-   			  color2: "linear-gradient(180deg, #00aaff 0%, #ffaaff 100%)",
-   		      time3: "4:00 PM",
-   		      address3: "Location 3",
-   		      content3: "Meeting 3 details",
-   			  color3: "linear-gradient(180deg, #ff557f 0%, #ff5500 100%)",
+   	  time1: "1:00 PM",
+      address1: "Location 1",
+      content1: "Meeting 1 details",
+	  color1: "linear-gradient(180deg, #F7E0EB 0%, #FED5AD 100%)",
+      time2: "2:30 PM",
+      address2: "Location 2",
+      content2: "Meeting 2 details",
+	  color2: "linear-gradient(180deg, #FED5AD 0%, #A1E8FF 100%)",
+      time3: "4:00 PM",
+      address3: "Location 3",
+      content3: "Meeting 3 details",
+	  color3: "linear-gradient(180deg, #A1E8FF 0%, #8fbdee 100%)",
        };
 			
      },
@@ -97,7 +96,7 @@
 			console.log(this.formData);    	        // 调用 uni.request 发送请求
    	        uni.request({
    	          // 请求地址
-   	          url: '',
+   	          url: 'http://47.115.222.16:8080',
    	          // 请求方式
    	          method: 'POST',
    	          // 请求参数

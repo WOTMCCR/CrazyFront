@@ -82,7 +82,7 @@
 					    console.log('Floating Action Button clicked');
 		
 					    uni.navigateTo({
-					        url: '/pages/home/CreateM'
+					        url: '/pages/subpkg/MomentDetail/MomentDetail.vue'
 					    });
 					},
 					gotoDetail(item) {

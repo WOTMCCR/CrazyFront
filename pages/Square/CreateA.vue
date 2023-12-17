@@ -24,7 +24,7 @@
         <!-- 使用 button 组件作为提交按钮，绑定 @click 事件 -->
 		
       </view>
-	  <view class="flex-col justify-start items-center text-wrapper" @click="submit">
+	  <view class="flex-col justify-start items-center text-wrapper" @click="addnew">
 	    <text class="timeline-text">+</text>
 	  </view>
 	 <arrangement
@@ -96,7 +96,7 @@
 			console.log(this.formData);    	        // 调用 uni.request 发送请求
    	        uni.request({
    	          // 请求地址
-   	          url: '',
+   	          url: 'http://47.115.222.16:8080',
    	          // 请求方式
    	          method: 'POST',
    	          // 请求参数

@@ -1,57 +1,31 @@
 <template>
   <view class="flex-col section_3" :style="{ background: formData.color }">
     <div class="flex-row justify-end self-stretch">
-		<div class="relative section_8 ml-5" @click="changeColor('#ffffff')"></div>
-		<div class="section_9 ml-5" @click="changeColor('#F7E0EB')"></div>
-		<div class="relative section_6 ml-5" @click="changeColor('linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)')"></div>
-      	<div class="relative section_4" @click="changeColor('linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)')"></div>
-      	<div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #F7E0EB 0%, #FED5AD 100%)')"></div>
-      	<div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #D0F7FB 0%, #F7E0EB 100%)')"></div>
+        <div class="relative section_4" @click="changeColor('linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%)')"></div>
+        <div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #A1E8FF 0%, #3897F0 100%)')"></div>
+        <div class="relative section_6 ml-5" @click="changeColor('linear-gradient(180deg, #3897F0 0%, #7B61FF 100%)')"></div>
+        <div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%)')"></div>
+        <div class="relative section_8 ml-5" @click="changeColor('linear-gradient(180deg, #FFD700 0%, #FFA500 100%)')"></div>
+        <div class="section_9 ml-5" @click="changeColor('linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%)')"></div>
     </div>
     <view>
         <!-- 使用 span 标签显示标题 -->
-        <span class="self-start font title">标题</span>
+        <span class="self-start font title">安排内容</span>
         <!-- 使用 uni-easyinput 组件作为输入框，绑定 v-model 和 placeholder -->
-        <uni-easyinput v-model="formData.name" placeholder="请输入标题" > </uni-easyinput>
+        <uni-easyinput v-model="formData.content" placeholder="请输入安排内容" > </uni-easyinput>
 		<span class="self-start font title">时间</span>
 		<uni-easyinput v-model="formData.time" placeholder="请输入时间"></uni-easyinput>
         <span class="self-start font title">地点</span>
         <uni-easyinput v-model="formData.address" placeholder="请输入地点"></uni-easyinput>
-        <span class="self-start font title">联系方式</span>
-        <uni-easyinput v-model="formData.contact" placeholder="请输入负责人联系方式" ></uni-easyinput>
-        <span class="self-start font title">介绍</span>
-        <uni-easyinput v-model="formData.content" placeholder="请输入活动内容、主题等" ></uni-easyinput>
         <!-- 使用 button 组件作为提交按钮，绑定 @click 事件 -->
 		
       </view>
 	  <view class="flex-col justify-start items-center text-wrapper" @click="addnew">
 	    <text class="timeline-text">+</text>
 	  </view>
-	 <arrangement
-	 	  :time="time1"
-	 	  :address="address1"
-	 	  :content="content1"
-	 	  :color="color1"
-	 	></arrangement>
-	 	
-	 	<!-- 第二次使用arrangement.vue -->
-	 	<arrangement
-	 	  :time="time2"
-	 	  :address="address2"
-	 	  :content="content2"
-	 	  :color="color2"
-	 	></arrangement>
-	 
-	     <!-- 第三次使用arrangement.vue -->
-	     <arrangement
-	       :time="time3"
-	       :address="address3"
-	       :content="content3"
-	 	  :color="color3"
-	     ></arrangement>
 		
 		<div class="flex-col items-center button submit-wrapper"   @click="submit">
-		    <span class="text_9">创建</span>
+		    <span class="text_9">添加安排</span>
 		</div>
 	</view>
 </template>
@@ -68,34 +42,15 @@
    	          // 表单数据对象
 			  
    		formData: {
-   		            name: '',
    		            time: '',
    		            address: '',
-   		            contact: '',
    		            color: 'linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%)',
    		            content: '',
    		        },
-   	  time1: "1:00 PM",
-      address1: "Location 1",
-      content1: "Meeting 1 details",
-	  color1: "linear-gradient(180deg, #F7E0EB 0%, #FED5AD 100%)",
-      time2: "2:30 PM",
-      address2: "Location 2",
-      content2: "Meeting 2 details",
-	  color2: "linear-gradient(180deg, #FED5AD 0%, #A1E8FF 100%)",
-      time3: "4:00 PM",
-      address3: "Location 3",
-      content3: "Meeting 3 details",
-	  color3: "linear-gradient(180deg, #A1E8FF 0%, #8fbdee 100%)",
        };
 			
      },
      methods: {
-	  addnew() {
-		    uni.navigateTo({
-		      url: './CreateB.vue', // 根据实际文件路径修改
-		    });
-	    },
    	  submit() {
    	        console.log("submit function called"); // 打印函数调用信息
 			console.log(this.formData);    	        // 调用 uni.request 发送请求

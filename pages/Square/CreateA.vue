@@ -91,6 +91,11 @@
 			
      },
      methods: {
+	  addnew() {
+		    uni.navigateTo({
+		      url: './CreateB.vue', // 根据实际文件路径修改
+		    });
+	    },
    	  submit() {
    	        console.log("submit function called"); // 打印函数调用信息
 			console.log(this.formData);    	        // 调用 uni.request 发送请求

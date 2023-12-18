@@ -17,7 +17,8 @@
 			"path": "pages/Square/SquareList",
 			"style": {
 				"navigationBarTitleText": "疯吧",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},
@@ -33,7 +34,8 @@
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "主页",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},
@@ -48,7 +50,8 @@
 			"path": "pages/My/My",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},

@@ -141,88 +141,96 @@ export default {
   
 <style lang="scss">
 .new-card {
-	margin-top: 30rpx;
-	padding: 47.09rpx 55.81rpx 47.09rpx;
-	background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
-	// max-width: 100rpx;
-	// margin: 0 auto;
-	border-radius: 55.81rpx;
-	filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-	overflow: hidden;
+  min-height: 375rpx; // Set your desired minimum height here
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  padding: 47.09rpx 55.81rpx 47.09rpx;
+  background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+  border-radius: 55.81rpx;
+  filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+  overflow: hidden;
 
-	.header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 20rpx;
 
-		.avatar {
-			border-radius: 83.72rpx;
-			width: 83.72rpx;
-			height: 83.72rpx;
-		}
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
 
-		.NameAndTime {
-			display: flex;
-			flex-direction: column;
-			margin-left: 20rpx;
-			margin-top: 10rpx;
+    .avatar {
+      border-radius: 83.72rpx;
+      width: 83.72rpx;
+      height: 83.72rpx;
+    }
 
-			.name {
-				font-size: 27.91rpx;
-				//字体
-				font-family: open;
-				line-height: 21.59rpx;
-				font-weight: 600;
-				color: #000000;
-				margin-bottom: 15rpx;
-			}
+    .NameAndTime {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20rpx;
+      margin-top: 10rpx;
 
-			.time {
-				font-size: 27.91rpx;
-				font-family: Inter;
-				line-height: 25.85rpx;
-				color: #536471;
-			}
+      .name {
+        font-size: 27.91rpx;
+        font-family: open;
+        line-height: 21.59rpx;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 15rpx;
+      }
 
-		}
-	}
+      .time {
+        font-size: 27.91rpx;
+        font-family: Inter;
+        line-height: 25.85rpx;
+        color: #536471;
+      }
+    }
+  }
 
-	.text-body {
-		font-size: 27.91rpx;
-		font-family: Inter;
-		line-height: 41.86rpx;
-		color: #000000;
-		word-break: break-all;
-	}
+  .text-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Vertically center the text
+    align-items: center; // Horizontally center the text
+    font-size: 27.91rpx;
+    font-family: Inter;
+    line-height: 41.86rpx;
+    color: #000000;
+    word-break: break-all;
+    text-align: center;
+  }
 
-	.card-option {
-		margin-top: 40rpx;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 2.55rpx;
+  .card-option {
+    margin-top: 40rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2.55rpx;
 
-		.flex-row {
-			display: flex;
-			align-items: center;
+    .flex-row {
+      display: flex;
+      align-items: center;
 
-			.image_1,
-			.image_2,
-			.image_3 {
-				width: 30rpx;
-				height: 30rpx;
-				vertical-align: middle;
-			}
+      .image_1,
+      .image_2,
+      .image_3 {
+        width: 30rpx;
+        height: 30rpx;
+        vertical-align: middle;
+      }
 
-			.font {
-				margin-left: 10rpx;
-				font-size: 23rpx;
-				font-family: Inter;
-				color: #536471;
-			}
-		}
-	}
+      .font {
+        margin-left: 10rpx;
+        font-size: 23rpx;
+        font-family: Inter;
+        color: #536471;
+      }
+    }
+  }
 }
+
 </style>
 
   

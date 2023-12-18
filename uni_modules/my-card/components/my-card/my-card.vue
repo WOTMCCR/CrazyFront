@@ -4,7 +4,7 @@
     <view class="header">
       <image class="avatar" src="/static/humanhead.png" />
       <view class="NameAndTime">
-        <text class="name">{{ detail.user.username }}</text>
+        <text class="name">{{ detail.user.name }}</text>
         <text class="time">时间:{{ formattedTime }}</text>
       </view>
     </view>
@@ -33,6 +33,7 @@
 
 <script>
 export default {
+	
   data() {
     return {
       comment: "111",
@@ -64,6 +65,7 @@ export default {
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     },
   },
+
 };
 </script>
 

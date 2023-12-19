@@ -56,7 +56,7 @@ export default {
         backgroundColor: '#FFFFFF',
         buttonColor: '#00557f',
       },
-      code: '',
+      // code: '',
       pages: '',
       total: '',
       isloading: false,
@@ -100,7 +100,6 @@ export default {
           uni.$showMsg("Data loaded successfully");
           cb && cb()
         } else {
-          console.log(res);
           console.error("Failed to load data. Server returned status code:", statusCode);
         }
         this.isloading = false;

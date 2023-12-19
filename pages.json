@@ -89,6 +89,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "UserHome/UserHome",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
 	}],
 	"globalStyle": {

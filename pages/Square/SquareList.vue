@@ -100,7 +100,7 @@
   <!-- Activity List -->
   <!-- 边缘空白 -->
   <view class="square">
-    <view v-if="CardsList.length > 0" v-for="(item, index) in CardsList" :key="index" @click="gotoDetail(item)">
+    <view v-if="CardsList.length > 0" v-for="(item, index) in CardsList" :key="index">
       <new-card :detail="item">
       </new-card>
     </view>
@@ -108,6 +108,7 @@
       <text>No activity data available.</text>
     </view>
   </view>
+
   <navigator @click="handleFabClick()">
     <uni-fab :pattern="pattern" horizontal="right" vertical="bottom"/>
   </navigator>
@@ -123,6 +124,7 @@ export default {
   data() {
     return {
       showModal: false, // 控制模态框显示与隐藏
+
       minpeople: 0,
       maxpeople: 0,
       mincost: 0,
@@ -143,7 +145,7 @@ export default {
       //请求体
       pageQuery: {
         pageNo: 1,
-        pageSize: 6,
+        pageSize: 3,
         isAsc: '',
         sortBy: '',
       },
@@ -162,6 +164,10 @@ export default {
   onLoad(options) {
     this.pageQuery.isAsc = options.isAsc || '';
     this.pageQuery.sortBy = options.sortBy || '';
+    uni.$on('header-click', this.handleHeaderClick);
+    uni.$on('body-click', this.handleBodyClick);
+    uni.$on('card-swipe', this.handleCardSwipe);
+
     this.loadData();
   },
   onCardClick: function () {
@@ -222,18 +228,6 @@ export default {
         url: '/pages/Square/CreateA'
       });
     },
-    gotoDetail(item) {
-      let url;
-      if (this.currentTab === 0) {
-        url = '/subpkg/ActivityDetail/ActivityDetail?id=' + item.id;
-      } else if (this.currentTab === 1) {
-        url = '/subpkg/MomentDetail/MomentDetail?id=' + item.id;
-      }
-      uni.navigateTo({
-        url: url
-      });
-
-    },
     clickCard() {
       console.log('***');
       //跳转到详情页面，并传递卡片的唯一标识
@@ -254,22 +248,45 @@ export default {
         this.loadData();
       }
     },
-    onReachBottom() {
-      if (this.isloading) return
-      if (this.pageQuery.pageNo < this.pages) {
-        this.pageQuery.pageNo++;
-        this.loadData();
-      } else return uni.$showMsg('数据加载完毕!')
-
+    handleHeaderClick(id) {
+      let url;
+      url = '/subpkg/UserHome/UserHome?id=' + id;
+      console.log(url);
+      uni.navigateTo({
+        url: url
+      });
     },
-    onPullDownRefresh() {
-      // 1. 重置关键数据
-      this.pageQuery.pageNo = 1
-      this.total = 0
-      this.isloading = false
-      this.CardsList = []
-      // 2. 重新发起请求
-      this.loadData(() => uni.stopPullDownRefresh())
+    handleBodyClick(id) {
+      let url;
+      if (this.currentTab === 1) {
+        url = '/subpkg/ActivityDetail/ActivityDetail?id=' + id;
+      } else if (this.currentTab === 0) {
+        url = '/subpkg/MomentDetail/MomentDetail?id=' + id;
+      }
+      console.log(url);
+      uni.navigateTo({
+        url: url
+      });
+    },
+    handleCardSwipe(direction) {
+      //TODO:根据滑动方向切换tab
+      // console.log('Card swiped',direction);
+      // if(direction === 'left'){
+      //   this.pageQuery.pageNo = 1;
+      //   this.total = 0;
+      //   this.CardsList = [];
+      //   this.currentTab = 1;
+      //   this.loadData();
+      // }else if(direction === 'right'){
+      //   if(this.currentTab === 1){
+      //     this.pageQuery.pageNo = 1;
+      //     this.total = 0;
+      //     this.CardsList = [];
+      //     this.currentTab = 0;
+      //     this.loadData();
+      //   }
+      // }
+      // Handle card swipe if needed
     },
     swiperChange(e) {
       this.currentTab = e.detail.current;
@@ -375,14 +392,34 @@ export default {
       this.typeisofficial = !this.typeisofficial;
     },
   },
+  onReachBottom() {
+    console.log('buttom');
+    if (this.isloading) return
+    if (this.pageQuery.pageNo < this.pages) {
+      this.pageQuery.pageNo++;
+      this.loadData();
+    } else return uni.$showMsg('数据加载完毕!')
+
+  },
+  onPullDownRefresh() {
+    // 1. 重置关键数据
+    this.pageQuery.pageNo = 1
+    this.total = 0
+    this.isloading = false
+    this.CardsList = []
+    // 2. 重新发起请求
+    this.loadData(() => uni.stopPullDownRefresh())
+  },
+
 };
 </script>
 
 <style scoped>
 
 .square {
-  padding-left: 40.12rpx;
-  padding-right: 40.12rpx;
+  overflow-y: scroll;
+  padding-left: 60.12rpx;
+  padding-right: 60.12rpx;
 }
 
 .navigation-options {

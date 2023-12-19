@@ -1,21 +1,21 @@
 <template>
 	<view class="new-card" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
-		<!-- Header Section -->
-		<view class="header" @click="handleHeaderClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('header')">
-			<image class="avatar" src="/static/humanhead.png" />
-			<view class="NameAndTime">
-				<text class="name">{{ detail.user.name }}</text>
-				<text class="time">时间:{{ formattedTime }}</text>
-			</view>
-		</view>
+    <view class="header"  @touchstart="onTouchStart" @touchmove="onTouchMove"
+          @touchend="onTouchEnd('header')">
+      <image class="avatar" v-if="detail && detail.user" :src="detail.user.avatar" />
+<!--     detail && detail.user确保异步不报错          -->
+      <view class="NameAndTime" v-if="detail && detail.user">
+        <text class="name">{{ detail.user.name }}</text>
+        <text class="time">时间:{{ formattedTime }}</text>
+      </view>
+    </view>
 
 		<!-- Body Section -->
-		<text class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+		<text class="text-body"  @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('body')">{{ detail.content }}</text>
 
 		<!-- Card Option Section -->
-		<view class="card-option" @click="handleCardOptionClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+		<view class="card-option"  @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('card-option')">
 			<view class="flex-row">
 				<image class="image_1" src="/static/Vector.svg" />
@@ -34,12 +34,14 @@
 </template>
   
 <script>
+import {cname} from "better-mock/src/random/name";
+
 export default {
 	props: {
 		detail: {
 			type: Object,
 			default: () => ({})
-		}
+		},
 	},
 	data() {
 		return {
@@ -49,80 +51,74 @@ export default {
 			moveY: 0,
 		};
 	},
+  onLoad() {
+    console.log(this.detail);
+  },
 	methods: {
-		onTouchStart(e) {
-			this.startX = e.touches[0].clientX;
-			this.startY = e.touches[0].clientY;
-		},
-
-		onTouchMove(e) {
-			this.moveX = e.touches[0].clientX;
-			this.moveY = e.touches[0].clientY;
-		},
-
-		onTouchEnd(section) {
-			const deltaX = this.moveX - this.startX;
-			const deltaY = this.moveY - this.startY;
-
-			// Determine the direction of touch move (left or right)
-			const direction = Math.abs(deltaX) > Math.abs(deltaY) ? (deltaX > 0 ? 'right' : 'left') : '';
-
-			// Emit the swipe event for the specific section
-			if (direction === 'left' || direction === 'right') {
-				switch (section) {
-					case 'header':
-						// console.log("header swipe " + direction);
-						uni.$emit('header-swipe', direction);
-						break;
-					case 'body':
-						// console.log("body swipe " + direction);
-						uni.$emit('body-swipe', direction);
-						break;
-					case 'card-option':
-						// console.log("card-option swipe " + direction);
-						uni.$emit('card-option-swipe', direction);
-						break;
-					default:
-						break;
-				}
-			}
-		},
-
-		handleHeaderClick() {
-			// Emit the click event for the header section
-			console.log("header click");
-			this.$emit('header-click', this.detail);
-		},
-
-		handleBodyClick() {
-			// Emit the click event for the body section
-			console.log("body click");
-			this.$emit('body-click', this.detail);
-		},
-
-		handleCardOptionClick() {
-			// Emit the click event for the card-option section
-			console.log("card-option click");
-			this.$emit('card-option-click', this.detail);
-		},
-
-		handleHeaderSwipe() {
-			// Emit the swipe event for the header section
-			console.log("header swipe");
-			this.$emit('header-swipe', this.detail);
-		},
-
-		handleBodySwipe() {
-			// Emit the swipe event for the body section
-			console.log("body swipe");
-			this.$emit('body-swipe', this.detail);
-		},
-
-		handleCardOptionSwipe() {
-			// Emit the swipe event for the card-option section
-			this.$emit('card-option-swipe', this.detail);
-		},
-	},
+    onTouchEnd(section) {
+      const deltaX = this.moveX - this.startX;
+      const deltaY = this.moveY - this.startY;
+      // Calculate the time difference
+      const timeDiff = new Date().getTime() - this.touchStartTime;
+      // console.log("timeDiff: " + timeDiff);
+      // Determine the direction of touch move (left or right)
+      const direction = Math.abs(deltaX) > Math.abs(deltaY) ? (deltaX > 0 ? 'right' : 'left') : '';
+      // Check if it's a click (based on time difference)
+      if (timeDiff < 100) {
+        this.handleSectionClick(section);
+      } else {
+        // It's a swipe event
+        this.handleSectionSwipe(section, direction);
+      }
+    },
+    onTouchStart(e) {
+      this.startX = e.touches[0].clientX;
+      this.startY = e.touches[0].clientY;
+      this.touchStartTime = new Date().getTime();
+    },
+    onTouchMove(e) {
+    	this.moveX = e.touches[0].clientX;
+    	this.moveY = e.touches[0].clientY;
+    },
+    handleSectionClick(section) {
+      switch (section) {
+        case 'header':
+          // console.log("header click");
+          uni.$emit('header-click', this.detail.user.id);
+          break;
+        case 'body':
+          // console.log("body click");
+          uni.$emit('body-click', this.detail.id);
+          break;
+        case 'card-option':
+          // console.log("card-option click");
+          uni.$emit('card-option-click', this.detail.id);
+          break;
+        default:
+          break;
+      }
+    },
+    handleSectionSwipe(section, direction) {
+      uni.$emit('card-swipe', direction);
+      // Emit the swipe event for the specific section
+      switch (section) {
+        case 'header':
+          // console.log("header swipe " + direction);
+          uni.$emit('header-swipe', direction);
+          break;
+        case 'body':
+          // console.log("body swipe " + direction);
+          uni.$emit('body-swipe', direction);
+          break;
+        case 'card-option':
+          // console.log("card-option swipe " + direction);
+          uni.$emit('card-option-swipe', direction);
+          break;
+        default:
+          break;
+      }
+    }
+  },
 	computed: {
 		// 将从后端获取的时间字符串格式化 detail.createTime
 		formattedTime() {
@@ -151,7 +147,6 @@ export default {
   border-radius: 55.81rpx;
   filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
   overflow: hidden;
-
 
   .header {
     display: flex;

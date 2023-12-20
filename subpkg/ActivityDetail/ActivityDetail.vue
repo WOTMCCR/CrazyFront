@@ -11,7 +11,7 @@
         </view>
       </view>
       <view class="flex-col items-start activity-details mt-41">
-        <text class="activity-title">标题：{{ title }}</text>
+        <view class="activity-title">标题：{{ detail.name }}</view>
         <text class="activity-address">活动地址：{{ address }}</text>
         <text class="activity-time">时间：{{ time }}</text>
         <text class="activity-organizer">负责人：{{ organizer }}</text>

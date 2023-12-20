@@ -15,50 +15,21 @@
 	      <!-- 模态框内容 -->
 	      <div class="modal-content">
 	        <!-- 这里可以放模态框的内容，例如提示信息、搜索结果等 -->
-	        <div class="min-people-container">
-	                  <div>
-	                    最小参加人数：{{ minpeople }}
-	                  </div>
-	                  <div class="min-people-buttons">
-	                    <button class="change-button" @click="decreaseMinPeople1" :disabled="minpeople === 0">-1</button>
-						<button class="change-button" @click="decreaseMinPeople5" :disabled="minpeople <= 4">-5</button>
-						<button class="change-button" @click="increaseMinPeople5">+5</button>
-	                    <button class="change-button" @click="increaseMinPeople1">+1</button>
-	                  </div>
+			
+	        <div class="determine-size">
+			  <div>人数范围</div>
+	          <input v-model="minpeople" @input="validateInput('minpeople')" class="uni-countdown__number" placeholder=""/>
+	          <p>-</p>
+	        	<input v-model="maxpeople" @input="validateInput('maxpeople')" class="uni-countdown__number" placeholder=""/>
 	        </div>
-			<div class="min-people-container">
-			          <div>
-			            最大参加人数：{{ maxpeople }}
-			          </div>
-			          <div class="min-people-buttons">
-			            <button class="change-button" @click="decreaseMaxPeople1" :disabled="maxpeople <= minpeople">-1</button>
-						<button class="change-button" @click="decreaseMaxPeople5" :disabled="maxpeople <= minpeople + 4">-5</button>
-						<button class="change-button" @click="increaseMaxPeople5">+5</button>
-			            <button class="change-button" @click="increaseMaxPeople1">+1</button>
-			          </div>
+			
+			<div class="determine-size">
+			  <div>花费范围</div>
+			  <input v-model="mincost" @input="validateInput('mincost')" class="uni-countdown__number" placeholder=""/>
+			  <p>-</p>
+				<input v-model="maxcost" @input="validateInput('maxcost')" class="uni-countdown__number" placeholder=""/>
 			</div>
-			<div class="min-people-container">
-			          <div>
-			            最少花费：{{ mincost }}
-			          </div>
-			          <div class="min-people-buttons">
-			            <button class="change-button" @click="decreaseMincost50" :disabled="mincost <= 49">-50</button>
-						<button class="change-button" @click="decreaseMincost100" :disabled="mincost <= 99">-100</button>
-						<button class="change-button" @click="increaseMincost100">+100</button>
-			            <button class="change-button" @click="increaseMincost50">+50</button>
-			          </div>
-			</div>
-			<div class="min-people-container">
-			          <div>
-			            最多花费：{{ maxcost }}
-			          </div>
-			          <div class="min-people-buttons">
-			            <button class="change-button" @click="decreaseMaxcost50" :disabled="maxcost <= mincost + 49">-50</button>
-						<button class="change-button" @click="decreaseMaxcost100" :disabled="maxcost <= mincost + 99">-100</button>
-						<button class="change-button" @click="increaseMaxcost100">+100</button>
-			            <button class="change-button" @click="increaseMaxcost50">+50</button>
-			          </div>
-			</div>
+			
 			<div class="min-people-container">
 			          <div>
 			            活动类型：
@@ -92,8 +63,13 @@
 		<view v-else>
 			<text>No activity data available.</text>
 		</view>
-		<view>{{List.length}}</view>
 	</view>
+	
+	<div class="page">
+		<view>当前在第{{pages}}页</view>
+		<view>共{{total}}条结果</view>
+	</div>
+	
 	<navigator @click="handleFabClick()">
 		<uni-fab :pattern="pattern" horizontal="right" vertical="bottom"  />
 	</navigator>
@@ -107,10 +83,10 @@
 		data() {
 			return {
 				showModal: false, // 控制模态框显示与隐藏
-					   minpeople: 0,
-					   maxpeople: 0,
-					   mincost: 0,
-					   maxcost: 0,
+					   minpeople: '',
+					   maxpeople: '',
+					   mincost: '',
+					   maxcost: '',
 					   type1: false,
 					   type2: false,
 					   type3: false,
@@ -177,10 +153,14 @@
           );
 					console.log(res);
 					console.log(statusCode);
+					console.log(res.data);
 					if (statusCode == "200") {
 						console.log(this.currentTab);
-						// Update the corresponding list based on the current tab
-						this.List = res;
+						// 根据实际的 API 响应结构更新 List
+						            this.List = res.data.list;
+						            // 更新总页数和总活动数量
+						            this.pages = res.data.pages;
+						            this.total = res.data.total;
 						uni.$showMsg("数据加载成功");
 					} else {
 						console.error("数据加载失败. 错误代码:", statusCode);
@@ -239,75 +219,34 @@
 			    },
 			    // 关闭模态框
 			    hideModal() {
+				  this.checkAndSwapValues();
 			      this.showModal = false;
 			    },
-				decreaseMinPeople1() {
-				      if (this.minpeople > 0) {
-				        this.minpeople -= 1;
-				      }
+				validateInput(field) {
+				   if (this[field] !== '' && !/^\d+$/.test(this[field])) {
+				           this[field] = '';
+				    }
 				},
-				decreaseMinPeople5() {
-				      if (this.minpeople > 4) {
-				        this.minpeople -= 5;
-				      }
-				},
-				increaseMinPeople1() {
-				      this.minpeople += 1;
-					  this.maxpeople += 1;
-				},
-				increaseMinPeople5() {
-				      this.minpeople += 5;
-					  this.maxpeople += 5;
-				},
-				decreaseMaxPeople1() {
-				      if (this.maxpeople > this.minpeople) {
-				        this.maxpeople -= 1;
-				      }
-				},
-				decreaseMaxPeople5() {
-				      if (this.maxpeople > this.minpeople + 4) {
-				        this.maxpeople -= 5;
-				      }
-				},
-				increaseMaxPeople1() {
-				      this.maxpeople += 1;
-				},
-				increaseMaxPeople5() {
-				      this.maxpeople += 5;
-				},
-				decreaseMincost50() {
-				      if (this.mincost > 49) {
-				        this.mincost -= 50;
-				      }
-				},
-				decreaseMincost100() {
-				      if (this.mincost > 99) {
-				        this.mincost -= 100;
-				      }
-				},
-				increaseMincost50() {
-				      this.mincost += 50;
-					  this.maxcost += 50;
-				},
-				increaseMincost100() {
-				      this.mincost += 100;
-					  this.maxcost += 100;
-				},
-				decreaseMaxcost50() {
-				      if (this.maxcost > this.mincost + 49) {
-				        this.maxcost -= 50;
-				      }
-				},
-				decreaseMaxcost100() {
-				      if (this.maxcost > this.mincost + 99) {
-				        this.maxcost -= 100;
-				      }
-				},
-				increaseMaxcost50() {
-					  this.maxcost += 50;
-				},
-				increaseMaxcost100() {
-					  this.maxcost += 100;
+				checkAndSwapValues() {
+				    // 检查 minpeople 和 maxpeople 是否需要交换
+				    if (this.minpeople !== '' && this.maxpeople !== '') {
+				        const min = parseInt(this.minpeople);
+				        const max = parseInt(this.maxpeople);
+				
+				        if (!isNaN(min) && !isNaN(max) && min > max) {
+				            // 交换 minpeople 和 maxpeople 的值
+				            [this.minpeople, this.maxpeople] = [this.maxpeople, this.minpeople];
+				        }
+				    }
+					if (this.mincost !== '' && this.maxcost !== '') {
+					    const min = parseInt(this.mincost);
+					    const max = parseInt(this.maxcost);
+					
+					    if (!isNaN(min) && !isNaN(max) && min > max) {
+					        // 交换 mincost 和 maxcost 的值
+					        [this.mincost, this.maxcost] = [this.maxcost, this.mincost];
+					    }
+					}
 				},
 				typeplaning() {
 				   this.type1 = !this.type1;
@@ -432,23 +371,14 @@
 	  display: flex;
 	  gap: 0px; /* 设置按钮之间的间距 */
 	}
-	.change-button {
-	  width: 45px; /* 设置宽度为100px */
-	  height: 30px; /* 设置高度为40px */
-	  background-color: #3498db; /* 设置背景颜色 */
-	  color: #ffffff; /* 设置文字颜色 */
-	  border: none; /* 去掉边框 */
-	  border-radius: 5px; /* 设置圆角 */
-	  cursor: pointer;
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  margin-left: 8px;
-	}
+
 	.close-button {
 		width: 100px; /* 设置宽度为100px */
 		height: 40px; /* 设置高度为40px */
 		margin-top: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	.type-button {
 	  width: 60px; /* 设置宽度为100px */
@@ -478,5 +408,27 @@
 	  padding: 0 8px; /* 调整内边距 */
 	  font-size: 12px; /* 调整字号 */
 	}
-
+	.determine-size{
+		margin-top: 8px;
+		display: flex;
+		align-items: center; /* 垂直居中 */
+	}
+	.uni-countdown__number{
+		margin-top: 0px;
+		margin-left: 8px;
+		margin-right: 8px;
+		display: flex;
+		align-items: center; /* 垂直居中 */
+		background-color: #e0e0e0; /* 设置搜索栏的背景颜色 */
+		padding: 10px; /* 添加一些内边距 */
+		border-radius: 30px; /* 设置圆角 */
+		width: 110px;
+		height: 20px;
+	}
+    .page{
+		margin-top: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 </style>

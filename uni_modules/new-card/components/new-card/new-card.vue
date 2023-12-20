@@ -11,9 +11,17 @@
 		</view>
 
 		<!-- Body Section -->
-		<text class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">{{ detail.content }}</text>
-
+		<view class="text-title" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">{{ detail.name }}</view>
+        <view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+        	@touchend="onTouchEnd('body')">活动地点：{{ detail.address }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">活动时间：{{ detail.activityTime }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">活动内容：{{ detail.content }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">联系方式：{{ detail.contact }}</view>
+			
 		<!-- Card Option Section -->
 		<view class="card-option" @click="handleCardOptionClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('card-option')">
@@ -188,9 +196,16 @@ export default {
 	}
 
 	.text-body {
-		font-size: 27.91rpx;
+		font-size: 28rpx;
 		font-family: Inter;
-		line-height: 41.86rpx;
+		line-height: 42rpx;
+		color: #000000;
+		word-break: break-all;
+	}
+	.text-title {
+		font-size: 32rpx;
+		font-family: Inter;
+		line-height: 42rpx;
 		color: #000000;
 		word-break: break-all;
 	}

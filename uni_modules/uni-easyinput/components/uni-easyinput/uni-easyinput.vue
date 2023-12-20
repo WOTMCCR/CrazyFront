@@ -569,7 +569,6 @@ $uni-border-1: #dcdfe6 !default;
 	/* #ifndef APP-NVUE */
   text-align: center;
 	min-height: 35px;
-
   font-size: 20px;
   line-height: 1;
 	width: auto;

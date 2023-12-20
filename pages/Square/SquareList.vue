@@ -203,6 +203,13 @@ export default {
         console.log(res);
         console.log(statusCode);
         if (statusCode === 200) {
+          //将id转Bigint
+          const updatedCardsList = res.data.list.map(card => ({
+            ...card,
+            id: card.id ? BigInt(card.id) : null // 假设卡片对象中的ID字段为id
+          }));
+
+
           this.CardsList = [...this.CardsList, ...res.data.list];
           this.total = res.data.total;
           this.pages = res.data.pages;
@@ -253,11 +260,12 @@ export default {
       });
     },
     handleBodyClick(id) {
+      console.log(id);
       let url;
       if (this.currentTab === 1) {
-        url = '/subpkg/ActivityDetail/ActivityDetail?id=' + id;
+        url = '/subpkg/ActivityDetail/ActivityDetail?id=' + BigInt(id);
       } else if (this.currentTab === 0) {
-        url = '/subpkg/MomentDetail/MomentDetail?id=' + id;
+        url = '/subpkg/MomentDetail/MomentDetail?id=' + BigInt(id);
       }
       console.log(url);
       uni.navigateTo({

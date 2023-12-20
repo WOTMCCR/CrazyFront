@@ -55,7 +55,7 @@
 </template>
 <script>
 	import uniEasyinput from '../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue';
-	import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+	import Arrangement from '@/uni_modules/Schedule/Schedule.vue';
 	export default {
 	components: {
 	      uniEasyinput,

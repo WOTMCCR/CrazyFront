@@ -36,7 +36,8 @@ export default {
     };
   },
   onLoad(options) {
-    const Moment_id = options.id;
+    console.log(options);
+    const Moment_id = BigInt(options.id);
     console.log(Moment_id);
     this.loadData(Moment_id);
     uni.$on('header-swipe', this.handleHeaderSwipe);
@@ -51,8 +52,11 @@ export default {
           statusCode,
           data: res
         } = await uni.$http.get(endpoint);
+        console.log(res);
         if (statusCode === 200) {
           // Update the corresponding list based on the current tab
+
+
           this.MomentList[0] = res;
           this.UserList[0] = res.user;
           this.userId = res.user.id;
@@ -84,7 +88,7 @@ export default {
 
           this.Momenttotal = res.data.total;
           this.Momentpages = res.data.pages;
-          this.currentMoment = 1;
+          this.currentMoment = 0;
           uni.$showMsg("Data loaded successfully");
         } else {
           console.error("Failed to load data. Server returned status code:", statusCode);

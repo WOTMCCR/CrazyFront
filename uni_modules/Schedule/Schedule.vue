@@ -1,8 +1,8 @@
 <template>
-  <div class="arrangement">
+  <div class="Schedule">
     <!-- 包裹时间的矩形 -->
     <div class="time-wrapper">
-      <div class="time">{{ time }}</div>
+      <div class="time" v-if="time">{{ time }}</div>
     </div>
 
     <!-- 包裹地点、内容的矩形 -->
@@ -10,9 +10,9 @@
     <div class="content-wrapper" :style="{ background: color }">
 
       <div class="rounded-rectangle">
-        <div class="address">地点：{{ address }}</div>
-        <div class="content">内容：{{ content }}</div>
-		<!-- <div class="content">颜色：{{ color }}</div> -->
+<!--        <div class="content" v-if="title">主题：{{title}}</div>-->
+        <div class="address" v-if="address">地点：{{ address }}</div>
+        <div class="content" v-if="content">内容：{{ content }}</div>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
     // 从父组件传递的时间、地点和内容
     time: {
       type: String,
-      required: true
+      required: false
     },
     address: {
       type: String,
@@ -34,6 +34,10 @@ export default {
       type: String,
       required: true
     },
+    // title:{
+    //   type: String,
+    //   required: false
+    // },
 	color: {
 	  type: String,
 	  required: true
@@ -43,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-  .arrangement {
+  .Schedule {
       width: 100%; /* Use percentage width for responsiveness */
       max-width: 650rpx; /* Set a maximum width if needed */
       display: flex;
@@ -89,6 +93,6 @@ export default {
   .content {
     font-size: 14px;
     margin-bottom: 5px;
-	text-align: center; /* 文本水平居中 */
+	  text-align: left;
   }
 </style>

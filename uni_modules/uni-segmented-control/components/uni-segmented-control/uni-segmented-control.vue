@@ -1,25 +1,42 @@
 <template>
-	<view :class="[styleType === 'text'?'segmented-control--text' : 'segmented-control--button' ]"
-		:style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">
-		<view v-for="(item, index) in values" :class="[ styleType === 'text' ? '': 'segmented-control__item--button',
-		index === currentIndex&&styleType === 'button' ? 'segmented-control__item--button--active': '',
-		index === 0&&styleType === 'button' ? 'segmented-control__item--button--first': '',
-			index === values.length - 1&&styleType === 'button' ? 'segmented-control__item--button--last': '' ]" :key="index"
-			:style="{ backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&(styleType === 'text'||styleType === 'button')?activeColor:'#d9d9d9' }"
-			class="segmented-control__item" @click="_onClick(index)">
-			<view>
-				<text :style="{color:
-				    index === currentIndex
-				      ? styleType === 'text'
-				        ? activeColor
-				        : '#fff'
-				      : styleType === 'text'
-				        ? '#000'
-				        : activeColor}" class="segmented-control__text" :class="styleType === 'text' && index === currentIndex ? 'segmented-control__item--text': ''">{{ item }}</text>
-			</view>
+<!--	<view :class="[styleType === 'text'?'segmented-control&#45;&#45;text' : 'segmented-control&#45;&#45;button' ]"-->
+<!--		:style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">-->
+<!--		<view v-for="(item, index) in values" :class="[ styleType === 'text' ? '': 'segmented-control__item&#45;&#45;button',-->
+<!--		index === currentIndex&&styleType === 'button' ? 'segmented-control__item&#45;&#45;button&#45;&#45;active': '',-->
+<!--		index === 0&&styleType === 'button' ? 'segmented-control__item&#45;&#45;button&#45;&#45;first': '',-->
+<!--			index === values.length - 1&&styleType === 'button' ? 'segmented-control__item&#45;&#45;button&#45;&#45;last': '' ]" :key="index"-->
+<!--			:style="{ backgroundColor: index === currentIndex && styleType === 'button' ? activeColor : '',borderColor: index === currentIndex&&(styleType === 'text'||styleType === 'button')?activeColor:'#d9d9d9' }"-->
+<!--			class="segmented-control__item" @click="_onClick(index)">-->
+<!--			<view>-->
+<!--				<text :style="{color:-->
+<!--				    index === currentIndex-->
+<!--				      ? styleType === 'text'-->
+<!--				        ? activeColor-->
+<!--				        : '#fff'-->
+<!--				      : styleType === 'text'-->
+<!--				        ? '#000'-->
+<!--				        : activeColor}" class="segmented-control__text" :class="styleType === 'text' && index === currentIndex ? 'segmented-control__item&#45;&#45;text': ''">{{ item }}</text>-->
+<!--			</view>-->
 
-		</view>
-	</view>
+<!--		</view>-->
+  <view :class="[styleType === 'text' ? 'segmented-control--text' : 'segmented-control--button' ]"
+        :style="{ borderColor: styleType === 'text' ? '' : activeColor }" class="segmented-control">
+    <view v-for="(item, index) in values"
+          :class="[ styleType === 'text' ? '': 'segmented-control__item--button',
+                    index === currentIndex && styleType === 'button' ? 'segmented-control__item--button--active': '',
+                    index === 0 && styleType === 'button' ? 'segmented-control__item--button--first': '',
+                    index === values.length - 1 && styleType === 'button' ? 'segmented-control__item--button--last': '' ]"
+          :key="index"
+          :style="{ backgroundColor: index === currentIndex && styleType === 'button' ? '#2e76e9' : '#fff',
+                      borderColor: index === currentIndex && (styleType === 'text' || styleType === 'button') ? '#2e76e9' : '#d9d9d9' }"
+          class="segmented-control__item" @click="_onClick(index)">
+      <view>
+        <text :style="{ color: index === currentIndex ? (styleType === 'text' ? '#3498db' : '#fff') : (styleType === 'text' ? '#000' : '#3498db') }"
+              class="segmented-control__text" :class="styleType === 'text' && index === currentIndex ? 'segmented-control__item--text': ''">{{ item }}</text>
+      </view>
+    </view>
+  </view>
+<!--	</view>-->
 </template>
 
 <script>

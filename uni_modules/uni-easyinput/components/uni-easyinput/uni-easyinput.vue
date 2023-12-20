@@ -565,10 +565,13 @@ $uni-border-1: #dcdfe6 !default;
 	font-size: 14px;
 	margin: 6px;
 	margin-left: 0;
-	height: 80px;
-	min-height: 80px;
+  height: 35px;
 	/* #ifndef APP-NVUE */
-	min-height: 80px;
+  text-align: center;
+	min-height: 35px;
+
+  font-size: 20px;
+  line-height: 1;
 	width: auto;
 	/* #endif */
 }

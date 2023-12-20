@@ -1,13 +1,14 @@
 <template>
   <view class="flex-col section_3" :style="{ background: color }">
     <div class="flex-row justify-end self-stretch">
-        <div class="relative section_4" @click="changeColor('linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%)')"></div>
-        <div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #A1E8FF 0%, #3897F0 100%)')"></div>
-        <div class="relative section_6 ml-5" @click="changeColor('linear-gradient(180deg, #3897F0 0%, #7B61FF 100%)')"></div>
-        <div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #FFC0CB 0%, #FFB6C1 100%)')"></div>
-        <div class="relative section_8 ml-5" @click="changeColor('linear-gradient(180deg, #FFD700 0%, #FFA500 100%)')"></div>
-        <div class="section_9 ml-5" @click="changeColor('linear-gradient(180deg, #fd5ba7 0%,  #e85a6d 100%)')"></div>
+		<div class="relative section_8 ml-5" @click="changeColor('#ffffff')"></div>
+		<div class="section_9 ml-5" @click="changeColor('#F7E0EB')"></div>
+		<div class="relative section_6 ml-5" @click="changeColor('linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)')"></div>
+      	<div class="relative section_4" @click="changeColor('linear-gradient(180deg, #befee6 0%, #d0f7fb 100%)')"></div>
+      	<div class="relative section_5 ml-5" @click="changeColor('linear-gradient(180deg, #F7E0EB 0%, #FED5AD 100%)')"></div>
+      	<div class="relative section_7 ml-5" @click="changeColor('linear-gradient(180deg, #D0F7FB 0%, #F7E0EB 100%)')"></div>
     </div>
+
     <view>
         <!-- 使用 span 标签显示标题 -->
         <span class="self-start font title">标题</span>

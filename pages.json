@@ -17,23 +17,24 @@
 			"path": "pages/Square/SquareList",
 			"style": {
 				"navigationBarTitleText": "疯吧",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},
 		{
-			"path" : "pages/Square/CreateA",
-			"style" : 
-			{
-				"navigationBarTitleText" : "创建活动",
-				"enablePullDownRefresh" : false
+			"path": "pages/Square/CreateA",
+			"style": {
+				"navigationBarTitleText": "创建活动",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "主页",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},
@@ -45,10 +46,18 @@
 			}
 		},
 		{
+			"path": "pages/Square/CreateB",
+			"style": {
+				"navigationBarTitleText": "创建动态",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/My/My",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 150
 			}
 
 		},
@@ -59,7 +68,6 @@
 				"enablePullDownRefresh": false
 			}
 		}
-		
 	],
 	"subPackages": [{
 		"root": "subpkg",
@@ -76,17 +84,29 @@
 					"navigationBarTitleText": "活动详情",
 					"enablePullDownRefresh": true
 				}
+			}, {
+				"path": "testdetail/testdetail",
+				"style": {
+					"navigationBarTitleText": "测试详情",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "UserHome/UserHome",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "CreateMoment/CreateMoment",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
 			}
-		    ,{
-                    "path" : "testdetail/testdetail",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "测试详情",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-            ]
+		]
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -95,12 +115,13 @@
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {
-		"list": [{
-				"pagePath": "pages/test/test1",
-				"text": "测试",
-				"iconPath": "static/enroll.png",
-				"selectedIconPath": "static/enroll_cur.png"
-			},
+		"list": [
+			// {
+			// 	"pagePath": "pages/test/test1",
+			// 	"text": "测试",
+			// 	"iconPath": "static/enroll.png",
+			// 	"selectedIconPath": "static/enroll_cur.png"
+			// },
 			{
 				"pagePath": "pages/Login/Login",
 				"text": "登陆",
@@ -125,6 +146,9 @@
 				"iconPath": "static/my.png",
 				"selectedIconPath": "static/my_cur.png"
 			}
-		]
+		],
+		"color": "",
+		"selectedColor": "",
+		"backgroundColor": ""
 	}
 }

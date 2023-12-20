@@ -1,5 +1,5 @@
 <template>
-  <view class="group" style="position: relative; z-index: 1">
+  <view class="group" style="position: relative z-index: 1">
     <image class="image_7" src="../static/back.png"/>
     <view class="header" style="position: relative; z-index: 2;">
       <image class="avatar" :src="user.avatar" />
@@ -56,7 +56,7 @@ export default {
         backgroundColor: '#FFFFFF',
         buttonColor: '#00557f',
       },
-      code: '',
+      // code: '',
       pages: '',
       total: '',
       isloading: false,
@@ -100,7 +100,6 @@ export default {
           uni.$showMsg("Data loaded successfully");
           cb && cb()
         } else {
-          console.log(res);
           console.error("Failed to load data. Server returned status code:", statusCode);
         }
         this.isloading = false;

@@ -53,7 +53,7 @@
 					console.log('按钮被点击了');
 					// 在这里可以添加具体的后端方法调用逻辑
 				},
-		
+
 				// 点击动态按钮时触发的方法
 				momentButtonClick: function() {
 					// 调用组织按钮相关的后端方法
@@ -93,7 +93,7 @@
 					handleFabClick() {
 					    // 处理悬浮按钮点击事件
 					    console.log('Floating Action Button clicked');
-		
+
 					    uni.navigateTo({
 					        url: '/pages/subpkg/MomentDetail/MomentDetail.vue'
 					    });
@@ -101,19 +101,19 @@
 					gotoDetail(item) {
 						let url;
 						if(this.currentTab===0){
-							url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;	
+							url='/subpkg/ActivityDetail/ActivityDetail?id='+item.id;
 						}else if (this.currentTab===1){
 							url='/subpkg/MomentDetail/MomentDetail?id=' + item.id;
 						}
 						uni.navigateTo({
 							url: url
 						});
-					
+
 					},
 					clickCard(){
 						console.log('***');
 						//跳转到详情页面，并传递卡片的唯一标识
-						wx.navigateTo({	
+						wx.navigateTo({
 							// url:'/pages/Square/Detail',
 							url: '../subpkg/MomentDetail/MomentDetail?cardId=1',
 						})

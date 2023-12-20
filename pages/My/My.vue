@@ -1,5 +1,5 @@
 <template>
-  <view class="group" style="position: relative z-index: 1">
+  <view class="group" style="position: relative; z-index: 1">
     <image class="image_7" src="../static/back.png"/>
     <view class="header" style="position: relative; z-index: 2;">
       <image class="avatar" :src="user.avatar" />

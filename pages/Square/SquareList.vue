@@ -222,20 +222,16 @@ export default {
     },
     handleFabClick() {
       // 处理悬浮按钮点击事件
-      console.log('Floating Action Button clicked');
-
+      let url;
+      if (this.currentTab === 1) {
+        url = '/subpkg/CreateActivity/CreateActivity';
+      } else if (this.currentTab === 0) {
+        url = '/subpkg/CreateMoment/CreateMoment';
+      }
       uni.navigateTo({
-        url: '/pages/Square/CreateA'
+        url: url
       });
-    },
-    clickCard() {
-      console.log('***');
-      //跳转到详情页面，并传递卡片的唯一标识
-      wx.navigateTo({
-        // url:'/pages/Square/Detail',
-        url: '../subpkg/MomentDetail/MomentDetail?cardId=1',
-      })
-      // Handle card click if needed
+      console.log('Floating Action Button clicked');
     },
     changeTab(e) {
       console.log('Current tab value:', this.currentTab);
@@ -415,7 +411,6 @@ export default {
 </script>
 
 <style scoped>
-
 .square {
   overflow-y: scroll;
   padding-left: 60.12rpx;
@@ -446,9 +441,6 @@ export default {
   font-weight: bold;
 }
 
-.button.active {
-  background-color: #00aaff;
-}
 
 .tabBox {
   position: sticky;
@@ -456,9 +448,6 @@ export default {
   z-index: 999;
 }
 
-.button.active {
-  background-color: #00aaff;
-}
 
 .search-bar {
   margin-top: 0px;
@@ -499,9 +488,6 @@ export default {
   margin-left: 8px;
 }
 
-.content {
-  margin-top: 20px;
-}
 
 .modal {
   position: fixed;

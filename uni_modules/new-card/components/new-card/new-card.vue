@@ -27,7 +27,7 @@
           <text class="font">2</text>
         </view>
         <view class="flex-row">
-          <image class="image_3" src="/static/fav.svg"/>
+          <image class="image_3" :src="like ? '/static/unlike.png' : '/static/like.png'" @click="handlelike"/>
           <text class="font">239</text>
         </view>
       </view>
@@ -54,6 +54,8 @@ export default {
       startY: 0,
       moveX: 0,
       moveY: 0,
+	  like: false,
+	  likecount: 333,
     };
   },
   onLoad() {
@@ -121,8 +123,11 @@ export default {
           break;
         default:
           break;
-      }
-    }
+      }  
+    },
+	handlelike(){
+		this.like = !this.like;
+	}
   },
   computed: {
     // 将从后端获取的时间字符串格式化 detail.createTime
@@ -220,7 +225,6 @@ export default {
         height: 30rpx;
         vertical-align: middle;
       }
-
       .font {
         margin-left: 10rpx;
         font-size: 23rpx;

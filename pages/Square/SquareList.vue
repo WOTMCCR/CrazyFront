@@ -14,7 +14,7 @@
       <img class="search-bar-image" src="../../static/android-funnel.png" @click="showModalOnInput" />
       <div class="search-bar">
         <img class="search-bar-image" src="../../static/search.png" alt="搜索图标" />
-        <input type="text" placeholder="请输入搜索内容" />
+        <input v-model="this.sort.key" type="text" placeholder="请输入搜索内容" />
         <button @click="search">搜索</button>
       </div>
     </div>
@@ -29,17 +29,24 @@
 
         <div class="determine-size">
           <div>人数范围</div>
-          <input v-model="minpeople" @input="validateInput('minpeople')" class="uni-countdown__number" placeholder=""/>
+          <input v-model="participantMin" @input="validateInput('participantMin')" class="uni-countdown__number" placeholder=""/>
           <p>-</p>
-          <input v-model="maxpeople" @input="validateInput('maxpeople')" class="uni-countdown__number" placeholder=""/>
+          <input v-model="participantMax" @input="validateInput('participantMax')" class="uni-countdown__number" placeholder=""/>
         </div>
 
         <div class="determine-size">
           <div>花费范围</div>
-          <input v-model="mincost" @input="validateInput('mincost')" class="uni-countdown__number" placeholder=""/>
+          <input v-model="sort.costMin" @input="validateInput('costMin')" class="uni-countdown__number" placeholder=""/>
           <p>-</p>
-          <input v-model="maxcost" @input="validateInput('maxcost')" class="uni-countdown__number" placeholder=""/>
+          <input v-model="sort.costMax" @input="validateInput('costMax')" class="uni-countdown__number" placeholder=""/>
         </div>
+		
+		<div class="determine-size">
+		  <div>时间范围</div>
+		  <input v-model="startTime" @input="validateInput('startTime')" class="uni-countdown__number" placeholder=""/>
+		  <p>-</p>
+		  <input v-model="endTime" @input="validateInput('endTime')" class="uni-countdown__number" placeholder=""/>
+		</div>
 
         <div class="min-people-container">
           <div>
@@ -57,10 +64,20 @@
             个人或组织：
           </div>
           <div class="min-people-buttons">
-            <button :class="{ 'type-button': typeispersonal, 'custom-style': !typeispersonal }" @click="typepersonal" >计划中</button>
-            <button :class="{ 'type-button': typeisofficial, 'custom-style': !typeisofficial }" @click="typeofficial" >招募中</button>
+            <button :class="{ 'type-button': typeispersonal, 'custom-style': !typeispersonal }" @click="typepersonal" >个人</button>
+            <button :class="{ 'type-button': this.sort.official, 'custom-style': !this.sort.official }" @click="typeofficial" >组织</button>
           </div>
         </div>
+		
+		<div class="min-people-container">
+		  <div>
+		    排序方式：
+		  </div>
+		  <div class="min-people-buttons">
+		    <button :class="{ 'type-button': isbyhot, 'custom-style': !isbyhot }" @click="typepersonal" >热度</button>
+		    <button :class="{ 'type-button': isbytime, 'custom-style': !isbytime }" @click="typeofficial" >时间</button>
+		  </div>
+		</div>
         <button class="close-button" @click="hideModal">关闭</button>
       </div>
     </div>
@@ -92,16 +109,25 @@ export default {
   data() {
     return {
       showModal: false, // 控制模态框显示与隐藏
-      minpeople: '',
-      maxpeople: '',
-      mincost: '',
-      maxcost: '',
+	  sort: {
+		  key: '',
+		  //participantMin: '',
+		  //participantMax: '',
+		  //costMin: '',
+		  //costMax: '',
+		  type: 1,
+		  official: 0,
+		  sortBy: '',
+	  },
+	  
       type1: false,
       type2: false,
       type3: false,
       type4: false,
       typeispersonal: false,
       typeisofficial: false,
+	  isbyhot: false,
+	  isbytime: false,
 
       official: 1,
       currentTab: 0,
@@ -165,7 +191,7 @@ export default {
           data: res
         } = await uni.$http.post(
             endpoint,
-            this.pageQuery
+            this.pageQuery,
         );
         console.log(res);
         console.log(statusCode);
@@ -194,6 +220,19 @@ export default {
         uni.hideLoading();
       }
     },
+	
+	async putOption(){
+		const {
+		  statusCode,
+		  data: res
+		} = await uni.$http.post(
+		    '/activity/findActivity',
+		    this.sort,
+		);
+		console.log('psot的数据');
+		console.log(this.sort);
+	},
+	
     handleFabClick() {
       // 处理悬浮按钮点击事件
       let url;
@@ -266,7 +305,9 @@ export default {
     // 点击搜索按钮的事件
     search() {
       // 在这里添加搜索的逻辑
+	  this.putOption();
       console.log('搜索功能尚未实现');
+	  
     },
     // 输入框获取焦点时显示模态框
     showModalOnInput() {
@@ -275,6 +316,7 @@ export default {
     // 关闭模态框
     hideModal() {
       this.checkAndSwapValues();
+	  this.putOption();
       this.showModal = false;
     },
     validateInput(field) {
@@ -283,25 +325,34 @@ export default {
       }
     },
     checkAndSwapValues() {
-      // 检查 minpeople 和 maxpeople 是否需要交换
-      if (this.minpeople !== '' && this.maxpeople !== '') {
-        const min = parseInt(this.minpeople);
-        const max = parseInt(this.maxpeople);
+      // 检查 participantMin 和 participantMax 是否需要交换
+      if (this.participantMin !== '' && this.participantMax !== '') {
+        const min = parseInt(this.participantMin);
+        const max = parseInt(this.participantMax);
 
         if (!isNaN(min) && !isNaN(max) && min > max) {
-          // 交换 minpeople 和 maxpeople 的值
-          [this.minpeople, this.maxpeople] = [this.maxpeople, this.minpeople];
+          // 交换 participantMin 和 participantMax 的值
+          [this.participantMin, this.participantMax] = [this.participantMax, this.participantMin];
         }
       }
-      if (this.mincost !== '' && this.maxcost !== '') {
-        const min = parseInt(this.mincost);
-        const max = parseInt(this.maxcost);
+      if (this.costMin !== '' && this.costMaxt !== '') {
+        const min = parseInt(this.costMin);
+        const max = parseInt(this.costMaxt);
 
         if (!isNaN(min) && !isNaN(max) && min > max) {
-          // 交换 mincost 和 maxcost 的值
-          [this.mincost, this.maxcost] = [this.maxcost, this.mincost];
+          // 交换 costMin 和costMaxt 的值
+          [this.costMin, this.costMaxt] = [this.costMaxt, this.costMin];
         }
       }
+	  if (this.startTime !== '' && this.endTime !== '') {
+	    const min = parseInt(this.startTime);
+	    const max = parseInt(this.endTime);
+	  
+	    if (!isNaN(min) && !isNaN(max) && min > max) {
+	      // 交换 startTime 和 endTime 的值
+	      [this.startTime, this.endTime] = [this.endTime, this.startTime];
+	    }
+	  }
     },
     typeplaning() {
       this.type1 = !this.type1;
@@ -319,8 +370,18 @@ export default {
       this.typeispersonal = !this.typeispersonal;
     },
     typeofficial() {
-      this.typeisofficial = !this.typeisofficial;
+      if(this.sort.official == 0){
+		  this.sort.official = 1;
+	  }else{
+		  this.sort.official = 0;
+	  }
     },
+	byhot() {
+	  this.isbyhot = !this.isbyhot;
+	},
+	bytime() {
+	  this.isbytime = !this.isbytime;
+	},
   },
   onReachBottom() {
     console.log('buttom');

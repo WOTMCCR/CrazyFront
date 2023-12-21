@@ -189,4 +189,8 @@ export default {
   text-align: center; /* Center the text horizontally */
   flex: 1; /* Allow the text to take the available width */
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> e5c74b60905ceaabfce0023e8dbb5f85bc96cfc2

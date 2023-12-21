@@ -1,154 +1,441 @@
 <template>
-	<view class="mt-10"></view>
-  <view class="flex-col section_3">
-    <view class="flex-row items-center">
-      <image
-        class="image_7"
-        :src="imageSrc"
-      />
-      <view class="flex-col items-start ml-13">
-        <text class="font text_2">{{ username }}</text>
-        <text class="font text_3 mt-7">{{ timestamp }}</text>
-      </view>
-    </view>
-    <view class="flex-col items-start group_2 mt-41">
-      <text class="font">标题：{{ title }}</text>
-      <text class="font">活动地址：{{ address }}</text>
-      <text class="font">时间：{{ time }}</text>
-      <text class="font">负责人：{{ organizer }}</text>
-      <text class="font">要求：{{ requirements }}</text>
-      <text class="font">介绍：{{ introduction }}</text>
-    </view>
-	<view class="mt-10"></view>
-	<view class="mt-74 flex-col justify-start items-center button text-wrapper">
-	      <text class="text_4">时间线</text>
+	<view class="tabBox">
+
+		<!-- Swiper for left-right swiping -->
+			
+		<div class="search-content">
+			<img class="search-bar-image" src="../../static/android-funnel.png" @click="showModalOnInput" />
+			<div class="search-bar">
+				<img class="search-bar-image" src="../../static/search.png" alt="搜索图标" />
+				<input type="text" placeholder="请输入搜索内容" />
+			</div>
+			<button-s @click="search">搜索</button-s>
+		</div>
+		<scroll-view scroll-x="true" >
+		    <uni-segmented-control v-model="currentTab" :values="tabs" @click-item="changeTab"
+		        :style="{ backgroundColor: '#55aaff', color: '#fff'}" :inactiveColor="'#55aaff'" />
+		</scroll-view>
+
 	</view>
-  </view>
+	<!-- Resource List -->
+	<!-- 边缘空白 -->
+	<view class="square">
+		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
+			<new-card :detail="item">
+			</new-card>
+		</view>
+		<view v-else>
+			<text>No activity data available.</text>
+		</view>
+	</view>
+
+	<div class="page">
+		<view>当前在第{{pages}}页</view>
+		<view>共{{total}}条结果</view>
+	</div>
+	
+	<navigator @click="handleFabClick()">
+		<uni-fab :pattern="pattern" horizontal="right" vertical="bottom" />
+	</navigator>
+	
+
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      imageSrc: "https://ide.code.fun/api/image?token=6569458efcfbac00113616d6&name=c2c19904ed48e72c673d99a1d72c81c5.png",
-      username: "Gavin Nelson",
-      timestamp: "今天 12:00",
-      title: "原神·启动",
-      address: "", // Add the actual address data
-      time: "", // Add the actual time data
-      organizer: "", // Add the actual organizer data
-      requirements: "要玩原神",
-      introduction: "原神交友会已经报名准备参加",
-    };
-  },
-};
+	import unisegmentedcontrol
+	from '../../uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue';
+
+	export default {
+		components: {},
+		data() {
+			return {
+				showModal: false, // 控制模态框显示与隐藏
+				minpeople: '',
+				maxpeople: '',
+				mincost: '',
+				maxcost: '',
+				type1: false,
+				type2: false,
+				type3: false,
+				type4: false,
+				typeispersonal: false,
+				typeisofficial: false,
+			
+				official: 1,
+				currentTab: 0,
+				tabs: ['全部', '考研', '考公', '兼职', '求职', '面试', '资料'],
+				List: [],
+				pageQuery: {
+					pageNo: 1,
+					pageSize: 10,
+					isAsc: '',
+					sortBy: '',
+				},
+				pattern: {
+					color: '#00557f',
+					backgroundColor: '#FFFFFF',
+					buttonColor: '#00557f',
+				},
+			};
+				
+		},
+		onLoad(options) {
+			this.pageQuery.isAsc = options.isAsc || '';
+			this.pageQuery.sortBy = options.sortBy || '';
+			uni.$on('header-click', this.handleHeaderClick);
+			uni.$on('body-click', this.handleBodyClick);
+			uni.$on('card-swipe', this.handleCardSwipe);
+
+			this.loadData();
+		},
+
+		methods: {
+			async loadData() {
+				try {
+					// Assuming you have a common API endpoint for both Activity and Moment data
+					const endpoint = this.currentTab === 0 ? "/activity/isOfficial/0" :
+						"/moment/isOfficial/0";
+					const filteredPageQuery = Object.fromEntries(
+						Object.entries(this.pageQuery).filter(([key, value]) => value !== '' && value !==
+							undefined)
+					);
+					console.log(this.pageQuery);
+					const {
+						statusCode,
+						data: res
+					} = await uni.$http.post(
+						endpoint,
+						this.filteredPageQuery
+					);
+					console.log(res);
+					console.log(statusCode);
+					console.log(res.data);
+					if (statusCode == "200") {
+						console.log(this.currentTab);
+						// 根据实际的 API 响应结构更新 List
+						this.List = res.data.list;
+						// 更新总页数和总活动数量
+						this.pages = res.data.pages;
+						this.total = res.data.total;
+						uni.$showMsg("数据加载成功");
+					} else {
+						console.error("数据加载失败. 错误代码:", statusCode);
+					}
+				} catch (error) {
+					console.error("获取数据失败:", error);
+				} finally {
+					uni.hideLoading();
+				}
+			},
+			handleFabClick() {
+				// 处理悬浮按钮点击事件
+				console.log('Floating Action Button clicked');
+
+				uni.navigateTo({
+					url: '/pages/Square/CreateA'
+				});
+			},
+
+			changeTab(e) {
+				console.log('Current tab value:', this.currentTab);
+				//this.currentTab = tabIndex;
+				if (this.currentTab != e.currentIndex) {
+					this.pageQuery.pageNo = 1;
+					this.total = 0;
+					this.CardsList = [];
+					this.currentTab = e.currentIndex;
+					this.loadData();
+				}
+			},
+			handleHeaderClick(id) {
+				let url;
+				url = '/subpkg/UserHome/UserHome?id=' + id;
+				console.log(url);
+				uni.navigateTo({
+					url: url
+				});
+			},
+			handleBodyClick(id) {
+				let url;
+				if (this.currentTab === 1) {
+					url = '/subpkg/ActivityDetail/ActivityDetail?id=' + id;
+				} else if (this.currentTab === 0) {
+					url = '/subpkg/MomentDetail/MomentDetail?id=' + id;
+				}
+				console.log(url);
+				uni.navigateTo({
+					url: url
+				});
+			},
+			handleCardSwipe(direction) {
+				//TODO:根据滑动方向切换tab
+				// console.log('Card swiped',direction);
+				// if(direction === 'left'){
+				//   this.pageQuery.pageNo = 1;
+				//   this.total = 0;
+				//   this.CardsList = [];
+				//   this.currentTab = 1;
+				//   this.loadData();
+				// }else if(direction === 'right'){
+				//   if(this.currentTab === 1){
+				//     this.pageQuery.pageNo = 1;
+				//     this.total = 0;
+				//     this.CardsList = [];
+				//     this.currentTab = 0;
+				//     this.loadData();
+				//   }
+				// }
+				// Handle card swipe if needed
+			},
+			swiperChange(e) {
+				this.currentTab = e.detail.current;
+				this.loadData();
+			},
+			// 点击搜索按钮的事件
+			search() {
+				// 在这里添加搜索的逻辑
+				console.log('搜索功能尚未实现');
+			},
+
+		},
+		onReachBottom() {
+			console.log('buttom');
+			if (this.isloading) return
+			if (this.pageQuery.pageNo < this.pages) {
+				this.pageQuery.pageNo++;
+				this.loadData();
+			} else return uni.$showMsg('数据加载完毕!')
+
+		},
+		onPullDownRefresh() {
+			// 1. 重置关键数据
+			this.pageQuery.pageNo = 1
+			this.total = 0
+			this.isloading = false
+			this.List = []
+			// 2. 重新发起请求
+			this.loadData(() => uni.stopPullDownRefresh())
+		},
+
+	};
 </script>
 
 <style scoped>
-  .flex-col {
-    display: flex;
-    flex-direction: column;
-  }
+	.square {
+		overflow-y: scroll;
+		padding-left: 60.12rpx;
+		padding-right: 60.12rpx;
+	}
 
-  .flex-row {
-    display: flex;
-    flex-direction: row;
-  }
+	.navigation-options {
+		display: flex;
+		justify-content: space-around;
+		margin-top: 10px;
+	}
 
-  .items-center {
-    align-items: center;
-  }
+	.nav-option {
+		font-size: 16px;
+		color: #333333;
+		text-decoration: underline;
+	}
 
-  .items-start {
-    align-items: flex-start;
-  }
+	.button-s {
+		display: inline-block;
+		padding: 10rpx 40rpx;
+		width: 100;
+		border-radius: 30rpx;
+		background-color: #4891da;
+		color: #fff;
+		font-size: 30rpx;
+		font-family: "楷体";
+		font-weight: bold;
+	}
 
-  .ml-13 {
-    margin-left: 22.67rpx;
-  }
+	.button {
+		display: inline-block;
+		padding: 10rpx 40rpx;
+		width: 200rpx;
+		border-radius: 20rpx;
+		background-color: #4891da;
+		color: #fff;
+		font-size: 40rpx;
+		font-family: "楷体";
+		font-weight: bold;
+	}
 
-  .mt-7 {
-    margin-top: 12.21rpx;
-  }
+	.button.active {
+		background-color: #00aaff;
+	}
 
-  .mt-41 {
-    margin-top: 71.51rpx;
-  }
+	.tabBox {
+		position: sticky;
+		top: 0;
+		z-index: 999;
+	}
 
-  .section_3 {
-      margin: 0 10.47rpx;
-      padding: 34.88rpx 43.6rpx 104.65rpx;
-      background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
-      border-radius: 55.81rpx;
-      filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-}
+	.button.active {
+		background-color: #00aaff;
+	}
 
-  .image_7 {
-    border-radius: 83.72rpx;
-    width: 83.72rpx;
-    height: 83.72rpx;
-  }
+	.search-bar {
+		margin-top: 2px;
+		margin-left: 8px;
+		margin-right: 8px;
+		margin-bottom: 3px;
+		display: flex;
+		align-items: center;
+		/* 垂直居中 */
+		background-color: #e0e0e0;
+		/* 设置搜索栏的背景颜色 */
+		padding: 0px;
+		/* 添加一些内边距 */
+		border-radius: 30px;
+		/* 设置圆角 */
+		width: 75%;
+	}
 
-  .font {
-    font-size: 27.91rpx;
-    font-family: Inter;
-    line-height: 41.86rpx;
-    color: #000000;
-  }
+	.search-bar input {
+		flex: 1;
+		/* 让输入框占据剩余空间 */
+		padding: 8px;
+		margin-right: 8px;
+		border: none;
+		/* 去掉输入框的边框 */
+	}
 
-  .text_2 {
-    font-weight: 600;
-    line-height: 21.59rpx;
-  }
+	.search-bar button {
+		padding: 2px 16px;
+		/* 减少按钮的上下 padding，适应较小的高度 */
+		cursor: pointer;
+		border-radius: 30px;
+		background-color: #fff;
+		/* 设置背景颜色为白色 */
+		color: #000;
+		/* 设置文字颜色为黑色 */
+		font-size: 14px;
+		/* 调整按钮文字大小 */
+	}
 
-  .text_3 {
-    color: #536471;
-    line-height: 25.85rpx;
-  }
+	.search-content {
+		display: flex;
+		align-items: center;
+		/* 居中垂直对齐 */
+		background-color: #f4f4f4;
+	}
 
-  .group_2 {
-    padding: 0 13.95rpx;
-  }
-.mt-10 {
-    margin-top: 30rpx; /* 调整间隔的大小，根据需要调整 */
-  }
+	.search-bar-image {
+		width: 18px;
+		height: 18px;
+		margin-left: 8px;
+	}
 
-  .mt-74 {
-    margin-top: 74rpx;
-  }
+	.content {
+		margin-top: 20px;
+	}
 
-  .flex-col {
-    display: flex;
-    flex-direction: column;
-  }
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		/* 半透明黑色背景 */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-  .justify-start {
-    justify-content: flex-start;
-  }
+	.modal-content {
+		background: #fff;
+		padding: 20px;
+		border-radius: 10px;
+	}
 
-  .items-center {
-    align-items: center;
-  }
+	.min-people-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 10px;
+	}
 
-  .button {
-    margin: 0 34.88rpx;
-  }
+	.min-people-buttons {
+		display: flex;
+		gap: 0px;
+		/* 设置按钮之间的间距 */
+	}
 
-  .text-wrapper {
-    padding: 20.93rpx 0 17.44rpx;
-    background-color: #f7e0eb;
-    border-radius: 55.81rpx;
-    filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-    overflow: hidden;
-  }
+	.change-button {
+		width: 45px;
+		/* 设置宽度为100px */
+		height: 30px;
+		/* 设置高度为40px */
+		background-color: #3498db;
+		/* 设置背景颜色 */
+		color: #ffffff;
+		/* 设置文字颜色 */
+		border: none;
+		/* 去掉边框 */
+		border-radius: 5px;
+		/* 设置圆角 */
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: 8px;
+	}
 
-  .text_4 {
-    color: #000000;
-    font-size: 45.35rpx;
-    font-family: Oswald;
-    font-weight: 700;
-    line-height: 42.77rpx;
-  }
-  
-  /* Add any other styles based on your design */
+	.close-button {
+		width: 100px;
+		/* 设置宽度为100px */
+		height: 40px;
+		/* 设置高度为40px */
+		margin-top: 10px;
+	}
+
+	.type-button {
+		width: 60px;
+		/* 设置宽度为100px */
+		height: 30px;
+		/* 设置高度为40px */
+		background-color: #3498db;
+		/* 设置背景颜色 */
+		color: #ffffff;
+		/* 设置文字颜色 */
+		border: none;
+		/* 去掉边框 */
+		border-radius: 5px;
+		/* 设置圆角 */
+		margin-left: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 8px;
+		/* 调整内边距 */
+		font-size: 12px;
+		/* 调整字号 */
+	}
+
+	.custom-style {
+		width: 60px;
+		/* 设置宽度为100px */
+		height: 30px;
+		/* 设置高度为40px */
+		background-color: #ffffff;
+		/* 设置背景颜色 */
+		color: #000000;
+		/* 设置文字颜色 */
+		border: none;
+		/* 去掉边框 */
+		border-radius: 5px;
+		/* 设置圆角 */
+		margin-left: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 8px;
+		/* 调整内边距 */
+		font-size: 12px;
+		/* 调整字号 */
+	}
 </style>

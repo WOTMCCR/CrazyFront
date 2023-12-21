@@ -1,28 +1,36 @@
 <template>
 	<view class="new-card" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
-    <view class="header"  @touchstart="onTouchStart" @touchmove="onTouchMove"
-          @touchend="onTouchEnd('header')">
-      <image class="avatar" v-if="detail && detail.user" :src="detail.user.avatar" />
-<!--     detail && detail.user确保异步不报错          -->
-      <view class="NameAndTime" v-if="detail && detail.user">
-        <text class="name">{{ detail.user.name }}</text>
-        <text class="time">时间:{{ formattedTime }}</text>
-      </view>
-    </view>
+		<!-- Header Section -->
+		<view class="header" @click="handleHeaderClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('header')">
+			<image class="avatar" src="/static/humanhead.png" />
+			<view class="NameAndTime">
+				<text class="name">{{ detail.user.name }}</text>
+				<text class="time">时间:{{ formattedTime }}</text>
+			</view>
+		</view>
 
 		<!-- Body Section -->
-		<text class="text-body"  @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">{{ detail.content }}</text>
-
+		<view class="text-title" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">{{ detail.name }}</view>
+        <view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+        	@touchend="onTouchEnd('body')">活动地点：{{ detail.address }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">活动时间：{{ detail.activityTime }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">活动内容：{{ detail.content }}</view>
+		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
+			@touchend="onTouchEnd('body')">联系方式：{{ detail.contact }}</view>
+			
 		<!-- Card Option Section -->
-		<view class="card-option"  @touchstart="onTouchStart" @touchmove="onTouchMove"
+		<view class="card-option" @click="handleCardOptionClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('card-option')">
 			<view class="flex-row">
-				<image class="image_1" src="/static/Vector.svg" />
+				<image class="image_1" src="/static/time2.png" />
 				<text class="font">11</text>
 			</view>
 			<view class="flex-row">
-				<image class="image_2" src="/static/share.svg" />
+				<image class="image_2" src="/static/watch2.png" />
 				<text class="font">2</text>
 			</view>
 			<view class="flex-row">
@@ -34,14 +42,12 @@
 </template>
   
 <script>
-import {cname} from "better-mock/src/random/name";
-
 export default {
 	props: {
 		detail: {
 			type: Object,
 			default: () => ({})
-		},
+		}
 	},
 	data() {
 		return {
@@ -51,74 +57,80 @@ export default {
 			moveY: 0,
 		};
 	},
-  onLoad() {
-    console.log(this.detail);
-  },
 	methods: {
-    onTouchEnd(section) {
-      const deltaX = this.moveX - this.startX;
-      const deltaY = this.moveY - this.startY;
-      // Calculate the time difference
-      const timeDiff = new Date().getTime() - this.touchStartTime;
-      // console.log("timeDiff: " + timeDiff);
-      // Determine the direction of touch move (left or right)
-      const direction = Math.abs(deltaX) > Math.abs(deltaY) ? (deltaX > 0 ? 'right' : 'left') : '';
-      // Check if it's a click (based on time difference)
-      if (timeDiff < 100) {
-        this.handleSectionClick(section);
-      } else {
-        // It's a swipe event
-        this.handleSectionSwipe(section, direction);
-      }
-    },
-    onTouchStart(e) {
-      this.startX = e.touches[0].clientX;
-      this.startY = e.touches[0].clientY;
-      this.touchStartTime = new Date().getTime();
-    },
-    onTouchMove(e) {
-    	this.moveX = e.touches[0].clientX;
-    	this.moveY = e.touches[0].clientY;
-    },
-    handleSectionClick(section) {
-      switch (section) {
-        case 'header':
-          // console.log("header click");
-          uni.$emit('header-click', this.detail.user.id);
-          break;
-        case 'body':
-          // console.log("body click");
-          uni.$emit('body-click', this.detail.id);
-          break;
-        case 'card-option':
-          // console.log("card-option click");
-          uni.$emit('card-option-click', this.detail.id);
-          break;
-        default:
-          break;
-      }
-    },
-    handleSectionSwipe(section, direction) {
-      uni.$emit('card-swipe', direction);
-      // Emit the swipe event for the specific section
-      switch (section) {
-        case 'header':
-          // console.log("header swipe " + direction);
-          uni.$emit('header-swipe', direction);
-          break;
-        case 'body':
-          // console.log("body swipe " + direction);
-          uni.$emit('body-swipe', direction);
-          break;
-        case 'card-option':
-          // console.log("card-option swipe " + direction);
-          uni.$emit('card-option-swipe', direction);
-          break;
-        default:
-          break;
-      }
-    }
-  },
+		onTouchStart(e) {
+			this.startX = e.touches[0].clientX;
+			this.startY = e.touches[0].clientY;
+		},
+
+		onTouchMove(e) {
+			this.moveX = e.touches[0].clientX;
+			this.moveY = e.touches[0].clientY;
+		},
+
+		onTouchEnd(section) {
+			const deltaX = this.moveX - this.startX;
+			const deltaY = this.moveY - this.startY;
+
+			// Determine the direction of touch move (left or right)
+			const direction = Math.abs(deltaX) > Math.abs(deltaY) ? (deltaX > 0 ? 'right' : 'left') : '';
+
+			// Emit the swipe event for the specific section
+			if (direction === 'left' || direction === 'right') {
+				switch (section) {
+					case 'header':
+						// console.log("header swipe " + direction);
+						uni.$emit('header-swipe', direction);
+						break;
+					case 'body':
+						// console.log("body swipe " + direction);
+						uni.$emit('body-swipe', direction);
+						break;
+					case 'card-option':
+						// console.log("card-option swipe " + direction);
+						uni.$emit('card-option-swipe', direction);
+						break;
+					default:
+						break;
+				}
+			}
+		},
+
+		handleHeaderClick() {
+			// Emit the click event for the header section
+			console.log("header click");
+			this.$emit('header-click', this.detail);
+		},
+
+		handleBodyClick() {
+			// Emit the click event for the body section
+			console.log("body click");
+			this.$emit('body-click', this.detail);
+		},
+
+		handleCardOptionClick() {
+			// Emit the click event for the card-option section
+			console.log("card-option click");
+			this.$emit('card-option-click', this.detail);
+		},
+
+		handleHeaderSwipe() {
+			// Emit the swipe event for the header section
+			console.log("header swipe");
+			this.$emit('header-swipe', this.detail);
+		},
+
+		handleBodySwipe() {
+			// Emit the swipe event for the body section
+			console.log("body swipe");
+			this.$emit('body-swipe', this.detail);
+		},
+
+		handleCardOptionSwipe() {
+			// Emit the swipe event for the card-option section
+			this.$emit('card-option-swipe', this.detail);
+		},
+	},
 	computed: {
 		// 将从后端获取的时间字符串格式化 detail.createTime
 		formattedTime() {
@@ -137,95 +149,95 @@ export default {
   
 <style lang="scss">
 .new-card {
-  min-height: 375rpx; // Set your desired minimum height here
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 30rpx;
-  padding: 47.09rpx 55.81rpx 47.09rpx;
-  background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
-  border-radius: 55.81rpx;
-  filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
-  overflow: hidden;
+	margin-top: 30rpx;
+	padding: 47.09rpx 55.81rpx 47.09rpx;
+	background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
+	// max-width: 100rpx;
+	// margin: 0 auto;
+	border-radius: 55.81rpx;
+	filter: drop-shadow(0rpx 6.98rpx 10.47rpx #00000026);
+	overflow: hidden;
 
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20rpx;
+	.header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 20rpx;
 
-    .avatar {
-      border-radius: 83.72rpx;
-      width: 83.72rpx;
-      height: 83.72rpx;
-    }
+		.avatar {
+			border-radius: 83.72rpx;
+			width: 83.72rpx;
+			height: 83.72rpx;
+		}
 
-    .NameAndTime {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20rpx;
-      margin-top: 10rpx;
+		.NameAndTime {
+			display: flex;
+			flex-direction: column;
+			margin-left: 20rpx;
+			margin-top: 10rpx;
 
-      .name {
-        font-size: 27.91rpx;
-        font-family: open;
-        line-height: 21.59rpx;
-        font-weight: 600;
-        color: #000000;
-        margin-bottom: 15rpx;
-      }
+			.name {
+				font-size: 27.91rpx;
+				//字体
+				font-family: open;
+				line-height: 21.59rpx;
+				font-weight: 600;
+				color: #000000;
+				margin-bottom: 15rpx;
+			}
 
-      .time {
-        font-size: 27.91rpx;
-        font-family: Inter;
-        line-height: 25.85rpx;
-        color: #536471;
-      }
-    }
-  }
+			.time {
+				font-size: 27.91rpx;
+				font-family: Inter;
+				line-height: 25.85rpx;
+				color: #536471;
+			}
 
-  .text-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; // Vertically center the text
-    align-items: center; // Horizontally center the text
-    font-size: 27.91rpx;
-    font-family: Inter;
-    line-height: 41.86rpx;
-    color: #000000;
-    word-break: break-all;
-    text-align: center;
-  }
+		}
+	}
 
-  .card-option {
-    margin-top: 40rpx;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2.55rpx;
+	.text-body {
+		font-size: 28rpx;
+		font-family: Inter;
+		line-height: 42rpx;
+		color: #000000;
+		word-break: break-all;
+	}
+	.text-title {
+		font-size: 32rpx;
+		font-family: Inter;
+		line-height: 42rpx;
+		color: #000000;
+		word-break: break-all;
+	}
 
-    .flex-row {
-      display: flex;
-      align-items: center;
+	.card-option {
+		margin-top: 40rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 2.55rpx;
 
-      .image_1,
-      .image_2,
-      .image_3 {
-        width: 30rpx;
-        height: 30rpx;
-        vertical-align: middle;
-      }
+		.flex-row {
+			display: flex;
+			align-items: center;
 
-      .font {
-        margin-left: 10rpx;
-        font-size: 23rpx;
-        font-family: Inter;
-        color: #536471;
-      }
-    }
-  }
+			.image_1,
+			.image_2,
+			.image_3 {
+				width: 30rpx;
+				height: 30rpx;
+				vertical-align: middle;
+			}
+
+			.font {
+				margin-left: 10rpx;
+				font-size: 23rpx;
+				font-family: Inter;
+				color: #536471;
+			}
+		}
+	}
 }
-
 </style>
 
   

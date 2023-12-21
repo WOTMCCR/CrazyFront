@@ -11,91 +11,59 @@
     <!-- Swiper for left-right swiping -->
 
     <div class="search-content">
-      <img class="search-bar-image" src="../../static/android-funnel.png" @click="showModalOnInput"/>
+      <img class="search-bar-image" src="../../static/android-funnel.png" @click="showModalOnInput" />
       <div class="search-bar">
-        <img class="search-bar-image" src="../../static/search.png" alt="搜索图标"/>
-        <input type="text" placeholder="请输入搜索内容"/>
+        <img class="search-bar-image" src="../../static/search.png" alt="搜索图标" />
+        <input type="text" placeholder="请输入搜索内容" />
         <button @click="search">搜索</button>
       </div>
     </div>
 
 
   <!-- 模态框 -->
-  <div class="modal" v-if="showModal">
-    <!-- 模态框内容 -->
-    <div class="modal-content">
-      <!-- 这里可以放模态框的内容，例如提示信息、搜索结果等 -->
-      <div class="min-people-container">
-        <div>
-          最小参加人数：{{ minpeople }}
+    <!-- 模态框 -->
+    <div class="modal" v-if="showModal">
+      <!-- 模态框内容 -->
+      <div class="modal-content">
+        <!-- 这里可以放模态框的内容，例如提示信息、搜索结果等 -->
+
+        <div class="determine-size">
+          <div>人数范围</div>
+          <input v-model="minpeople" @input="validateInput('minpeople')" class="uni-countdown__number" placeholder=""/>
+          <p>-</p>
+          <input v-model="maxpeople" @input="validateInput('maxpeople')" class="uni-countdown__number" placeholder=""/>
         </div>
-        <div class="min-people-buttons">
-          <button class="change-button" @click="decreaseMinPeople1" :disabled="minpeople === 0">-1</button>
-          <button class="change-button" @click="decreaseMinPeople5" :disabled="minpeople <= 4">-5</button>
-          <button class="change-button" @click="increaseMinPeople5">+5</button>
-          <button class="change-button" @click="increaseMinPeople1">+1</button>
+
+        <div class="determine-size">
+          <div>花费范围</div>
+          <input v-model="mincost" @input="validateInput('mincost')" class="uni-countdown__number" placeholder=""/>
+          <p>-</p>
+          <input v-model="maxcost" @input="validateInput('maxcost')" class="uni-countdown__number" placeholder=""/>
         </div>
+
+        <div class="min-people-container">
+          <div>
+            活动类型：
+          </div>
+          <div class="min-people-buttons">
+            <button :class="{ 'type-button': type1, 'custom-style': !type1 }" @click="typeplaning" >计划中</button>
+            <button :class="{ 'type-button': type2, 'custom-style': !type2 }" @click="typerecruit" >招募中</button>
+            <button :class="{ 'type-button': type3, 'custom-style': !type3 }" @click="typeconduct" >进行中</button>
+            <button :class="{ 'type-button': type4, 'custom-style': !type4 }" @click="typeend" >已结束</button>
+          </div>
+        </div>
+        <div class="min-people-container">
+          <div>
+            个人或组织：
+          </div>
+          <div class="min-people-buttons">
+            <button :class="{ 'type-button': typeispersonal, 'custom-style': !typeispersonal }" @click="typepersonal" >计划中</button>
+            <button :class="{ 'type-button': typeisofficial, 'custom-style': !typeisofficial }" @click="typeofficial" >招募中</button>
+          </div>
+        </div>
+        <button class="close-button" @click="hideModal">关闭</button>
       </div>
-      <div class="min-people-container">
-        <div>
-          最大参加人数：{{ maxpeople }}
-        </div>
-        <div class="min-people-buttons">
-          <button class="change-button" @click="decreaseMaxPeople1" :disabled="maxpeople <= minpeople">-1</button>
-          <button class="change-button" @click="decreaseMaxPeople5" :disabled="maxpeople <= minpeople + 4">-5</button>
-          <button class="change-button" @click="increaseMaxPeople5">+5</button>
-          <button class="change-button" @click="increaseMaxPeople1">+1</button>
-        </div>
-      </div>
-      <div class="min-people-container">
-        <div>
-          最少花费：{{ mincost }}
-        </div>
-        <div class="min-people-buttons">
-          <button class="change-button" @click="decreaseMincost50" :disabled="mincost <= 49">-50</button>
-          <button class="change-button" @click="decreaseMincost100" :disabled="mincost <= 99">-100</button>
-          <button class="change-button" @click="increaseMincost100">+100</button>
-          <button class="change-button" @click="increaseMincost50">+50</button>
-        </div>
-      </div>
-      <div class="min-people-container">
-        <div>
-          最多花费：{{ maxcost }}
-        </div>
-        <div class="min-people-buttons">
-          <button class="change-button" @click="decreaseMaxcost50" :disabled="maxcost <= mincost + 49">-50</button>
-          <button class="change-button" @click="decreaseMaxcost100" :disabled="maxcost <= mincost + 99">-100</button>
-          <button class="change-button" @click="increaseMaxcost100">+100</button>
-          <button class="change-button" @click="increaseMaxcost50">+50</button>
-        </div>
-      </div>
-      <div class="min-people-container">
-        <div>
-          活动类型：
-        </div>
-        <div class="min-people-buttons">
-          <button :class="{ 'type-button': type1, 'custom-style': !type1 }" @click="typeplaning">计划中</button>
-          <button :class="{ 'type-button': type2, 'custom-style': !type2 }" @click="typerecruit">招募中</button>
-          <button :class="{ 'type-button': type3, 'custom-style': !type3 }" @click="typeconduct">进行中</button>
-          <button :class="{ 'type-button': type4, 'custom-style': !type4 }" @click="typeend">已结束</button>
-        </div>
-      </div>
-      <div class="min-people-container">
-        <div>
-          个人或组织：
-        </div>
-        <div class="min-people-buttons">
-          <button :class="{ 'type-button': typeispersonal, 'custom-style': !typeispersonal }" @click="typepersonal">
-            计划中
-          </button>
-          <button :class="{ 'type-button': typeisofficial, 'custom-style': !typeisofficial }" @click="typeofficial">
-            招募中
-          </button>
-        </div>
-      </div>
-      <button class="close-button" @click="hideModal">关闭</button>
     </div>
-  </div>
   </view>
   <!-- Activity List -->
   <!-- 边缘空白 -->
@@ -124,11 +92,10 @@ export default {
   data() {
     return {
       showModal: false, // 控制模态框显示与隐藏
-
-      minpeople: 0,
-      maxpeople: 0,
-      mincost: 0,
-      maxcost: 0,
+      minpeople: '',
+      maxpeople: '',
+      mincost: '',
+      maxcost: '',
       type1: false,
       type2: false,
       type3: false,
@@ -307,75 +274,34 @@ export default {
     },
     // 关闭模态框
     hideModal() {
+      this.checkAndSwapValues();
       this.showModal = false;
     },
-    decreaseMinPeople1() {
-      if (this.minpeople > 0) {
-        this.minpeople -= 1;
+    validateInput(field) {
+      if (this[field] !== '' && !/^\d+$/.test(this[field])) {
+        this[field] = '';
       }
     },
-    decreaseMinPeople5() {
-      if (this.minpeople > 4) {
-        this.minpeople -= 5;
+    checkAndSwapValues() {
+      // 检查 minpeople 和 maxpeople 是否需要交换
+      if (this.minpeople !== '' && this.maxpeople !== '') {
+        const min = parseInt(this.minpeople);
+        const max = parseInt(this.maxpeople);
+
+        if (!isNaN(min) && !isNaN(max) && min > max) {
+          // 交换 minpeople 和 maxpeople 的值
+          [this.minpeople, this.maxpeople] = [this.maxpeople, this.minpeople];
+        }
       }
-    },
-    increaseMinPeople1() {
-      this.minpeople += 1;
-      this.maxpeople += 1;
-    },
-    increaseMinPeople5() {
-      this.minpeople += 5;
-      this.maxpeople += 5;
-    },
-    decreaseMaxPeople1() {
-      if (this.maxpeople > this.minpeople) {
-        this.maxpeople -= 1;
+      if (this.mincost !== '' && this.maxcost !== '') {
+        const min = parseInt(this.mincost);
+        const max = parseInt(this.maxcost);
+
+        if (!isNaN(min) && !isNaN(max) && min > max) {
+          // 交换 mincost 和 maxcost 的值
+          [this.mincost, this.maxcost] = [this.maxcost, this.mincost];
+        }
       }
-    },
-    decreaseMaxPeople5() {
-      if (this.maxpeople > this.minpeople + 4) {
-        this.maxpeople -= 5;
-      }
-    },
-    increaseMaxPeople1() {
-      this.maxpeople += 1;
-    },
-    increaseMaxPeople5() {
-      this.maxpeople += 5;
-    },
-    decreaseMincost50() {
-      if (this.mincost > 49) {
-        this.mincost -= 50;
-      }
-    },
-    decreaseMincost100() {
-      if (this.mincost > 99) {
-        this.mincost -= 100;
-      }
-    },
-    increaseMincost50() {
-      this.mincost += 50;
-      this.maxcost += 50;
-    },
-    increaseMincost100() {
-      this.mincost += 100;
-      this.maxcost += 100;
-    },
-    decreaseMaxcost50() {
-      if (this.maxcost > this.mincost + 49) {
-        this.maxcost -= 50;
-      }
-    },
-    decreaseMaxcost100() {
-      if (this.maxcost > this.mincost + 99) {
-        this.maxcost -= 100;
-      }
-    },
-    increaseMaxcost50() {
-      this.maxcost += 50;
-    },
-    increaseMaxcost100() {
-      this.maxcost += 100;
     },
     typeplaning() {
       this.type1 = !this.type1;
@@ -449,132 +375,136 @@ export default {
   font-weight: bold;
 }
 
+	.button.active {
+		background-color: #00aaff;
+	}
+	.search-bar {
+	  margin-top: 0px;
+	  margin-left: 8px;
+	  margin-right: 8px;
+	  display: flex;
+	  align-items: center; /* 垂直居中 */
+	  background-color: #e0e0e0; /* 设置搜索栏的背景颜色 */
+	  padding: 0px; /* 添加一些内边距 */
+	  border-radius: 30px; /* 设置圆角 */
+	  width: 90%;
+	}
 
-.tabBox {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
+	.search-bar input {
+	  flex: 1; /* 让输入框占据剩余空间 */
+	  padding: 8px;
+	  margin-right: 8px;
+	  border: none; /* 去掉输入框的边框 */
+	}
 
+	.search-bar button {
+	  padding: 2px 16px; /* 减少按钮的上下 padding，适应较小的高度 */
+	  cursor: pointer;
+	  border-radius: 30px;
+	  background-color: #fff; /* 设置背景颜色为白色 */
+	  color: #000; /* 设置文字颜色为黑色 */
+	  font-size: 14px; /* 调整按钮文字大小 */
+	}
+	.search-content {
+	    display: flex;
+	    align-items: center; /* 居中垂直对齐 */
+	}
 
-.search-bar {
-  margin-top: 0px;
-  margin-left: 8px;
-  margin-right: 8px;
-  display: flex;
-  align-items: center; /* 垂直居中 */
-  background-color: #e0e0e0; /* 设置搜索栏的背景颜色 */
-  padding: 0px; /* 添加一些内边距 */
-  border-radius: 30px; /* 设置圆角 */
-  width: 90%;
-}
+	.search-bar-image {
+	  width: 18px;
+	  height: 18px;
+	  margin-left: 8px;
+	}
+	.content {
+	  margin-top: 20px;
+	}
+	.modal {
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  z-index: 2;
+	}
 
-.search-bar input {
-  flex: 1; /* 让输入框占据剩余空间 */
-  padding: 8px;
-  margin-right: 8px;
-  border: none; /* 去掉输入框的边框 */
-}
+	.modal-content {
+	  background: #fff;
+	  padding: 20px;
+	  border-radius: 10px;
+	}
+	.min-people-container {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin-top: 10px;
+	}
 
-.search-bar button {
-  padding: 2px 16px; /* 减少按钮的上下 padding，适应较小的高度 */
-  cursor: pointer;
-  border-radius: 30px;
-  background-color: #fff; /* 设置背景颜色为白色 */
-  color: #000; /* 设置文字颜色为黑色 */
-  font-size: 14px; /* 调整按钮文字大小 */
-}
+	.min-people-buttons {
+	  display: flex;
+	  gap: 0px; /* 设置按钮之间的间距 */
+	}
 
-.search-content {
-  display: flex;
-  align-items: center; /* 居中垂直对齐 */
-}
-
-.search-bar-image {
-  width: 18px;
-  height: 18px;
-  margin-left: 8px;
-}
-
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.min-people-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.min-people-buttons {
-  display: flex;
-  gap: 0px; /* 设置按钮之间的间距 */
-}
-
-.change-button {
-  width: 45px; /* 设置宽度为100px */
-  height: 30px; /* 设置高度为40px */
-  background-color: #3498db; /* 设置背景颜色 */
-  color: #ffffff; /* 设置文字颜色 */
-  border: none; /* 去掉边框 */
-  border-radius: 5px; /* 设置圆角 */
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 8px;
-}
-
-.close-button {
-  width: 100px; /* 设置宽度为100px */
-  height: 40px; /* 设置高度为40px */
-  margin-top: 10px;
-}
-
-.type-button {
-  width: 60px; /* 设置宽度为100px */
-  height: 30px; /* 设置高度为40px */
-  background-color: #3498db; /* 设置背景颜色 */
-  color: #ffffff; /* 设置文字颜色 */
-  border: none; /* 去掉边框 */
-  border-radius: 5px; /* 设置圆角 */
-  margin-left: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 8px; /* 调整内边距 */
-  font-size: 12px; /* 调整字号 */
-}
-
-.custom-style {
-  width: 60px; /* 设置宽度为100px */
-  height: 30px; /* 设置高度为40px */
-  background-color: #ffffff; /* 设置背景颜色 */
-  color: #000000; /* 设置文字颜色 */
-  border: none; /* 去掉边框 */
-  border-radius: 5px; /* 设置圆角 */
-  margin-left: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 8px; /* 调整内边距 */
-  font-size: 12px; /* 调整字号 */
-}
-
+	.close-button {
+		width: 100px; /* 设置宽度为100px */
+		height: 40px; /* 设置高度为40px */
+		margin-top: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.type-button {
+	  width: 60px; /* 设置宽度为100px */
+	  height: 30px; /* 设置高度为40px */
+	  background-color: #3498db; /* 设置背景颜色 */
+	  color: #ffffff; /* 设置文字颜色 */
+	  border: none; /* 去掉边框 */
+	  border-radius: 5px; /* 设置圆角 */
+	  margin-left: 8px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  padding: 0 8px; /* 调整内边距 */
+	  font-size: 12px; /* 调整字号 */
+	}
+	.custom-style {
+	  width: 60px; /* 设置宽度为100px */
+	  height: 30px; /* 设置高度为40px */
+	  background-color: #ffffff; /* 设置背景颜色 */
+	  color: #000000; /* 设置文字颜色 */
+	  border: none; /* 去掉边框 */
+	  border-radius: 5px; /* 设置圆角 */
+	  margin-left: 8px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  padding: 0 8px; /* 调整内边距 */
+	  font-size: 12px; /* 调整字号 */
+	}
+	.determine-size{
+		margin-top: 8px;
+		display: flex;
+		align-items: center; /* 垂直居中 */
+	}
+	.uni-countdown__number{
+		margin-top: 0px;
+		margin-left: 8px;
+		margin-right: 8px;
+		display: flex;
+		align-items: center; /* 垂直居中 */
+		background-color: #e0e0e0; /* 设置搜索栏的背景颜色 */
+		padding: 10px; /* 添加一些内边距 */
+		border-radius: 30px; /* 设置圆角 */
+		width: 110px;
+		height: 20px;
+	}
+    .page{
+		margin-top: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 </style>

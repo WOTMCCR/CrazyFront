@@ -27,7 +27,7 @@
 			@touchend="onTouchEnd('card-option')">
 			<view class="flex-row">
 				<image class="image_1" src="/static/time2.png" />
-				<text class="font">11</text>
+				<text class="font">2021</text>
 			</view>
 			<view class="flex-row">
 				<image class="image_2" src="/static/watch2.png" />

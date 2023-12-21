@@ -1,10 +1,10 @@
 {
-  "id": "new-card",
-  "displayName": "new-card",
+  "id": "resouce-card",
+  "displayName": "resouce-card",
   "version": "1.0.0",
-  "description": "new-card",
+  "description": "resouce-card",
   "keywords": [
-    "new-card"
+    "resouce-card"
 ],
   "repository": "",
   "engines": {
@@ -45,8 +45,7 @@
         },
         "App": {
           "app-vue": "u",
-          "app-nvue": "u",
-          "app-uvue": "u",
+          "app-nvue": "u"
         },
         "H5-mobile": {
           "Safari": "u",

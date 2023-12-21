@@ -111,7 +111,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "CrazyBar",
-		"navigationBarBackgroundColor": "#2e76e9",
+		"navigationBarBackgroundColor": "#4285c8",
 		"backgroundColor": "#000000"
 	},
 	"tabBar": {

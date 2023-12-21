@@ -1,4 +1,4 @@
-<template>
+git<template>
   <view class="flex-col section_3" :style="{ background: formData.color }">
     <div class="flex-row justify-end self-stretch">
         <div class="relative section_4" @click="changeColor('linear-gradient(180deg, #BEFEE6 0%, #A1E8FF 100%)')"></div>
@@ -31,7 +31,7 @@
 </template>
 <script>
 	import uniEasyinput from '../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue';
-	import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+	import Arrangement from '@/uni_modules/Schedule/Schedule.vue';
 	export default {
 	components: {
 	      uniEasyinput,

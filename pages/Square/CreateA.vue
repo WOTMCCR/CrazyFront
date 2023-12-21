@@ -19,7 +19,7 @@
         <uni-easyinput v-model="formData.address" placeholder="请输入地点"></uni-easyinput>
         <span class="self-start font title">联系方式</span>
         <uni-easyinput v-model="formData.contact" placeholder="请输入负责人联系方式" ></uni-easyinput>
-        <span class="self-start font title">介绍</span>
+        <span class="self-start font title Introduction">介绍</span>
         <uni-easyinput v-model="formData.content" placeholder="请输入活动内容、主题等" ></uni-easyinput>
         <!-- 使用 button 组件作为提交按钮，绑定 @click 事件 -->
 		
@@ -57,7 +57,7 @@
 </template>
 <script>
 	import uniEasyinput from '../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue';
-	import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+	import Arrangement from '@/uni_modules/Schedule/Schedule.vue';
 	export default {
 	components: {
 	      uniEasyinput,
@@ -150,6 +150,9 @@
 	.items-center {
 	  align-items: center;
 	}
+  .Introduction {
+    margin-bottom: 10px;
+  }
 	
 	.timeline-text {
 	  color: #00aa7f;

@@ -26,11 +26,11 @@
                     index === currentIndex && styleType === 'button' ? 'segmented-control__item--button--active': '',
                     index === 0 && styleType === 'button' ? 'segmented-control__item--button--first': '',
                     index === values.length - 1 && styleType === 'button' ? 'segmented-control__item--button--last': '' ]" :key="index"
-			:style="{ backgroundColor: index === currentIndex && styleType === 'button' ? '#2e76e9' : '#fff',
-                      borderColor: index === currentIndex && (styleType === 'text' || styleType === 'button') ? '#2e76e9' : '#d9d9d9' }" class="segmented-control__item" @click="_onClick(index)">
+			:style="{ backgroundColor: index === currentIndex && styleType === 'button' ? '#4285c8' : '#f9f9f9',
+                      borderColor: index === currentIndex && (styleType === 'text' || styleType === 'button') ? '#4285c8' : '#f9f9f9' }" class="segmented-control__item" @click="_onClick(index)">
 			<view>
 				<text
-					:style="{ color: index === currentIndex ? (styleType === 'text' ? '#3498db' : '#fff') : (styleType === 'text' ? '#000' : '#3498db') }"
+					:style="{ color: index === currentIndex ? (styleType === 'text' ? '#2b2b2b' : '#f9f9f9') : (styleType === 'text' ? '#000' : '#2b2b2b') }"
 					class="segmented-control__text"
 					:class="styleType === 'text' && index === currentIndex ? 'segmented-control__item--text': ''">{{ item }}</text>
 			</view>
@@ -117,7 +117,7 @@
 		/* #ifdef H5 */
 		cursor: pointer;
 		/* #endif */
-		width:550px;
+		width:493px;
 	}
 
 	.segmented-control__item {
@@ -133,9 +133,9 @@
 
 	.segmented-control__item--button {
 		border-style: solid;
-		border-top-width: 0px;
-		border-bottom-width: 0px;
-		border-right-width: 1px;
+		border-top-width: 1px;
+				border-bottom-width: 1px;
+				border-right-width: 1px;
 		border-left-width: 0;
 	}
 
@@ -151,9 +151,10 @@
 	}
 
 	.segmented-control__item--text {
-		border-bottom-style: solid;
-		border-bottom-width: 2px;
-		padding: 5px 0;
+			border-bottom-style: solid;
+			border-bottom-width: 2px;
+			padding: 6px 0;
+
 	}
 
 	.segmented-control__text {

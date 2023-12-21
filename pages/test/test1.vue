@@ -2,27 +2,30 @@
 	<view class="tabBox">
 
 		<!-- Swiper for left-right swiping -->
-			
+
 		<div class="search-content">
-			<img class="search-bar-image" src="../../static/android-funnel.png" @click="showModalOnInput" />
 			<div class="search-bar">
 				<img class="search-bar-image" src="../../static/search.png" alt="搜索图标" />
 				<input type="text" placeholder="请输入搜索内容" />
 			</div>
 			<button-s @click="search">搜索</button-s>
 		</div>
-		<scroll-view scroll-x="true" >
-		    <uni-segmented-control v-model="currentTab" :values="tabs" @click-item="changeTab"
-		        :style="{ backgroundColor: '#55aaff', color: '#fff'}" :inactiveColor="'#55aaff'" />
-		</scroll-view>
-
+		<div class="TAB">
+			<div class="tag-bar">
+				<scroll-view scroll-x="true">
+					<uni-segmented-control v-model="currentTab" :values="tabs" @click-item="changeTab"
+						:style="{ backgroundColor: '#55aaff', color: '#f9f9f9'}" :inactiveColor="'#55aaff'" />
+				</scroll-view>
+			</div>
+			<img class="sort-bar-image" src="../../static/sort.png" @click="showModalOnInput" />
+		</div>
 	</view>
 	<!-- Resource List -->
 	<!-- 边缘空白 -->
 	<view class="square">
 		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
-			<new-card :detail="item">
-			</new-card>
+			<resource-card> :detail="item">
+			</resource-card>
 		</view>
 		<view v-else>
 			<text>No activity data available.</text>
@@ -33,11 +36,11 @@
 		<view>当前在第{{pages}}页</view>
 		<view>共{{total}}条结果</view>
 	</div>
-	
+
 	<navigator @click="handleFabClick()">
 		<uni-fab :pattern="pattern" horizontal="right" vertical="bottom" />
 	</navigator>
-	
+
 
 </template>
 
@@ -60,7 +63,7 @@
 				type4: false,
 				typeispersonal: false,
 				typeisofficial: false,
-			
+
 				official: 1,
 				currentTab: 0,
 				tabs: ['全部', '考研', '考公', '兼职', '求职', '面试', '资料'],
@@ -77,7 +80,7 @@
 					buttonColor: '#00557f',
 				},
 			};
-				
+
 		},
 		onLoad(options) {
 			this.pageQuery.isAsc = options.isAsc || '';
@@ -291,7 +294,7 @@
 		/* 添加一些内边距 */
 		border-radius: 30px;
 		/* 设置圆角 */
-		width: 75%;
+		width: 83%;
 	}
 
 	.search-bar input {
@@ -320,7 +323,7 @@
 		display: flex;
 		align-items: center;
 		/* 居中垂直对齐 */
-		background-color: #f4f4f4;
+		background-color: #f9f9f9;
 	}
 
 	.search-bar-image {
@@ -328,7 +331,13 @@
 		height: 18px;
 		margin-left: 8px;
 	}
-
+	
+.sort-bar-image {
+		width: 25px;
+		height: 25px;
+		margin-right: 7px;
+		margin-top: 7px;
+	}
 	.content {
 		margin-top: 20px;
 	}
@@ -363,6 +372,16 @@
 		display: flex;
 		gap: 0px;
 		/* 设置按钮之间的间距 */
+	}
+
+	.TAB {
+		display: flex;
+		justify-content: space-between;
+		background-color: #f9f9f9;
+	}
+
+	.tag-bar {
+		width: 90%;
 	}
 
 	.change-button {
@@ -439,4 +458,3 @@
 		/* 调整字号 */
 	}
 </style>
-

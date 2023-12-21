@@ -30,19 +30,21 @@
 	<!-- Resource List -->
 	<!-- 边缘空白 -->
 	<view class="square">
-		<view v-if="List.length > 0" v-for="(item, index) in List" :key="index" @click="gotoDetail(item)">
-			<resource-card> :detail="item">
+		<view @click="gotoDetail(resource)">
+			<resource-card> :detail="resource">
 			</resource-card>
 		</view>
-		<view v-else>
-			<text>No activity data available.</text>
+		<view @click="gotoDetail(resource)">
+			<resource-card> :detail="resource">
+			</resource-card>
+		</view>
+		<view @click="gotoDetail(resource)">
+			<resource-card> :detail="resource">
+			</resource-card>
 		</view>
 	</view>
 
-	<div class="page">
-		<view>当前在第{{pages}}页</view>
-		<view>共{{total}}条结果</view>
-	</div>
+	
 
 	<navigator @click="handleFabClick()">
 		<uni-fab :pattern="pattern" horizontal="right" vertical="bottom" />
@@ -153,7 +155,8 @@
 
 					const {
 						statusCode,
-						data: res
+						data: res,
+
 					} = await uni.$http.get(endpoint);
 					console.log(res);
 
@@ -163,6 +166,9 @@
 						this.resourceRelationship = res.data.resourceRelationship;
 						this.user = res.data.user;
 						this.List = res.data;
+						console.log(this.resource);
+						console.log(this.user);
+						console.log(this.List);
 						uni.$showMsg("数据加载成功");
 					} else {
 						console.error("数据加载失败. 错误代码:", statusCode);

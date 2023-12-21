@@ -1,8 +1,6 @@
 <template>
 	<view class="tabBox">
 
-		<!-- Swiper for left-right swiping -->
-
 		<div class="search-content">
 			<div class="search-bar">
 				<img class="search-bar-image" src="../../static/search.png" alt="搜索图标" />
@@ -19,6 +17,15 @@
 			</div>
 			<img class="sort-bar-image" src="../../static/sort.png" @click="showModalOnInput" />
 		</div>
+		
+		<!-- 模态框 -->
+		<div class="modal" v-if="showModal">
+		  <!-- 模态框内容 -->
+		  <div class="modal-content">
+		    <button class="close-button" @click="hideModal">关闭</button>
+		  </div>
+		</div>
+		
 	</view>
 	<!-- Resource List -->
 	<!-- 边缘空白 -->
@@ -145,7 +152,7 @@
 				if (this.currentTab != e.currentIndex) {
 					this.pageQuery.pageNo = 1;
 					this.total = 0;
-					this.CardsList = [];
+					this.List = [];
 					this.currentTab = e.currentIndex;
 					this.loadData();
 				}
@@ -199,27 +206,33 @@
 				// 在这里添加搜索的逻辑
 				console.log('搜索功能尚未实现');
 			},
+ // 输入框获取焦点时显示模态框
+    showModalOnInput() {
+      this.showModal = true;
+    },
+    // 关闭模态框
+    hideModal() {
+      this.showModal = false;
+    },
+  },
+  onReachBottom() {
+    console.log('buttom');
+    if (this.isloading) return
+    if (this.pageQuery.pageNo < this.pages) {
+      this.pageQuery.pageNo++;
+      this.loadData();
+    } else return uni.$showMsg('数据加载完毕!')
 
-		},
-		onReachBottom() {
-			console.log('buttom');
-			if (this.isloading) return
-			if (this.pageQuery.pageNo < this.pages) {
-				this.pageQuery.pageNo++;
-				this.loadData();
-			} else return uni.$showMsg('数据加载完毕!')
-
-		},
-		onPullDownRefresh() {
-			// 1. 重置关键数据
-			this.pageQuery.pageNo = 1
-			this.total = 0
-			this.isloading = false
-			this.List = []
-			// 2. 重新发起请求
-			this.loadData(() => uni.stopPullDownRefresh())
-		},
-
+  },
+  onPullDownRefresh() {
+    // 1. 重置关键数据
+    this.pageQuery.pageNo = 1
+    this.total = 0
+    this.isloading = false
+    this.CardsList = []
+    // 2. 重新发起请求
+    this.loadData(() => uni.stopPullDownRefresh())
+  },
 	};
 </script>
 

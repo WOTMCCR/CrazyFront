@@ -6,32 +6,25 @@
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
 				<text class="name">{{ detail.user.name }}</text>
-				<text class="time">时间:{{ formattedTime }}</text>
+				<text class="content">简要:{{ formattedTime }}</text>
 			</view>
 		</view>
 
 		<!-- Body Section -->
 		<view class="text-title" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">{{ detail.name }}</view>
-        <view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-        	@touchend="onTouchEnd('body')">活动地点：{{ detail.address }}</view>
+			@touchend="onTouchEnd('body')">{{ detail.name }}</view> 
 		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">活动时间：{{ detail.activityTime }}</view>
-		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">活动内容：{{ detail.content }}</view>
-		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">联系方式：{{ detail.contact }}</view>
-			
+			@touchend="onTouchEnd('body')">{{ detail.content }}</view>		
 		<!-- Card Option Section -->
 		<view class="card-option" @click="handleCardOptionClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('card-option')">		
 			<view class="flex-row">
-				<image class="image_2" src="/static/watch2.png" />
-				<text class="font">2</text>
+				<image class="image_2" src="/static/time2.png" />
+				<text class="font">2021年</text>
 			</view>
 			<view class="flex-row">
-				<image class="image_1" src="/static/download.png" />
-				<text class="font">2021</text>
+				<image class="image_1" src="/static/watch2.png" />
+				<text class="font">20211</text>
 			</view>
 			<view class="flex-row">
 				<image class="image_3" src="/static/fav.svg" />
@@ -173,7 +166,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			margin-left: 20rpx;
-			margin-top: 10rpx;
+			margin-top: 16rpx;
 
 			.name {
 				font-size: 27.91rpx;
@@ -185,10 +178,10 @@ export default {
 				margin-bottom: 15rpx;
 			}
 
-			.time {
-				font-size: 27.91rpx;
+			.content {
+				font-size: 25.91rpx;
 				font-family: Inter;
-				line-height: 25.85rpx;
+				line-height: 27.85rpx;
 				color: #536471;
 			}
 

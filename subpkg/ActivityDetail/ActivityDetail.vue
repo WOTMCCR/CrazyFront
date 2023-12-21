@@ -25,7 +25,7 @@
       <Schedule :time="formatTime(item.time)" :address="item.address" :content="item.content" :title="item.title"
                 :color="item.color" ></Schedule>
     </view>
-
+		<button class="attend" @click="attendActivity">参与活动</button>
     </view>
 </template>
 
@@ -171,5 +171,21 @@ export default {
     font-family: Oswald;
     font-weight: 700;
     line-height: 42.77rpx;
+  }
+  .attend{
+	  margin-top: 8px;
+	  width: 120px; /* 设置宽度为100px */
+	  height: 50px; /* 设置高度为40px */
+	  background-color: #0055ff; /* 设置背景颜色 */
+	  color: #ffffff; /* 设置文字颜色 */
+	  border: none; /* 去掉边框 */
+	  border-radius: 5px; /* 设置圆角 */
+	  margin-left: 8px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  padding: 0 8px; /* 调整内边距 */
+	  font-size: 12px; /* 调整字号 */
+	  
   }
 </style>

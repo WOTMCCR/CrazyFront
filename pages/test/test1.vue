@@ -229,7 +229,7 @@
     this.pageQuery.pageNo = 1
     this.total = 0
     this.isloading = false
-    this.CardsList = []
+    this.List = []
     // 2. 重新发起请求
     this.loadData(() => uni.stopPullDownRefresh())
   },

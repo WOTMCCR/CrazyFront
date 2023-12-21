@@ -6,21 +6,16 @@
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
 				<text class="name">{{ detail.user.name }}</text>
-				<text class="content">简要:{{ formattedTime }}</text>
+				<text class="content">简要:{{ detail.content }}</text>
 			</view>
 		</view>
 
-		<!-- Body Section -->
-		<view class="text-title" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">{{ detail.name }}</view> 
-		<view class="text-body" @click="handleBodyClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
-			@touchend="onTouchEnd('body')">{{ detail.content }}</view>		
 		<!-- Card Option Section -->
 		<view class="card-option" @click="handleCardOptionClick" @touchstart="onTouchStart" @touchmove="onTouchMove"
 			@touchend="onTouchEnd('card-option')">		
 			<view class="flex-row">
 				<image class="image_2" src="/static/time2.png" />
-				<text class="font">2021年</text>
+				<text class="font">{{ formattedTime }}</text>
 			</view>
 			<view class="flex-row">
 				<image class="image_1" src="/static/watch2.png" />
@@ -143,7 +138,7 @@ export default {
 <style lang="scss">
 .resource-card {
 	margin-top: 30rpx;
-	padding: 47.09rpx 55.81rpx 47.09rpx;
+	padding: 20.09rpx 35.81rpx 20.09rpx;
 	background-image: linear-gradient(180deg, #befee6 0%, #d0f7fb 100%);
 	// max-width: 100rpx;
 	// margin: 0 auto;
@@ -154,7 +149,6 @@ export default {
 	.header {
 		display: flex;
 		align-items: center;
-		margin-bottom: 20rpx;
 
 		.avatar {
 			border-radius: 83.72rpx;
@@ -166,7 +160,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			margin-left: 20rpx;
-			margin-top: 16rpx;
+			margin-top: 18rpx;
 
 			.name {
 				font-size: 27.91rpx;
@@ -204,7 +198,7 @@ export default {
 	}
 
 	.card-option {
-		margin-top: 40rpx;
+		margin-top: 18rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

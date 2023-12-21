@@ -1,89 +1,113 @@
 <template>
   <view class="flex-col activity-section">
-      <view class="flex-row items-center">
+      <view class="flex-row items-center" @click = "gotoUser(formData.activity.user.id)">
         <image
           class="user-avatar"
-          :src="user.avatar"
+          :src="formData.activity.user.avatar"
         />
         <view class="flex-col items-start user-info">
-          <text class="user-name">{{ user.name }}</text>
-          <text class="timestamp">{{ timestamp }}</text>
+          <text class="user-name">{{ formData.activity.user.name }}</text>
+          <text class="timestamp">{{ formData.activity.createTime }}</text>
         </view>
       </view>
       <view class="flex-col items-start activity-details mt-41">
-        <view class="activity-title">标题：{{ detail.name }}</view>
-        <text class="activity-address">活动地址：{{ address }}</text>
-        <text class="activity-time">时间：{{ time }}</text>
-        <text class="activity-organizer">负责人：{{ organizer }}</text>
-        <text class="activity-requirements">要求：{{ requirements }}</text>
-        <text class="activity-introduction">介绍：{{ introduction }}</text>
+        <text class="activity-title">标题：{{ formData.activity.name }}</text>
+        <text class="activity-address">活动地址：{{ formData.activity.address }}</text>
+        <text class="activity-time">时间：{{ formData.activity.activityTime }}</text>
+        <text class="activity-organizer">负责人：{{ formData.activity.contact }}</text>
+        <text class="activity-introduction">介绍：{{ formData.activity.content }}</text>
       </view>
   
       <view class="flex-col justify-start items-center text-wrapper">
         <text class="timeline-text">时间线</text>
       </view>
-  	
-  	<!-- 第一次使用arrangement.vue -->
-  	<arrangement
-  	  :time="time1"
-  	  :address="address1"
-  	  :content="content1"
-  	></arrangement>
-  	
-  	<!-- 第二次使用arrangement.vue -->
-  	<arrangement
-  	  :time="time2"
-  	  :address="address2"
-  	  :content="content2"
-  	></arrangement>
-  
-      <!-- 第三次使用arrangement.vue -->
-      <arrangement
-        :time="time3"
-        :address="address3"
-        :content="content3"
-      ></arrangement>
+    <view class="ScheduleList" v-for="(item, index) in formData.schedule.schedule" :key="index" @click = "gotoSchedule(index)">
+      <Schedule :time="formatTime(item.time)" :address="item.address" :content="item.content" :title="item.title"
+                :color="item.color" ></Schedule>
+    </view>
+		<button class="attend" @click="attendActivity">参与活动</button>
     </view>
 </template>
 
 <script>
-import Arrangement from '@/uni_modules/arrangement/arrangement.vue';
+import Schedule from "@/uni_modules/Schedule/Schedule.vue";
 
 export default {
   components: {
-    Arrangement
+    Schedule
   },
   data() {
     return {
-      user: {
-        name: "",
-        id: "",
-        avatar: ""
+      formData: {
+        activity: {
+          // title: '主题',
+          activityTime: '',
+          address: '',
+          color: 'linear-gradient(180deg, #f7e0eb 0%, #fed5ad 100%)',
+          contact: '',
+          content: '',
+          createTime: "",
+          name: '',
+          official: false,
+          participantMax: 0,
+          participantNum: 0,
+          restriction: false,
+          type: 1,
+          userId: 1,
+          user: {
+          },
+        },
+        schedule: {
+          schedule: [
+
+          ]
+        },
       },
-      timestamp: "",
-      title: "",
-      address: "",
-      time: "",
-      organizer: "",
-      requirements: "",
-      introduction: "",
-      time1: "12:00 PM",
-      address1: "Location 1",
-      content1: "Meeting 1 details",
-      time2: "2:30 PM",
-      address2: "Location 2",
-      content2: "Meeting 2 details",
-      time3: "4:00 PM",
-      address3: "Location 3",
-      content3: "Meeting 3 details",
     };
   },
-  mounted() {
-    this.fetchData();
+  onLoad(options) {
+    const id = BigInt(options.id);
+    this.loadData(id);
   },
   methods: {
-    fetchData() {
-      // Your existing fetch data logic...
+    async loadData(id) {
+      console.log(id);
+      const endpoint = "/activity/" + id;
+      const {
+        data:res
+      } = await uni.$http.get(endpoint);
+      console.log(this.res);
+
+
+
+
+      this.formData.activity = res.data.activity;
+      this.formData.schedule = res.data.schedule;
+      console.log(this.formData);
+      console.log(this.formData.activity)
+      console.log(this.formData.schedule)
+    },
+    gotoSchedule(index) {
+      uni.setStorageSync('ScheduleList', this.formData.schedule.schedule);
+      uni.navigateTo({
+        url: '/subpkg/ScheduleDetail/ScheduleDetail?index=' + index,
+      });
+    },
+    formatTime(timestamp) {
+      const date = new Date(timestamp);
+      const options = {
+        hour: 'numeric',
+        minute: 'numeric'
+      };
+      return date.toLocaleTimeString('en-US', options);
+    },
+    gotoUser(id) {
+      let url;
+      url = '/subpkg/UserHome/UserHome?id=' + id;
+      console.log(url);
+      uni.navigateTo({
+        url: url
+      });
     },
   },
 };
@@ -147,5 +171,21 @@ export default {
     font-family: Oswald;
     font-weight: 700;
     line-height: 42.77rpx;
+  }
+  .attend{
+	  margin-top: 8px;
+	  width: 120px; /* 设置宽度为100px */
+	  height: 50px; /* 设置高度为40px */
+	  background-color: #0055ff; /* 设置背景颜色 */
+	  color: #ffffff; /* 设置文字颜色 */
+	  border: none; /* 去掉边框 */
+	  border-radius: 5px; /* 设置圆角 */
+	  margin-left: 8px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  padding: 0 8px; /* 调整内边距 */
+	  font-size: 12px; /* 调整字号 */
+	  
   }
 </style>

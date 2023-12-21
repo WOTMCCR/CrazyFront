@@ -17,15 +17,15 @@
 			</div>
 			<img class="sort-bar-image" src="../../static/sort.png" @click="showModalOnInput" />
 		</div>
-		
+
 		<!-- 模态框 -->
 		<div class="modal" v-if="showModal">
-		  <!-- 模态框内容 -->
-		  <div class="modal-content">
-		    <button class="close-button" @click="hideModal">关闭</button>
-		  </div>
+			<!-- 模态框内容 -->
+			<div class="modal-content">
+				<button class="close-button" @click="hideModal">关闭</button>
+			</div>
 		</div>
-		
+
 	</view>
 	<!-- Resource List -->
 	<!-- 边缘空白 -->
@@ -60,22 +60,19 @@
 		data() {
 			return {
 				showModal: false, // 控制模态框显示与隐藏
-				minpeople: '',
-				maxpeople: '',
-				mincost: '',
-				maxcost: '',
 				type1: false,
 				type2: false,
 				type3: false,
 				type4: false,
 				typeispersonal: false,
 				typeisofficial: false,
-
 				official: 1,
 				currentTab: 0,
 				tabs: ['全部', '考研', '考公', '兼职', '求职', '面试', '资料'],
 				List: [],
+				resource:{},
 				pageQuery: {
+
 					pageNo: 1,
 					pageSize: 10,
 					isAsc: '',
@@ -86,57 +83,52 @@
 					backgroundColor: '#FFFFFF',
 					buttonColor: '#00557f',
 				},
+				code: '',
+				pages: '',
+				total: '',
+				isloading: false,
 			};
 
 		},
-		onLoad(options) {
-			this.pageQuery.isAsc = options.isAsc || '';
-			this.pageQuery.sortBy = options.sortBy || '';
-			uni.$on('header-click', this.handleHeaderClick);
-			uni.$on('body-click', this.handleBodyClick);
-			uni.$on('card-swipe', this.handleCardSwipe);
-
-			this.loadData();
+		onLoad() {
+		    this.pageQuery.isAsc = ''; // 保留你的其他设置
+		    this.pageQuery.sortBy = '';
+		    uni.$on('header-click', this.handleHeaderClick);
+		    uni.$on('body-click', this.handleBodyClick);
+		    uni.$on('card-swipe', this.handleCardSwipe);
+		
+		    this.loadData();
 		},
+
 
 		methods: {
 			async loadData() {
-				try {
-					// Assuming you have a common API endpoint for both Activity and Moment data
-					const endpoint = this.currentTab === 0 ? "/activity/isOfficial/0" :
-						"/moment/isOfficial/0";
-					const filteredPageQuery = Object.fromEntries(
-						Object.entries(this.pageQuery).filter(([key, value]) => value !== '' && value !==
-							undefined)
-					);
-					console.log(this.pageQuery);
-					const {
-						statusCode,
-						data: res
-					} = await uni.$http.post(
-						endpoint,
-						this.filteredPageQuery
-					);
+			    try {
+			        const endpoint = "/resource/1";
+			        this.isloading = true;
+			
+			        const { statusCode, data: res } = await uni.$http.get(endpoint);
 					console.log(res);
-					console.log(statusCode);
-					console.log(res.data);
-					if (statusCode == "200") {
-						console.log(this.currentTab);
-						// 根据实际的 API 响应结构更新 List
-						this.List = res.data.list;
-						// 更新总页数和总活动数量
-						this.pages = res.data.pages;
-						this.total = res.data.total;
-						uni.$showMsg("数据加载成功");
-					} else {
-						console.error("数据加载失败. 错误代码:", statusCode);
-					}
-				} catch (error) {
-					console.error("获取数据失败:", error);
-				} finally {
-					uni.hideLoading();
-				}
+			
+			        if (statusCode == "200") {
+			            // Assuming the response contains the resource details
+			            this.resource = res.data.resource;
+			            // Update pages and total based on the received data
+			            // Note: Make sure the server response structure matches this assumption
+			            this.pages = res.data.pages;
+			            this.total = res.data.total;
+			
+			            uni.$showMsg("数据加载成功");
+			        } else {
+			            console.error("数据加载失败. 错误代码:", statusCode);
+			        }
+			    } catch (error) {
+			        console.error("获取数据失败:", error);
+			    } finally {
+			        uni.hideLoading();
+			    }
 			},
+
 			handleFabClick() {
 				// 处理悬浮按钮点击事件
 				console.log('Floating Action Button clicked');
@@ -206,33 +198,33 @@
 				// 在这里添加搜索的逻辑
 				console.log('搜索功能尚未实现');
 			},
- // 输入框获取焦点时显示模态框
-    showModalOnInput() {
-      this.showModal = true;
-    },
-    // 关闭模态框
-    hideModal() {
-      this.showModal = false;
-    },
-  },
-  onReachBottom() {
-    console.log('buttom');
-    if (this.isloading) return
-    if (this.pageQuery.pageNo < this.pages) {
-      this.pageQuery.pageNo++;
-      this.loadData();
-    } else return uni.$showMsg('数据加载完毕!')
+			// 输入框获取焦点时显示模态框
+			showModalOnInput() {
+				this.showModal = true;
+			},
+			// 关闭模态框
+			hideModal() {
+				this.showModal = false;
+			},
+		},
+		onReachBottom() {
+			console.log('buttom');
+			if (this.isloading) return
+			if (this.pageQuery.pageNo < this.pages) {
+				this.pageQuery.pageNo++;
+				this.loadData();
+			} else return uni.$showMsg('数据加载完毕!')
 
-  },
-  onPullDownRefresh() {
-    // 1. 重置关键数据
-    this.pageQuery.pageNo = 1
-    this.total = 0
-    this.isloading = false
-    this.List = []
-    // 2. 重新发起请求
-    this.loadData(() => uni.stopPullDownRefresh())
-  },
+		},
+		onPullDownRefresh() {
+			// 1. 重置关键数据
+			this.pageQuery.pageNo = 1
+			this.total = 0
+			this.isloading = false
+			this.List = []
+			// 2. 重新发起请求
+			this.loadData(() => uni.stopPullDownRefresh())
+		},
 	};
 </script>
 
@@ -344,13 +336,14 @@
 		height: 18px;
 		margin-left: 8px;
 	}
-	
-.sort-bar-image {
+
+	.sort-bar-image {
 		width: 25px;
 		height: 25px;
 		margin-right: 7px;
 		margin-top: 7px;
 	}
+
 	.content {
 		margin-top: 20px;
 	}

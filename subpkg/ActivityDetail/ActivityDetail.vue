@@ -77,10 +77,7 @@ export default {
         data:res
       } = await uni.$http.get(endpoint);
       console.log(this.res);
-
-
-
-
+	  
       this.formData.activity = res.data.activity;
       this.formData.schedule = res.data.schedule;
       console.log(this.formData);
@@ -186,6 +183,5 @@ export default {
 	  align-items: center;
 	  padding: 0 8px; /* 调整内边距 */
 	  font-size: 12px; /* 调整字号 */
-	  
   }
 </style>

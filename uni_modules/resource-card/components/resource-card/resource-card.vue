@@ -5,8 +5,8 @@
 			@touchend="onTouchEnd('header')">
 			<image class="avatar" src="/static/humanhead.png" />
 			<view class="NameAndTime">
-				<text class="name">{{ detail.user.name }}</text>
-				<text class="content">简要:{{ detail.content }}</text>
+				<text class="name">{{ resource.user.name }}</text>
+				<text class="content">简要:{{ resource.content }}</text>
 			</view>
 		</view>
 
@@ -32,7 +32,7 @@
 <script>
 export default {
 	props: {
-		detail: {
+		resource: {
 			type: Object,
 			default: () => ({})
 		}
@@ -87,42 +87,42 @@ export default {
 		handleHeaderClick() {
 			// Emit the click event for the header section
 			console.log("header click");
-			this.$emit('header-click', this.detail);
+			this.$emit('header-click', this.resource);
 		},
 
 		handleBodyClick() {
 			// Emit the click event for the body section
 			console.log("body click");
-			this.$emit('body-click', this.detail);
+			this.$emit('body-click', this.resource);
 		},
 
 		handleCardOptionClick() {
 			// Emit the click event for the card-option section
 			console.log("card-option click");
-			this.$emit('card-option-click', this.detail);
+			this.$emit('card-option-click', this.resource);
 		},
 
 		handleHeaderSwipe() {
 			// Emit the swipe event for the header section
 			console.log("header swipe");
-			this.$emit('header-swipe', this.detail);
+			this.$emit('header-swipe', this.resource);
 		},
 
 		handleBodySwipe() {
 			// Emit the swipe event for the body section
 			console.log("body swipe");
-			this.$emit('body-swipe', this.detail);
+			this.$emit('body-swipe', this.resource);
 		},
 
 		handleCardOptionSwipe() {
 			// Emit the swipe event for the card-option section
-			this.$emit('card-option-swipe', this.detail);
+			this.$emit('card-option-swipe', this.resource);
 		},
 	},
 	computed: {
 		// 将从后端获取的时间字符串格式化 detail.createTime
 		formattedTime() {
-			const date = new Date(this.detail.createTime);
+			const date = new Date(this.resource.createTime);
 			const year = date.getFullYear();
 			const month = (date.getMonth() + 1).toString().padStart(2, "0");
 			const day = date.getDate().toString().padStart(2, "0");

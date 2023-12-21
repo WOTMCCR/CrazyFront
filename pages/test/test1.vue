@@ -70,7 +70,51 @@
 				currentTab: 0,
 				tabs: ['全部', '考研', '考公', '兼职', '求职', '面试', '资料'],
 				List: [],
-				resource:{},
+				data: {
+					resource: {
+						content: "",
+						createTime: "",
+						downloadTimes: 0,
+						id: 0,
+						tag: "",
+						title: "",
+						userId: 0
+					},
+					resourceRelationship: {
+						college: {
+							content: "",
+							id: 0,
+							name: ""
+						},
+						course: {
+							content: "",
+							id: 0,
+							name: "",
+							teacherId: 0
+						},
+						grade: {
+							id: 0,
+							name: "",
+							gradename: "",
+						},
+						major: {
+							id: 0,
+							name: "",
+							content: "",
+						},
+						school: {
+							id: 0,
+							name: "",
+							content: "",
+						},
+					},
+					user: {
+						id: 0,
+						name: "",
+						introduction: "",
+						avatar: "",
+					},
+				},
 				pageQuery: {
 
 					pageNo: 1,
@@ -91,42 +135,43 @@
 
 		},
 		onLoad() {
-		    this.pageQuery.isAsc = ''; // 保留你的其他设置
-		    this.pageQuery.sortBy = '';
-		    uni.$on('header-click', this.handleHeaderClick);
-		    uni.$on('body-click', this.handleBodyClick);
-		    uni.$on('card-swipe', this.handleCardSwipe);
-		
-		    this.loadData();
+			this.pageQuery.isAsc = ''; // 保留你的其他设置
+			this.pageQuery.sortBy = '';
+			uni.$on('header-click', this.handleHeaderClick);
+			uni.$on('body-click', this.handleBodyClick);
+			uni.$on('card-swipe', this.handleCardSwipe);
+
+			this.loadData();
 		},
 
 
 		methods: {
 			async loadData() {
-			    try {
-			        const endpoint = "/resource/1";
-			        this.isloading = true;
-			
-			        const { statusCode, data: res } = await uni.$http.get(endpoint);
+				try {
+					const endpoint = "/resource/1";
+					this.isloading = true;
+
+					const {
+						statusCode,
+						data: res
+					} = await uni.$http.get(endpoint);
 					console.log(res);
-			
-			        if (statusCode == "200") {
-			            // Assuming the response contains the resource details
-			            this.resource = res.data.resource;
-			            // Update pages and total based on the received data
-			            // Note: Make sure the server response structure matches this assumption
-			            this.pages = res.data.pages;
-			            this.total = res.data.total;
-			
-			            uni.$showMsg("数据加载成功");
-			        } else {
-			            console.error("数据加载失败. 错误代码:", statusCode);
-			        }
-			    } catch (error) {
-			        console.error("获取数据失败:", error);
-			    } finally {
-			        uni.hideLoading();
-			    }
+
+					if (statusCode == "200") {
+						// Assuming the response contains the resource details
+						this.resource = res.data.resource;
+						this.resourceRelationship = res.data.resourceRelationship;
+						this.user = res.data.user;
+						this.List = res.data;
+						uni.$showMsg("数据加载成功");
+					} else {
+						console.error("数据加载失败. 错误代码:", statusCode);
+					}
+				} catch (error) {
+					console.error("获取数据失败:", error);
+				} finally {
+					uni.hideLoading();
+				}
 			},
 
 			handleFabClick() {
